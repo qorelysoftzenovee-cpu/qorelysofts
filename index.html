@@ -1,49 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>indapp store | India's Clean Mobile Utility Ecosystem</title>
-    <meta name="description" content="India's clean mobile utility ecosystem for secure education, tech, and public utility access.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: '#312E81'
-                    },
-                    borderColor: {
-                        shell: '#F3F4F6'
-                    },
-                    boxShadow: {
-                        soft: '0 18px 42px rgba(17, 24, 39, 0.06)'
-                    }
-                }
-            }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>indapp store | The Clean Utility Ecosystem for India</title>
+  <meta
+    name="description"
+    content="A secure, distraction-free environment dedicated to Education, Tech Utilities, Sports, and Public Help. Zero games. Zero noise."
+  />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#4F46E5',
+            charcoal: '#1F2937',
+            surface: '#F8FAFC'
+          },
+          boxShadow: {
+            soft: '0 28px 80px rgba(31, 41, 55, 0.08)'
+          }
         }
-    </script>
+      }
+    }
+  </script>
 </head>
-<body class="bg-[#FFFFFF] text-[#111827] antialiased">
-    <div class="min-h-screen bg-white">
-        <header class="border-b border-shell bg-white">
-            <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6 lg:px-8">
-                <a href="index.html" class="text-lg font-black tracking-tight text-[#111827] sm:text-xl">indapp store</a>
-                <a href="developer.html" class="text-sm font-semibold text-gray-500 transition hover:text-[#111827]">Developer Portal</a>
-            </nav>
-        </header>
+<body class="bg-white text-charcoal antialiased" style="font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">
+  <div class="min-h-screen bg-white">
+    <header class="border-b border-slate-200 bg-white/95 backdrop-blur-lg">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-6 lg:px-8">
+        <a href="index.html" class="text-xl font-black tracking-tight text-charcoal sm:text-2xl">indapp store</a>
+        <a
+          href="dev-login.html"
+          class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-5 py-3 text-sm font-semibold text-charcoal shadow-sm transition hover:border-brand hover:bg-brand/10 hover:text-brand"
+        >
+          Go to Play Console
+        </a>
+      </nav>
+    </header>
 
-        <main>
-            <section class="mx-auto flex min-h-[calc(100vh-73px)] max-w-7xl items-center justify-center px-5 py-16 text-center sm:px-6 lg:px-8">
-                <div class="max-w-4xl rounded-[2rem] border border-shell bg-white px-6 py-12 shadow-soft sm:px-10 sm:py-16 lg:px-14 lg:py-20">
-                    <h1 class="text-4xl font-black tracking-tight text-[#111827] sm:text-5xl lg:text-7xl">India's Clean Mobile Utility Ecosystem.</h1>
-                    <p class="mx-auto mt-6 max-w-2xl text-base leading-7 text-gray-600 sm:text-lg sm:leading-8">No games. No distractions. A secure national environment for Education, Tech, and Public Utilities.</p>
-                    <div class="mt-10 flex justify-center">
-                        <a href="store.html" class="inline-flex w-full max-w-md items-center justify-center rounded-full bg-brand px-6 py-4 text-base font-bold text-white transition hover:bg-indigo-900 sm:w-auto sm:px-9">Download App Store (APK File)</a>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+    <main>
+      <section class="relative overflow-hidden bg-white">
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-brand/10 to-transparent"></div>
+        <div class="mx-auto flex min-h-[calc(100vh-96px)] max-w-7xl flex-col justify-center px-6 py-16 sm:px-8 lg:px-10 lg:py-24">
+          <div class="max-w-3xl">
+            <p class="mb-6 inline-flex rounded-full bg-brand/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.24em] text-brand">
+              Clean Utility Experience
+            </p>
+            <h1 class="text-4xl font-black tracking-tight text-charcoal sm:text-5xl lg:text-6xl">
+              The Clean Utility Ecosystem for India.
+            </h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+              A secure, distraction-free environment dedicated exclusively to Education, Tech Utilities, Sports, and Public Help. Zero games. Zero noise.
+            </p>
+            <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <a
+                href="./indapp-store.apk"
+                download="indapp-store.apk"
+                class="inline-flex w-full items-center justify-center rounded-full bg-brand px-7 py-4 text-base font-semibold text-white shadow-soft transition hover:bg-indigo-600 sm:w-auto"
+              >
+                Download Store App (APK)
+              </a>
+              <p class="max-w-md text-sm leading-6 text-slate-500">
+                Trusted by educators, technical teams, and national utilities for secure access without compromise.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="border-t border-slate-200 bg-surface py-16">
+        <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+          <div class="grid gap-6 lg:grid-cols-3">
+            <article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:shadow-soft">
+              <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand/10 text-brand">
+                <span class="text-lg font-bold">01</span>
+              </div>
+              <h2 class="text-xl font-semibold text-charcoal">Zero-Bloatware Architecture</h2>
+              <p class="mt-3 text-sm leading-7 text-slate-600">
+                A lean platform built for essential apps only, engineered to reduce storage overhead and keep performance fast across devices.
+              </p>
+            </article>
+
+            <article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:shadow-soft">
+              <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand/10 text-brand">
+                <span class="text-lg font-bold">02</span>
+              </div>
+              <h2 class="text-xl font-semibold text-charcoal">Data Privacy Controls</h2>
+              <p class="mt-3 text-sm leading-7 text-slate-600">
+                Built-in privacy protections and transparent controls ensure user data is handled securely for every download and request.
+              </p>
+            </article>
+
+            <article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:shadow-soft">
+              <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand/10 text-brand">
+                <span class="text-lg font-bold">03</span>
+              </div>
+              <h2 class="text-xl font-semibold text-charcoal">Localized National Utility Search</h2>
+              <p class="mt-3 text-sm leading-7 text-slate-600">
+                A focused search engine for India-specific utility services, helping users quickly discover trusted education, health, and public help tools.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 </body>
 </html>

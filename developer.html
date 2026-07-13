@@ -1,661 +1,381 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qorelysofts Developer Portal | indapp store</title>
-    <meta name="description" content="Private creator dashboard for compliance verification, license activation, app submissions, and internal publishing review.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: '#312E81',
-                        accent: '#16A34A'
-                    },
-                    boxShadow: {
-                        soft: '0 20px 50px rgba(17, 24, 39, 0.08)'
-                    }
-                }
-            }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qorelysofts Developer Console</title>
+  <meta name="description" content="Enterprise dashboard for app releases and campaign planning." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#4F46E5',
+            panel: '#F8FAFC',
+            border: '#E5E7EB'
+          },
+          boxShadow: {
+            soft: '0 24px 60px rgba(15, 23, 42, 0.08)'
+          }
         }
-    </script>
+      }
+    }
+  </script>
 </head>
-<body class="bg-[#f8fafc] text-[#111827] antialiased">
-    <div class="min-h-screen">
-        <div class="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
-            <header class="mb-6 rounded-[2rem] border border-[#F3F4F6] bg-white p-5 shadow-soft sm:p-6">
-                <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-                    <div>
-                        <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Private Creator Portal</p>
-                        <h1 class="mt-2 text-3xl font-black tracking-tight text-[#111827]">Qorelysofts Developer Dashboard</h1>
-                    </div>
-                    <a href="index.html" class="inline-flex items-center justify-center rounded-full border border-[#F3F4F6] bg-white px-5 py-3 text-sm font-bold text-[#111827] transition hover:bg-gray-50">Back to Main Site</a>
-                </div>
-            </header>
-
-            <main class="grid gap-6 xl:grid-cols-[1fr_0.92fr]">
-                <section class="space-y-6">
-                    <div class="rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
-                        <div class="mb-6">
-                            <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Identity verification</p>
-                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Creator compliance intake</h2>
-                        </div>
-
-                        <div id="profile-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
-
-                        <form id="profile-form" class="space-y-5">
-                            <div>
-                                <label for="full-name" class="mb-2 block text-sm font-semibold text-gray-700">Full Legal Name</label>
-                                <input id="full-name" type="text" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter full legal name">
-                            </div>
-
-                            <div>
-                                <label for="email-address" class="mb-2 block text-sm font-semibold text-gray-700">Email Address</label>
-                                <input id="email-address" type="email" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter official email address">
-                            </div>
-
-                            <div>
-                                <label for="phone-number" class="mb-2 block text-sm font-semibold text-gray-700">Phone Number</label>
-                                <input id="phone-number" type="tel" required pattern="^\+91[6-9][0-9]{9}$" class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="+919876543210">
-                            </div>
-
-                            <div>
-                                <label for="physical-address" class="mb-2 block text-sm font-semibold text-gray-700">Physical Address</label>
-                                <textarea id="physical-address" rows="4" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter full legal or business address"></textarea>
-                            </div>
-
-                            <div>
-                                <span class="mb-2 block text-sm font-semibold text-gray-700">Account Status Type</span>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <button type="button" data-account-type="Individual" class="account-type-btn rounded-2xl border border-[#F3F4F6] bg-brand px-4 py-3 text-sm font-bold text-white">Individual</button>
-                                    <button type="button" data-account-type="Organization" class="account-type-btn rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3 text-sm font-bold text-[#111827]">Organization</button>
-                                </div>
-                                <input id="account-type" type="hidden" value="Individual">
-                            </div>
-
-                            <div id="organization-fields" class="hidden space-y-5 rounded-[1.5rem] border border-[#F3F4F6] bg-gray-50 p-4">
-                                <div>
-                                    <label for="organization-name" class="mb-2 block text-sm font-semibold text-gray-700">Organization Name</label>
-                                    <input id="organization-name" type="text" class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter organization name">
-                                </div>
-                                <div>
-                                    <label for="business-id" class="mb-2 block text-sm font-semibold text-gray-700">Business Tax / Registration ID</label>
-                                    <input id="business-id" type="text" class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter PAN, CIN, GSTIN, or registration ID">
-                                </div>
-                            </div>
-
-                            <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-900">Submit Verification Profile</button>
-                        </form>
-                    </div>
-
-                    <div class="rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
-                        <div class="mb-6">
-                            <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">License activation</p>
-                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Choose your access plan</h2>
-                        </div>
-
-                        <div id="pricing-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
-
-                        <div class="grid gap-4 md:grid-cols-2">
-                            <article class="rounded-[1.75rem] border border-[#F3F4F6] bg-white p-5 shadow-soft">
-                                <p class="text-sm font-bold uppercase tracking-[0.20em] text-gray-400">Single App Pass</p>
-                                <h3 class="mt-3 text-3xl font-black text-[#111827]">₹250</h3>
-                                <p class="mt-3 text-sm text-gray-600">Allows uploading 1 utility app.</p>
-                                <button data-plan="Single App Pass" data-slots="1" data-amount="25000" class="license-pay-btn mt-5 inline-flex w-full items-center justify-center rounded-full bg-brand px-4 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Pay and Activate</button>
-                            </article>
-
-                            <article class="rounded-[1.75rem] border border-[#F3F4F6] bg-white p-5 shadow-soft">
-                                <p class="text-sm font-bold uppercase tracking-[0.20em] text-gray-400">Ecosystem Growth Bundle</p>
-                                <h3 class="mt-3 text-3xl font-black text-[#111827]">₹1,000</h3>
-                                <p class="mt-3 text-sm text-gray-600">Best Value — Allows uploading 15 utility apps.</p>
-                                <button data-plan="Ecosystem Growth Bundle" data-slots="15" data-amount="100000" class="license-pay-btn mt-5 inline-flex w-full items-center justify-center rounded-full bg-brand px-4 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Pay and Activate</button>
-                            </article>
-                        </div>
-
-                        <div class="mt-5 rounded-2xl border border-[#F3F4F6] bg-gray-50 px-4 py-3 text-sm text-gray-600">
-                            <span class="font-semibold text-[#111827]">Slots Remaining:</span>
-                            <span id="slots-remaining-label">0</span>
-                        </div>
-                    </div>
-
-                    <div class="rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
-                        <div class="mb-6">
-                            <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Distribution upload</p>
-                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Submit application package</h2>
-                        </div>
-
-                        <div id="app-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
-
-                        <form id="app-form" class="space-y-5">
-                            <div>
-                                <label for="app-title" class="mb-2 block text-sm font-semibold text-gray-700">App Title</label>
-                                <input id="app-title" type="text" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter application title">
-                            </div>
-
-                            <div>
-                                <label for="package-name" class="mb-2 block text-sm font-semibold text-gray-700">Package Name</label>
-                                <input id="package-name" type="text" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="com.name.product">
-                            </div>
-
-                            <div>
-                                <label for="app-description" class="mb-2 block text-sm font-semibold text-gray-700">Description</label>
-                                <textarea id="app-description" rows="4" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Describe the utility, audience, and public value."></textarea>
-                            </div>
-
-                            <div>
-                                <label for="app-category" class="mb-2 block text-sm font-semibold text-gray-700">Category</label>
-                                <select id="app-category" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50">
-                                    <option value="Education">Education</option>
-                                    <option value="Tech">Tech Utilities</option>
-                                    <option value="Sports">Sports &amp; Health</option>
-                                    <option value="Govt">Sarkari Utilities</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="mb-2 block text-sm font-semibold text-gray-700">APK Attachment</label>
-                                <div id="drop-zone" class="rounded-[1.75rem] border-2 border-dashed border-[#F3F4F6] bg-gray-50 p-6 text-center sm:p-8">
-                                    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-3xl shadow-sm">📦</div>
-                                    <p class="mt-4 text-base font-bold text-[#111827]">Drop APK file here</p>
-                                    <p class="mt-2 text-sm text-gray-600">or choose the distributable build file</p>
-                                    <input id="apk-file" type="file" class="hidden">
-                                    <button id="select-build-btn" type="button" class="mt-5 rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Choose File</button>
-                                    <p id="selected-file-name" class="mt-3 text-xs font-medium text-gray-500">No file selected</p>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-900">Upload for Review</button>
-                        </form>
-                    </div>
-                </section>
-
-                <section class="space-y-6">
-                    <div class="rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
-                        <div class="mb-6">
-                            <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Micro-ad manager</p>
-                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Utility highlight planner</h2>
-                        </div>
-
-                        <div id="campaign-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
-
-                        <div class="rounded-[1.75rem] border border-[#F3F4F6] bg-gray-50 p-5">
-                            <label for="ad-budget" class="mb-2 block text-sm font-semibold text-gray-700">Campaign Budget</label>
-                            <input id="ad-budget" type="range" min="100" max="5000" step="100" value="100" class="w-full accent-[#312E81]">
-                            <div class="mt-4 flex items-center gap-3">
-                                <span class="text-sm font-semibold text-gray-500">₹</span>
-                                <input id="ad-budget-input" type="number" min="100" max="5000" step="100" value="100" class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3 text-sm font-semibold text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50">
-                            </div>
-                            <p id="impression-output" class="mt-4 text-sm font-semibold text-[#111827]">Your utility will be highlighted to 3,000 Indian mobile devices.</p>
-                            <button id="launch-ad-btn" type="button" class="mt-5 inline-flex w-full items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Launch Ad Campaign</button>
-                        </div>
-                    </div>
-
-                    <div class="rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
-                        <div class="mb-5 flex items-center justify-between gap-4">
-                            <div>
-                                <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Internal review</p>
-                                <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Qorelysofts Internal Verification Engine</h2>
-                            </div>
-                            <span class="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-red-700">Restricted</span>
-                        </div>
-
-                        <div class="rounded-[1.5rem] border border-[#F3F4F6] bg-gray-50 p-4">
-                            <label for="admin-passcode" class="mb-2 block text-sm font-semibold text-gray-700">Internal Passcode</label>
-                            <div class="flex flex-col gap-3 sm:flex-row">
-                                <input id="admin-passcode" type="password" class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter internal admin passcode">
-                                <button id="admin-toggle-btn" type="button" class="rounded-full bg-[#111827] px-5 py-3 text-sm font-bold text-white transition hover:bg-black">Unlock</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="admin-panel" class="hidden rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
-                        <div class="mb-5 flex items-center justify-between gap-4">
-                            <div>
-                                <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Verification queue</p>
-                                <h3 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Applications under review</h3>
-                            </div>
-                            <button id="refresh-admin-panel" type="button" class="rounded-full border border-[#F3F4F6] bg-white px-4 py-2 text-sm font-semibold text-[#111827] transition hover:bg-gray-50">Refresh</button>
-                        </div>
-
-                        <div id="admin-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
-                        <div id="under-review-list" class="grid gap-4"></div>
-                    </div>
-                </section>
-            </main>
-        </div>
+<body class="flex h-screen bg-gray-50 text-slate-900">
+  <aside class="w-64 bg-white border-r border-gray-200 p-6">
+    <div class="mb-10">
+      <p class="text-xs uppercase tracking-[0.3em] text-slate-500">Developer Console</p>
+      <h1 class="mt-3 text-2xl font-black text-slate-900">qorelysofts</h1>
+      <p class="mt-2 text-sm text-slate-500">Corporate dashboard</p>
     </div>
 
-    <script>
-        const SUPABASE_URL = 'https://ypbcnndadggdamiwqkfn.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwYmNubmRhZGdnZGFtaXdxa2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Mzg5NTAsImV4cCI6MjA5OTUxNDk1MH0.DJHANfWjfMr9qXs0XTPyJcIoM9zq7YHcqWhLtkYrdXs';
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        const razorpayKey = 'rzp_test_YourKeyHere';
-        const razorpayLogo = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="%23312E81"/><path d="M32 78 60 28l28 50H32Z" fill="white"/><circle cx="60" cy="70" r="10" fill="%2316A34A"/></svg>';
-        const INTERNAL_ADMIN_PASSCODE = 'QORELY-SECURE-ADMIN';
+    <nav class="space-y-3 text-sm">
+      <button data-tab="overview" class="tab-link flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
+        <span class="text-lg">📊</span>
+        <span>Dashboard Overview</span>
+      </button>
+      <button data-tab="releases" class="tab-link flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
+        <span class="text-lg">📦</span>
+        <span>App Releases & Upload</span>
+      </button>
+      <button data-tab="licensing" class="tab-link flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
+        <span class="text-lg">💳</span>
+        <span>Licensing & Slots</span>
+      </button>
+      <button data-tab="campaign" class="tab-link flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
+        <span class="text-lg">📈</span>
+        <span>Ad Campaign Builder</span>
+      </button>
+    </nav>
 
-        const profileForm = document.getElementById('profile-form');
-        const appForm = document.getElementById('app-form');
-        const profileAlert = document.getElementById('profile-alert');
-        const pricingAlert = document.getElementById('pricing-alert');
-        const appAlert = document.getElementById('app-alert');
-        const campaignAlert = document.getElementById('campaign-alert');
-        const adminAlert = document.getElementById('admin-alert');
-        const accountTypeInput = document.getElementById('account-type');
-        const accountTypeButtons = document.querySelectorAll('.account-type-btn');
-        const organizationFields = document.getElementById('organization-fields');
-        const organizationNameInput = document.getElementById('organization-name');
-        const businessIdInput = document.getElementById('business-id');
-        const selectBuildBtn = document.getElementById('select-build-btn');
-        const apkFileInput = document.getElementById('apk-file');
-        const selectedFileName = document.getElementById('selected-file-name');
-        const dropZone = document.getElementById('drop-zone');
-        const adminPasscodeInput = document.getElementById('admin-passcode');
-        const adminToggleBtn = document.getElementById('admin-toggle-btn');
-        const adminPanel = document.getElementById('admin-panel');
-        const refreshAdminPanelBtn = document.getElementById('refresh-admin-panel');
-        const underReviewList = document.getElementById('under-review-list');
-        const slotsRemainingLabel = document.getElementById('slots-remaining-label');
-        const licenseButtons = document.querySelectorAll('.license-pay-btn');
-        const adBudget = document.getElementById('ad-budget');
-        const adBudgetInput = document.getElementById('ad-budget-input');
-        const impressionOutput = document.getElementById('impression-output');
-        const launchAdBtn = document.getElementById('launch-ad-btn');
+    <div class="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-700">
+      <div>
+        <p class="font-semibold text-slate-900">Packages</p>
+        <p class="mt-2">₹250 / ₹1000</p>
+      </div>
+      <div class="mt-4">
+        <p class="font-semibold text-slate-900">Campaign limits</p>
+        <p class="mt-2">₹100 to ₹5000</p>
+      </div>
+    </div>
+  </aside>
 
-        let latestDeveloperRecord = null;
+  <div class="flex-1 overflow-hidden">
+    <header class="border-b border-gray-200 bg-white px-8 py-5">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.24em] text-slate-500">Workspace</p>
+          <h2 class="mt-2 text-2xl font-black text-slate-900">Console workspace</h2>
+        </div>
+        <div class="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-700">Live mode</div>
+      </div>
+    </header>
 
-        function setAlert(target, message, kind = 'success') {
-            const styles = kind === 'success'
-                ? 'border-green-200 bg-green-50 text-green-800'
-                : 'border-red-200 bg-red-50 text-red-700';
-            target.className = `mb-5 rounded-2xl border px-4 py-3 text-sm font-semibold ${styles}`;
-            target.textContent = message;
-            target.classList.remove('hidden');
+    <main class="h-[calc(100vh-72px)] overflow-y-auto px-8 py-8">
+      <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-lg font-semibold text-slate-900">Enterprise Operations</h3>
+          <p class="text-sm text-slate-500">Manage releases and campaigns from a single polished console.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button class="tab-btn rounded-full bg-brand px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-600" data-tab="overview" type="button">Overview</button>
+          <button class="tab-btn rounded-full bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-200" data-tab="releases" type="button">App Releases</button>
+          <button class="tab-btn rounded-full bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-200" data-tab="campaign" type="button">Ad Campaign</button>
+        </div>
+      </div>
+
+      <section id="overview" class="space-y-6">
+        <div class="grid gap-6 xl:grid-cols-3">
+          <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Release pipeline</p>
+            <p class="mt-4 text-3xl font-black text-slate-900">12 apps</p>
+          </article>
+          <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Campaign budget</p>
+            <p class="mt-4 text-3xl font-black text-slate-900">₹4,200</p>
+          </article>
+          <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Projected reach</p>
+            <p class="mt-4 text-3xl font-black text-slate-900">1.2M impressions</p>
+          </article>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+          <div class="grid gap-4 md:grid-cols-3">
+            <div class="rounded-3xl bg-slate-50 p-5">
+              <p class="text-sm text-slate-500">Active uploads</p>
+              <p class="mt-3 text-2xl font-bold text-slate-900">8</p>
+            </div>
+            <div class="rounded-3xl bg-slate-50 p-5">
+              <p class="text-sm text-slate-500">Slot utilization</p>
+              <p class="mt-3 text-2xl font-bold text-slate-900">72%</p>
+            </div>
+            <div class="rounded-3xl bg-slate-50 p-5">
+              <p class="text-sm text-slate-500">Release pace</p>
+              <p class="mt-3 text-2xl font-bold text-slate-900">18h</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="releases" class="hidden space-y-6">
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Release builder</p>
+              <h3 class="mt-2 text-2xl font-black text-slate-900">Submit a new app upload</h3>
+            </div>
+            <span class="rounded-full bg-brand/10 px-4 py-2 text-sm font-semibold text-brand">Supabase live save</span>
+          </div>
+        </div>
+
+        <div class="grid gap-6 xl:grid-cols-2">
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">File drop zone</p>
+            <div id="dropZone" class="mt-5 flex min-h-[220px] flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-slate-300 bg-slate-50 p-6 text-center transition hover:border-brand hover:bg-white/90">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-3xl shadow-sm">📦</div>
+              <p class="text-lg font-semibold text-slate-900">Drag & drop your APK</p>
+              <p class="text-sm text-slate-500">Attach a package file to capture metadata.</p>
+              <p id="fileName" class="mt-3 text-sm font-semibold text-brand"></p>
+            </div>
+          </div>
+
+          <form id="releaseForm" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft space-y-5">
+            <div>
+              <label class="text-sm font-semibold text-slate-700">Title</label>
+              <input id="releaseTitle" type="text" placeholder="App title" class="mt-3 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" required />
+            </div>
+            <div>
+              <label class="text-sm font-semibold text-slate-700">Description</label>
+              <textarea id="releaseDescription" rows="4" placeholder="Short release description" class="mt-3 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" required></textarea>
+            </div>
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label class="text-sm font-semibold text-slate-700">Category</label>
+                <select id="releaseCategory" class="mt-3 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" required>
+                  <option value="" disabled selected>Select category</option>
+                  <option value="Education">Education</option>
+                  <option value="Tech Utilities">Tech Utilities</option>
+                  <option value="Sports">Sports</option>
+                  <option value="Public Help">Public Help</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-sm font-semibold text-slate-700">Package Name</label>
+                <input id="releasePackage" type="text" placeholder="com.example.app" class="mt-3 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" required />
+              </div>
+            </div>
+            <button type="submit" class="inline-flex w-full items-center justify-center rounded-2xl bg-brand px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-600">Save Release Record</button>
+            <p id="releaseMessage" class="hidden rounded-2xl border border-brand/20 bg-brand/5 px-4 py-3 text-sm text-brand"></p>
+          </form>
+        </div>
+      </section>
+
+      <section id="licensing" class="hidden space-y-6">
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Licensing</p>
+              <h3 class="mt-2 text-2xl font-black text-slate-900">Slots & packages</h3>
+            </div>
+            <span class="rounded-full bg-brand/10 px-4 py-2 text-sm font-semibold text-brand">₹250 / ₹1000</span>
+          </div>
+        </div>
+
+        <div class="grid gap-6 xl:grid-cols-2">
+          <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Starter package</p>
+            <p class="mt-4 text-3xl font-black text-slate-900">₹250</p>
+            <p class="mt-3 text-sm text-slate-600">Single app upload slot for utility publishers.</p>
+          </article>
+          <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Growth package</p>
+            <p class="mt-4 text-3xl font-black text-slate-900">₹1000</p>
+            <p class="mt-3 text-sm text-slate-600">Multi-slot package for higher portfolio capacity.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="campaign" class="hidden space-y-6">
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Campaign builder</p>
+              <h3 class="mt-2 text-2xl font-black text-slate-900">Impression calculator</h3>
+            </div>
+            <span class="rounded-full bg-brand/10 px-4 py-2 text-sm font-semibold text-brand">₹100 - ₹5000 limits</span>
+          </div>
+        </div>
+
+        <div class="grid gap-6 xl:grid-cols-2">
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <label class="text-sm font-semibold text-slate-700">Campaign budget</label>
+            <div class="mt-4 flex items-center gap-4">
+              <input id="budgetInput" type="range" min="100" max="5000" step="100" value="1000" class="w-full accent-brand" />
+              <span class="w-24 rounded-2xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-900">₹<span id="budgetValue">1000</span></span>
+            </div>
+            <div class="mt-5 rounded-3xl bg-slate-50 p-5">
+              <p class="text-sm text-slate-500">Estimated impressions</p>
+              <p class="mt-3 text-4xl font-black text-slate-900"><span id="impressionsValue">30000</span></p>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Summary</p>
+            <div class="mt-6 space-y-4 text-sm text-slate-600">
+              <div class="rounded-3xl bg-slate-50 p-4">
+                <p class="font-semibold text-slate-900">Budget range</p>
+                <p class="mt-2">Control campaigns from ₹100 to ₹5000.</p>
+              </div>
+              <div class="rounded-3xl bg-slate-50 p-4">
+                <p class="font-semibold text-slate-900">Impression rate</p>
+                <p class="mt-2">3,000 views for every ₹100 spent.</p>
+              </div>
+              <div class="rounded-3xl bg-slate-50 p-4">
+                <p class="font-semibold text-slate-900">Instant preview</p>
+                <p class="mt-2">See reach update immediately with the slider.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = 'https://ypbcnndadggdamiwqkfn.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwYmNubmRhZGdnZGFtaXdxa2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Mzg5NTAsImV4cCI6MjA5OTUxNDk1MH0.DJHANfWjfMr9qXs0XTPyJcIoM9zq7YHcqWhLtkYrdXs';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const tabs = document.querySelectorAll('[data-tab]');
+    const sections = {
+      overview: document.getElementById('overview'),
+      releases: document.getElementById('releases'),
+      licensing: document.getElementById('licensing'),
+      campaign: document.getElementById('campaign')
+    };
+
+    function setActiveTab(tab) {
+      Object.keys(sections).forEach(key => {
+        sections[key].classList.toggle('hidden', key !== tab);
+      });
+      document.querySelectorAll('.tab-link, .tab-btn').forEach(button => {
+        const isActive = button.dataset.tab === tab;
+        button.classList.toggle('bg-brand', isActive);
+        button.classList.toggle('text-white', isActive);
+        button.classList.toggle('bg-slate-100', !isActive);
+        button.classList.toggle('text-slate-700', !isActive);
+      });
+    }
+
+    tabs.forEach(button => {
+      button.addEventListener('click', () => setActiveTab(button.dataset.tab));
+    });
+
+    setActiveTab('overview');
+
+    const dropZone = document.getElementById('dropZone');
+    const fileName = document.getElementById('fileName');
+    let selectedFile = '';
+
+    function updateFileName(name) {
+      selectedFile = name || '';
+      fileName.textContent = name ? `File: ${name}` : '';
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, event => {
+        event.preventDefault();
+        dropZone.classList.add('border-brand', 'bg-white');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, event => {
+        event.preventDefault();
+        dropZone.classList.remove('border-brand', 'bg-white');
+      });
+    });
+
+    dropZone.addEventListener('drop', event => {
+      const file = event.dataTransfer.files[0];
+      if (file) {
+        updateFileName(file.name);
+      }
+    });
+
+    dropZone.addEventListener('click', () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.apk,.aab,.zip';
+      input.onchange = () => {
+        if (input.files.length) {
+          updateFileName(input.files[0].name);
         }
+      };
+      input.click();
+    });
 
-        function indianPhoneIsValid(phone) {
-            return /^\+91[6-9][0-9]{9}$/.test(phone);
+    const releaseForm = document.getElementById('releaseForm');
+    const releaseMessage = document.getElementById('releaseMessage');
+
+    releaseForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      const title = document.getElementById('releaseTitle').value.trim();
+      const description = document.getElementById('releaseDescription').value.trim();
+      const category = document.getElementById('releaseCategory').value;
+      const packageName = document.getElementById('releasePackage').value.trim();
+
+      if (!title || !description || !category || !packageName) {
+        releaseMessage.textContent = 'Please complete every field before saving.';
+        releaseMessage.className = 'rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700';
+        releaseMessage.classList.remove('hidden');
+        return;
+      }
+
+      releaseMessage.textContent = 'Saving release record...';
+      releaseMessage.className = 'rounded-2xl border border-brand/20 bg-brand/5 px-4 py-3 text-sm text-brand';
+      releaseMessage.classList.remove('hidden');
+
+      const { error } = await supabaseClient.from('apps').insert([
+        {
+          title,
+          description,
+          category,
+          package_name: packageName,
+          file_name: selectedFile,
+          verification_status: 'under_review',
+          created_at: new Date().toISOString()
         }
+      ]);
 
-        function toggleOrganizationFields(type) {
-            const isOrganization = type === 'Organization';
-            organizationFields.classList.toggle('hidden', !isOrganization);
-            organizationNameInput.required = isOrganization;
-            businessIdInput.required = isOrganization;
-            accountTypeButtons.forEach((button) => {
-                const active = button.dataset.accountType === type;
-                button.className = `account-type-btn rounded-2xl border border-[#F3F4F6] px-4 py-3 text-sm font-bold transition ${active ? 'bg-brand text-white' : 'bg-white text-[#111827]'}`;
-            });
-        }
+      if (error) {
+        releaseMessage.textContent = 'Unable to save the release. Please try again later.';
+        releaseMessage.className = 'rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700';
+        return;
+      }
 
-        function formatCategory(category) {
-            const labels = {
-                Education: 'Education',
-                Tech: 'Tech Utilities',
-                Sports: 'Sports & Health',
-                Govt: 'Sarkari Utilities'
-            };
-            return labels[category] || category;
-        }
+      releaseMessage.textContent = 'Release saved successfully.';
+      releaseForm.reset();
+      updateFileName('');
+    });
 
-        function getProfilePayload() {
-            const accountType = accountTypeInput.value;
-            return {
-                name: document.getElementById('full-name').value.trim(),
-                email: document.getElementById('email-address').value.trim(),
-                phone: document.getElementById('phone-number').value.trim(),
-                legal_address: document.getElementById('physical-address').value.trim(),
-                account_type: accountType,
-                organization_name: accountType === 'Organization' ? organizationNameInput.value.trim() : null,
-                business_registration_id: accountType === 'Organization' ? businessIdInput.value.trim() : null,
-                status: 'pending_review'
-            };
-        }
+    const budgetInput = document.getElementById('budgetInput');
+    const budgetValue = document.getElementById('budgetValue');
+    const impressionsValue = document.getElementById('impressionsValue');
 
-        async function upsertDeveloperProfile(payload, extraFields = {}) {
-            const merged = { ...payload, ...extraFields };
-            const { data, error } = await supabaseClient
-                .from('developers')
-                .upsert(merged, { onConflict: 'email' })
-                .select()
-                .single();
+    function updateCampaignMetrics() {
+      const budget = Number(budgetInput.value);
+      const impressions = (budget / 100) * 3000;
+      budgetValue.textContent = budget.toLocaleString('en-IN');
+      impressionsValue.textContent = impressions.toLocaleString('en-IN');
+    }
 
-            if (error) throw error;
-            latestDeveloperRecord = data;
-            slotsRemainingLabel.textContent = data.paid_slots_remaining ?? 0;
-            return data;
-        }
-
-        async function ensureDeveloperProfileExists() {
-            if (latestDeveloperRecord) return latestDeveloperRecord;
-            const payload = getProfilePayload();
-            if (!payload.name || !payload.email || !payload.phone || !payload.legal_address) {
-                throw new Error('Please complete the verification profile first.');
-            }
-            return upsertDeveloperProfile(payload);
-        }
-
-        async function createAppSubmission(payload) {
-            const { data, error } = await supabaseClient
-                .from('apps')
-                .insert(payload)
-                .select()
-                .single();
-
-            if (error) throw error;
-            return data;
-        }
-
-        async function fetchUnderReviewEntries() {
-            const { data, error } = await supabaseClient
-                .from('apps')
-                .select('*')
-                .eq('verification_status', 'under_review')
-                .order('id', { ascending: false });
-
-            if (error) throw error;
-
-            const apps = data || [];
-            const developerIds = [...new Set(apps.map((entry) => entry.developer_id).filter(Boolean))];
-            if (!developerIds.length) return apps;
-
-            const { data: developers, error: developerError } = await supabaseClient
-                .from('developers')
-                .select('*')
-                .in('id', developerIds);
-
-            if (developerError) throw developerError;
-
-            const developerMap = new Map((developers || []).map((developer) => [String(developer.id), developer]));
-            return apps.map((entry) => ({
-                ...entry,
-                developer_details: developerMap.get(String(entry.developer_id)) || null
-            }));
-        }
-
-        async function verifyAndPublish(appId, developerId) {
-            const appUpdate = await supabaseClient.from('apps').update({ verification_status: 'approved' }).eq('id', appId);
-            if (appUpdate.error) throw appUpdate.error;
-
-            if (developerId) {
-                const developerUpdate = await supabaseClient.from('developers').update({ status: 'approved' }).eq('id', developerId);
-                if (developerUpdate.error) throw developerUpdate.error;
-            }
-        }
-
-        function renderUnderReview(entries) {
-            if (!entries.length) {
-                underReviewList.innerHTML = '<div class="rounded-[1.5rem] border border-dashed border-[#F3F4F6] bg-gray-50 p-5 text-sm text-gray-600">No applications are currently under review.</div>';
-                return;
-            }
-
-            underReviewList.innerHTML = entries.map((entry) => `
-                <article class="rounded-[1.5rem] border border-[#F3F4F6] bg-gray-50 p-5">
-                    <div class="flex flex-col gap-4">
-                        <div class="flex items-start justify-between gap-4">
-                            <div>
-                                <div class="flex flex-wrap items-center gap-2">
-                                    <h4 class="text-xl font-black text-[#111827]">${entry.title}</h4>
-                                    <span class="rounded-full bg-yellow-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-yellow-800">Under Review</span>
-                                </div>
-                                <p class="mt-1 text-sm font-medium text-gray-500">${formatCategory(entry.category)} • ${entry.package_name || 'No package name recorded'}</p>
-                                <p class="mt-3 text-sm leading-6 text-gray-600">${entry.description}</p>
-                            </div>
-                            <button data-app-id="${entry.id}" data-developer-id="${entry.developer_id || ''}" class="verify-app-btn rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Verify &amp; Publish</button>
-                        </div>
-                        <div class="rounded-2xl border border-[#F3F4F6] bg-white p-4 text-sm text-gray-700">
-                            <p><span class="font-semibold text-[#111827]">Developer ID:</span> ${entry.developer_id || 'Not linked'}</p>
-                            <p class="mt-1"><span class="font-semibold text-[#111827]">Legal Name:</span> ${entry.developer_details?.name || 'Not available'}</p>
-                            <p class="mt-1"><span class="font-semibold text-[#111827]">Email:</span> ${entry.developer_details?.email || 'Not available'}</p>
-                            <p class="mt-1"><span class="font-semibold text-[#111827]">Phone:</span> ${entry.developer_details?.phone || 'Not available'}</p>
-                            <p class="mt-1"><span class="font-semibold text-[#111827]">Address:</span> ${entry.developer_details?.legal_address || 'Not available'}</p>
-                            <p class="mt-1"><span class="font-semibold text-[#111827]">Account Type:</span> ${entry.developer_details?.account_type || 'Not available'}</p>
-                            <p class="mt-1"><span class="font-semibold text-[#111827]">Organization:</span> ${entry.developer_details?.organization_name || 'Not applicable'}</p>
-                            <p class="mt-1"><span class="font-semibold text-[#111827]">Registration / Tax ID:</span> ${entry.developer_details?.business_registration_id || 'Not applicable'}</p>
-                            <p class="mt-1"><span class="font-semibold text-[#111827]">Declared file:</span> ${entry.apk_filename || 'Not provided'}</p>
-                        </div>
-                    </div>
-                </article>
-            `).join('');
-
-            document.querySelectorAll('.verify-app-btn').forEach((button) => {
-                button.addEventListener('click', async () => {
-                    try {
-                        await verifyAndPublish(button.dataset.appId, button.dataset.developerId || null);
-                        setAlert(adminAlert, 'Application verified and published successfully.', 'success');
-                        loadUnderReviewEntries();
-                    } catch (error) {
-                        setAlert(adminAlert, `Verification failed: ${error.message}`, 'error');
-                    }
-                });
-            });
-        }
-
-        async function loadUnderReviewEntries() {
-            try {
-                const entries = await fetchUnderReviewEntries();
-                renderUnderReview(entries);
-            } catch (error) {
-                underReviewList.innerHTML = `<div class="rounded-[1.5rem] border border-red-200 bg-red-50 p-5 text-sm text-red-700">Unable to load review queue: ${error.message}</div>`;
-            }
-        }
-
-        function updateImpressionOutput(value) {
-            const sanitized = Math.min(5000, Math.max(100, Number(value) || 100));
-            const impressions = (sanitized / 100) * 3000;
-            adBudget.value = sanitized;
-            adBudgetInput.value = sanitized;
-            impressionOutput.textContent = `Your utility will be highlighted to ${impressions.toLocaleString('en-IN')} Indian mobile devices.`;
-        }
-
-        function openRazorpayCheckout({ amount, description, name, email, contact, notes, onSuccess }) {
-            const options = {
-                key: razorpayKey,
-                amount,
-                currency: 'INR',
-                name: 'Qorelysofts — indapp store',
-                description,
-                image: razorpayLogo,
-                prefill: { name, email, contact },
-                theme: { color: '#312E81' },
-                notes,
-                handler: onSuccess
-            };
-            const instance = new Razorpay(options);
-            instance.open();
-        }
-
-        accountTypeButtons.forEach((button) => {
-            button.addEventListener('click', () => {
-                accountTypeInput.value = button.dataset.accountType;
-                toggleOrganizationFields(button.dataset.accountType);
-            });
-        });
-
-        selectBuildBtn.addEventListener('click', () => apkFileInput.click());
-        apkFileInput.addEventListener('change', () => {
-            selectedFileName.textContent = apkFileInput.files[0]?.name || 'No file selected';
-        });
-
-        ['dragenter', 'dragover'].forEach((eventName) => {
-            dropZone.addEventListener(eventName, (event) => {
-                event.preventDefault();
-                dropZone.classList.add('border-brand', 'bg-indigo-50');
-            });
-        });
-
-        ['dragleave', 'drop'].forEach((eventName) => {
-            dropZone.addEventListener(eventName, (event) => {
-                event.preventDefault();
-                dropZone.classList.remove('border-brand', 'bg-indigo-50');
-            });
-        });
-
-        dropZone.addEventListener('drop', (event) => {
-            const file = event.dataTransfer.files[0];
-            if (file) {
-                const transfer = new DataTransfer();
-                transfer.items.add(file);
-                apkFileInput.files = transfer.files;
-                selectedFileName.textContent = file.name;
-            }
-        });
-
-        profileForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const payload = getProfilePayload();
-
-            if (!indianPhoneIsValid(payload.phone)) {
-                setAlert(profileAlert, 'Phone number must follow the +91 format with a valid Indian mobile number.', 'error');
-                return;
-            }
-
-            try {
-                const developer = await upsertDeveloperProfile(payload);
-                setAlert(profileAlert, `Verification profile submitted successfully. Reference ID: ${developer.id}`, 'success');
-            } catch (error) {
-                setAlert(profileAlert, `Profile submission failed: ${error.message}`, 'error');
-            }
-        });
-
-        licenseButtons.forEach((button) => {
-            button.addEventListener('click', async () => {
-                try {
-                    const profile = getProfilePayload();
-                    if (!profile.name || !profile.email || !profile.phone || !profile.legal_address) {
-                        setAlert(pricingAlert, 'Complete the verification form first before activating a license.', 'error');
-                        return;
-                    }
-                    if (!indianPhoneIsValid(profile.phone)) {
-                        setAlert(pricingAlert, 'Phone number must follow the +91 format with a valid Indian mobile number.', 'error');
-                        return;
-                    }
-
-                    const slots = Number(button.dataset.slots);
-                    const amount = Number(button.dataset.amount);
-                    const plan = button.dataset.plan;
-                    const developer = await upsertDeveloperProfile(profile);
-
-                    openRazorpayCheckout({
-                        amount,
-                        description: `${plan} License Activation`,
-                        name: profile.name,
-                        email: profile.email,
-                        contact: profile.phone,
-                        notes: { developer_id: developer.id, plan, slots },
-                        onSuccess: async (response) => {
-                            try {
-                                const newSlots = Number(developer.paid_slots_remaining || 0) + slots;
-                                const { data, error } = await supabaseClient
-                                    .from('developers')
-                                    .update({
-                                        paid_slots_remaining: newSlots,
-                                        payment_status: 'paid',
-                                        latest_payment_id: response.razorpay_payment_id
-                                    })
-                                    .eq('id', developer.id)
-                                    .select()
-                                    .single();
-
-                                if (error) throw error;
-                                latestDeveloperRecord = data;
-                                slotsRemainingLabel.textContent = data.paid_slots_remaining ?? 0;
-                                setAlert(pricingAlert, `${plan} activated successfully. Slots remaining updated to ${data.paid_slots_remaining}.`, 'success');
-                            } catch (error) {
-                                setAlert(pricingAlert, `Payment succeeded but slot update failed: ${error.message}`, 'error');
-                            }
-                        }
-                    });
-                } catch (error) {
-                    setAlert(pricingAlert, `Unable to start license activation: ${error.message}`, 'error');
-                }
-            });
-        });
-
-        appForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            try {
-                const developer = await ensureDeveloperProfileExists();
-                const payload = {
-                    developer_id: developer.id,
-                    title: document.getElementById('app-title').value.trim(),
-                    category: document.getElementById('app-category').value === 'Tech Utilities' ? 'Tech' : document.getElementById('app-category').value === 'Sports & Health' ? 'Sports' : document.getElementById('app-category').value === 'Sarkari Utilities' ? 'Govt' : document.getElementById('app-category').value,
-                    package_name: document.getElementById('package-name').value.trim(),
-                    description: document.getElementById('app-description').value.trim(),
-                    apk_filename: apkFileInput.files[0]?.name || null,
-                    verification_status: 'under_review',
-                    status: 'under_review',
-                    icon: '📱'
-                };
-
-                const submission = await createAppSubmission(payload);
-                setAlert(appAlert, `App uploaded for review successfully. Queue ID: ${submission.id}`, 'success');
-                appForm.reset();
-                selectedFileName.textContent = 'No file selected';
-                loadUnderReviewEntries();
-            } catch (error) {
-                setAlert(appAlert, `App submission failed: ${error.message}`, 'error');
-            }
-        });
-
-        adBudget.addEventListener('input', (event) => updateImpressionOutput(event.target.value));
-        adBudgetInput.addEventListener('input', (event) => updateImpressionOutput(event.target.value));
-
-        launchAdBtn.addEventListener('click', async () => {
-            try {
-                const developer = await ensureDeveloperProfileExists();
-                const profile = getProfilePayload();
-                const amountValue = Math.min(5000, Math.max(100, Number(adBudgetInput.value) || 100));
-
-                openRazorpayCheckout({
-                    amount: amountValue * 100,
-                    description: 'Micro-Ad Campaign Activation',
-                    name: profile.name,
-                    email: profile.email,
-                    contact: profile.phone,
-                    notes: { developer_id: developer.id, campaign_budget: amountValue },
-                    onSuccess: async (response) => {
-                        try {
-                            const { error } = await supabaseClient
-                                .from('developers')
-                                .update({
-                                    ad_payment_status: 'paid',
-                                    last_ad_payment_id: response.razorpay_payment_id,
-                                    latest_ad_budget: amountValue
-                                })
-                                .eq('id', developer.id);
-
-                            if (error) throw error;
-                            setAlert(campaignAlert, `Micro-ad campaign activated successfully for ₹${amountValue}.`, 'success');
-                        } catch (error) {
-                            setAlert(campaignAlert, `Campaign payment succeeded but update failed: ${error.message}`, 'error');
-                        }
-                    }
-                });
-            } catch (error) {
-                setAlert(campaignAlert, `Unable to start ad campaign: ${error.message}`, 'error');
-            }
-        });
-
-        adminToggleBtn.addEventListener('click', () => {
-            if (adminPasscodeInput.value !== INTERNAL_ADMIN_PASSCODE) {
-                setAlert(adminAlert, 'Incorrect internal passcode.', 'error');
-                adminPanel.classList.add('hidden');
-                return;
-            }
-
-            adminPanel.classList.remove('hidden');
-            adminAlert.classList.add('hidden');
-            loadUnderReviewEntries();
-        });
-
-        refreshAdminPanelBtn.addEventListener('click', loadUnderReviewEntries);
-        toggleOrganizationFields('Individual');
-        updateImpressionOutput(100);
-    </script>
+    budgetInput.addEventListener('input', updateCampaignMetrics);
+    updateCampaignMetrics();
+  </script>
 </body>
 </html>
