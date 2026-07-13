@@ -3,345 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qorelysofts | Defying Limitations</title>
-    <meta name="description" content="Qorelysofts provides next-generation software solutions for modern agents, elevating technology beyond limitations.">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS v4 CDN -->
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    
-    <!-- Custom CSS for animations and complex backgrounds -->
-    <style type="text/tailwindcss">
-        @theme {
-            --font-heading: 'Outfit', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            --color-space: #030308;
-            --color-neon-cyan: #00f0ff;
-            --color-neon-purple: #b026ff;
-        }
-
-        body {
-            font-family: var(--font-body);
-        }
-        
-        h1, h2, h3, h4, .font-heading {
-            font-family: var(--font-heading);
-        }
-
-        .bg-grid {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            perspective: 1000px;
-            transform: rotateX(60deg) scale(2);
-            transform-origin: top center;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(30px, 30px) scale(1.05); }
-            100% { transform: translate(-20px, 40px) scale(0.95); }
-        }
-
-        @keyframes pulse-glow {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.05); opacity: 1; }
-        }
-
-        .animate-float {
-            animation: float 20s infinite alternate ease-in-out;
-        }
-        
-        .animate-pulse-glow {
-            animation: pulse-glow 4s infinite alternate;
-        }
-
-        .glass-card {
-            @apply bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-10 transition-all duration-300;
-        }
-        
-        .glass-card:hover {
-            @apply bg-white/10 -translate-y-2;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-    </style>
-</head>
-<body class="bg-space text-gray-200 overflow-x-hidden relative">
-
-    <!-- Background Elements -->
-    <div class="fixed top-[-100px] left-[-150px] w-[500px] h-[500px] rounded-full bg-neon-cyan/40 blur-[100px] opacity-50 -z-10 animate-float"></div>
-    <div class="fixed bottom-[-200px] right-[-200px] w-[600px] h-[600px] rounded-full bg-neon-purple/40 blur-[100px] opacity-50 -z-10 animate-float" style="animation-delay: -5s;"></div>
-    <div class="fixed top-0 left-0 w-full h-full bg-grid -z-20 opacity-30 pointer-events-none"></div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-[#030308]/70 backdrop-blur-xl border-b border-white/10 py-6">
-        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
-            <a href="#" class="font-heading font-extrabold text-2xl text-white tracking-wide">
-                Qorelysofts<span class="text-neon-cyan">.</span>
-            </a>
-            <ul id="nav-menu" class="hidden md:flex gap-10">
-                <li><a href="#home" class="font-medium text-sm hover:text-neon-cyan transition-colors relative group">Home
-                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-neon-cyan to-neon-purple transition-all group-hover:w-full"></span>
-                </a></li>
-                <li><a href="#about" class="font-medium text-sm hover:text-neon-cyan transition-colors relative group">About Us
-                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-neon-cyan to-neon-purple transition-all group-hover:w-full"></span>
-                </a></li>
-                <li><a href="#services" class="font-medium text-sm hover:text-neon-cyan transition-colors relative group">Services
-                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-neon-cyan to-neon-purple transition-all group-hover:w-full"></span>
-                </a></li>
-                <li><a href="#contact" class="font-medium text-sm hover:text-neon-cyan transition-colors relative group">Contact Us
-                    <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-neon-cyan to-neon-purple transition-all group-hover:w-full"></span>
-                </a></li>
-            </ul>
-            <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 cursor-pointer z-50 bg-transparent border-none">
-                <span class="w-6 h-0.5 bg-white transition-transform origin-center block"></span>
-                <span class="w-6 h-0.5 bg-white transition-opacity block"></span>
-                <span class="w-6 h-0.5 bg-white transition-transform origin-center block"></span>
-            </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="absolute top-full left-0 w-full bg-[#030308]/95 backdrop-blur-xl border-b border-white/10 flex-col items-center py-8 gap-6 hidden transition-all">
-            <a href="#home" class="font-medium hover:text-neon-cyan">Home</a>
-            <a href="#about" class="font-medium hover:text-neon-cyan">About Us</a>
-            <a href="#services" class="font-medium hover:text-neon-cyan">Services</a>
-            <a href="#contact" class="font-medium hover:text-neon-cyan">Contact Us</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center pt-20">
-        <div class="container mx-auto px-6 md:px-12 max-w-4xl">
-            <span class="inline-block px-4 py-2 bg-neon-cyan/10 border border-neon-cyan/40 rounded-full text-sm text-neon-cyan uppercase tracking-widest mb-8">Next-Generation Systems</span>
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
-                Defying Limitations.<br>Elevating Technology.
-            </h1>
-            <p class="text-xl text-gray-400 mb-10 max-w-2xl leading-relaxed">
-                We engineer frictionless, weightless software solutions empowering modern agents to transcend traditional operational boundaries.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#contact" class="px-8 py-4 rounded-full font-heading font-semibold text-white bg-gradient-to-r from-neon-cyan to-neon-purple hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] transition-all transform hover:-translate-y-1 text-center">Get Started</a>
-                <a href="#services" class="px-8 py-4 rounded-full font-heading font-semibold text-white bg-transparent border border-neon-cyan hover:bg-neon-cyan/10 hover:shadow-[inset_0_0_10px_rgba(0,240,255,0.4)] transition-all transform hover:-translate-y-1 text-center">Explore Systems</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-32 relative">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="text-center max-w-3xl mx-auto mb-20">
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Technological Architectures</h2>
-                <p class="text-lg text-gray-400">Propelling enterprises forward with zero-gravity digital frameworks.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <div class="glass-card group relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-cyan to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="w-16 h-16 rounded-2xl bg-neon-purple/10 flex items-center justify-center text-neon-purple group-hover:bg-gradient-to-r group-hover:from-neon-cyan group-hover:to-neon-purple group-hover:text-white group-hover:shadow-[0_0_20px_rgba(176,38,255,0.4)] transition-all duration-300 mb-8">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold text-white mb-4">Web Development</h3>
-                    <p class="text-gray-400 leading-relaxed">We architect frictionless, high-performance web applications that scale infinitely and provide an immersive, zero-gravity user experience.</p>
-                </div>
-
-                <div class="glass-card group relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-cyan to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="w-16 h-16 rounded-2xl bg-neon-purple/10 flex items-center justify-center text-neon-purple group-hover:bg-gradient-to-r group-hover:from-neon-cyan group-hover:to-neon-purple group-hover:text-white group-hover:shadow-[0_0_20px_rgba(176,38,255,0.4)] transition-all duration-300 mb-8">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold text-white mb-4">App Development</h3>
-                    <p class="text-gray-400 leading-relaxed">Deploy intelligent, autonomous mobile solutions designed to navigate complex ecosystems effortlessly, keeping your users engaged on the go.</p>
-                </div>
-
-                <div class="glass-card group relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-cyan to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="w-16 h-16 rounded-2xl bg-neon-purple/10 flex items-center justify-center text-neon-purple group-hover:bg-gradient-to-r group-hover:from-neon-cyan group-hover:to-neon-purple group-hover:text-white group-hover:shadow-[0_0_20px_rgba(176,38,255,0.4)] transition-all duration-300 mb-8">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2" ry="2"/><circle cx="17.5" cy="12" r="1.5"/><circle cx="14" cy="12" r="1.5"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/></svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold text-white mb-4">Games Development</h3>
-                    <p class="text-gray-400 leading-relaxed">Experience dynamic game orchestration that flows without resistance. We build captivating worlds that empower real-time split-second action.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-32 relative bg-[#030308]/50">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="text-center max-w-3xl mx-auto mb-20">
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Our Digital Nexus</h2>
-                <p class="text-lg text-gray-400">Explore our owned ecosystem of high-performance web properties.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <a href="https://trade-force.vercel.app" target="_blank" rel="noopener noreferrer" class="glass-card group relative overflow-hidden block">
-                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-neon-cyan/5 to-neon-purple/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="flex items-center justify-between mb-4 relative z-10">
-                        <h3 class="text-xl font-semibold text-white group-hover:text-neon-cyan transition-colors">Trade Force</h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500 group-hover:text-neon-cyan transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-                    </div>
-                    <p class="text-gray-400 text-sm font-medium tracking-wide">trade-force.vercel.app</p>
-                </a>
-
-                <a href="https://convert-iq-blue.vercel.app" target="_blank" rel="noopener noreferrer" class="glass-card group relative overflow-hidden block">
-                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-neon-cyan/5 to-neon-purple/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="flex items-center justify-between mb-4 relative z-10">
-                        <h3 class="text-xl font-semibold text-white group-hover:text-neon-cyan transition-colors">Convert IQ</h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500 group-hover:text-neon-cyan transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-                    </div>
-                    <p class="text-gray-400 text-sm font-medium tracking-wide">convert-iq-blue.vercel.app</p>
-                </a>
-
-                <a href="https://zenovee.in" target="_blank" rel="noopener noreferrer" class="glass-card group relative overflow-hidden block">
-                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-neon-cyan/5 to-neon-purple/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="flex items-center justify-between mb-4 relative z-10">
-                        <h3 class="text-xl font-semibold text-white group-hover:text-neon-cyan transition-colors">Zenovee</h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500 group-hover:text-neon-cyan transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-                    </div>
-                    <p class="text-gray-400 text-sm font-medium tracking-wide">zenovee.in</p>
-                </a>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- About Us Section -->
-    <section id="about" class="py-32">
-        <div class="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div>
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">Architecting the Future of Agency</h2>
-                <p class="text-lg text-gray-400 mb-6 leading-relaxed">At Qorelysofts, we transcend traditional technological boundaries. Established with a vision to eliminate digital friction, we serve as an industry leader engineering high-performance software solutions for the modern enterprise.</p>
-                <p class="text-lg text-gray-400 mb-12 leading-relaxed">Our anti-gravity philosophy ensures that our systems are exceptionally lightweight, infinitely scalable, and inherently resilient. We empower forward-thinking agents and organizations to operate in a frictionless digital continuum, elevating their capabilities beyond the conventional horizon.</p>
-                
-                <div class="flex flex-col sm:flex-row gap-8 pt-8 border-t border-white/10">
-                    <div>
-                        <div class="font-heading text-4xl font-extrabold bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text mb-2">99.9%</div>
-                        <div class="text-xs text-gray-400 uppercase tracking-widest">System Uptime</div>
-                    </div>
-                    <div>
-                        <div class="font-heading text-4xl font-extrabold bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text mb-2">0ms</div>
-                        <div class="text-xs text-gray-400 uppercase tracking-widest">Induced Latency</div>
-                    </div>
-                    <div>
-                        <div class="font-heading text-4xl font-extrabold bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text mb-2">24/7</div>
-                        <div class="text-xs text-gray-400 uppercase tracking-widest">Agentic Support</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="h-[400px] flex items-center justify-center relative">
-                <div class="w-64 h-64 rounded-full bg-transparent animate-pulse-glow" style="box-shadow: inset 0 0 50px #fff, inset 20px 0 80px var(--color-neon-purple), inset -20px 0 80px var(--color-neon-cyan), inset 20px 0 300px var(--color-neon-purple), inset -20px 0 300px var(--color-neon-cyan), 0 0 50px #fff, -10px 0 80px var(--color-neon-purple), 10px 0 80px var(--color-neon-cyan);"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-32">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="text-center max-w-3xl mx-auto mb-20">
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Initiate Protocol</h2>
-                <p class="text-lg text-gray-400">Connect with our specialists to synchronize your systems.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
-                
-                <div class="md:col-span-4">
-                    <div class="mb-12">
-                        <h4 class="text-neon-cyan font-heading text-xl font-semibold mb-4">Global Headquarters</h4>
-                        <p class="text-gray-300 leading-relaxed">Qorelysofts Nexus Tower<br>Level 88, 404 Orbital Way<br>Neo-San Francisco, CA 94105</p>
-                    </div>
-                    <div>
-                        <h4 class="text-neon-cyan font-heading text-xl font-semibold mb-4">Encrypted Comms</h4>
-                        <p class="text-gray-300 leading-relaxed mb-1">+1 (800) 555-QORE</p>
-                        <p class="text-gray-300 leading-relaxed">transmission@qorelysofts.com</p>
-                    </div>
-                </div>
-
-                <div class="md:col-span-8">
-                    <div class="glass-card">
-                        <form id="contact-form" onsubmit="event.preventDefault();">
-                            <div class="mb-6">
-                                <label for="name" class="block font-heading text-sm text-gray-400 mb-2">Agent / Entity Name</label>
-                                <input type="text" id="name" required placeholder="Enter designation" class="w-full bg-black/30 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan transition-all">
-                            </div>
-                            <div class="mb-6">
-                                <label for="email" class="block font-heading text-sm text-gray-400 mb-2">Secure Email Frequency</label>
-                                <input type="email" id="email" required placeholder="address@domain.com" class="w-full bg-black/30 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan transition-all">
-                            </div>
-                            <div class="mb-8">
-                                <label for="message" class="block font-heading text-sm text-gray-400 mb-2">Transmission Details</label>
-                                <textarea id="message" rows="4" required placeholder="Outline your objective..." class="w-full bg-black/30 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan transition-all resize-none"></textarea>
-                            </div>
-                            <button type="submit" id="submit-btn" class="w-full py-4 rounded-xl font-heading font-semibold text-white bg-gradient-to-r from-neon-cyan to-neon-purple hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] transition-all text-center cursor-pointer">Transmit Signal</button>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="border-t border-white/10 py-12 text-center">
-        <div class="container mx-auto px-6">
-            <div class="font-heading font-extrabold text-2xl text-white tracking-wide mb-4">
-                Qorelysofts<span class="text-neon-cyan">.</span>
-            </div>
-            <p class="text-gray-500 text-sm">&copy; 2026 Qorelysofts. All rights reserved.</p>
-        </div>
-    </footer>
-
+    <title>indapp store — India's Zero-Wastage Utility Ecosystem</title>
+    <meta name="description" content="indapp store by Qorelysofts is India's clean, verified utility ecosystem for education, tech, sports, government help, and payments.">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const spans = menuBtn.querySelectorAll('span');
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-
-        function toggleMenu() {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
-            
-            if (mobileMenu.classList.contains('flex')) {
-                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-                spans[1].style.opacity = '0';
-                spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-            } else {
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#312E81',
+                        success: '#16A34A'
+                    },
+                    boxShadow: {
+                        soft: '0 18px 50px rgba(15, 23, 42, 0.08)'
+                    }
+                }
             }
         }
-
-        menuBtn.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
-
-        // Form Submit Simulation
-        const form = document.getElementById('contact-form');
-        const submitBtn = document.getElementById('submit-btn');
-
-        form.addEventListener('submit', (e) => {
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Transmitting...';
-            submitBtn.style.opacity = '0.7';
-            
-            setTimeout(() => {
-                submitBtn.textContent = 'Signal Received';
-                submitBtn.classList.remove('bg-gradient-to-r', 'from-neon-cyan', 'to-neon-purple');
-                submitBtn.style.backgroundColor = 'var(--color-neon-cyan)';
-                submitBtn.style.opacity = '1';
-                form.reset();
-                
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.classList.add('bg-gradient-to-r', 'from-neon-cyan', 'to-neon-purple');
-                    submitBtn.style.backgroundColor = '';
-                }, 3000);
-            }, 1500);
-        });
     </script>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+    <div class="min-h-screen bg-white">
+        <header class="sticky top-0 z-40 border-b border-gray-100 bg-white/90 backdrop-blur-xl">
+            <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand text-white shadow-soft"><span class="text-lg font-bold">in</span></div>
+                    <div>
+                        <p class="text-lg font-bold tracking-tight text-gray-900">indapp store</p>
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">by Qorelysofts</p>
+                    </div>
+                </a>
+                <div class="hidden items-center gap-8 md:flex">
+                    <a href="#why-indapp" class="text-sm font-semibold text-gray-600 transition hover:text-gray-900">Why indapp</a>
+                    <a href="#features" class="text-sm font-semibold text-gray-600 transition hover:text-gray-900">Features</a>
+                    <a href="#categories" class="text-sm font-semibold text-gray-600 transition hover:text-gray-900">Categories</a>
+                    <a href="developer.html" class="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 transition hover:border-gray-300 hover:bg-gray-50">Developer Console</a>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <section class="mx-auto grid max-w-7xl gap-14 px-6 pb-20 pt-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:px-8 lg:pb-24">
+                <div class="max-w-3xl">
+                    <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm"><span class="inline-block h-2.5 w-2.5 rounded-full bg-success"></span>Built only for India’s productive mobile ecosystem</div>
+                    <h1 class="text-4xl font-black leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-7xl">indapp store — India's Zero-Wastage Utility Ecosystem.</h1>
+                    <p class="mt-6 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl">No Games. No Bloatware. Just Pure Education, Tech, Sports, and Public Utilities.</p>
+                    <p class="mt-6 max-w-2xl text-base leading-7 text-gray-500">Created by Qorelysofts for a sharper digital India, indapp store keeps only trusted, useful applications for students, families, professionals, citizens, and everyday payments.</p>
+                    <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+                        <a href="store.html" class="inline-flex items-center justify-center rounded-full bg-brand px-8 py-4 text-lg font-bold text-white transition hover:bg-indigo-900">Download indapp store</a>
+                        <a href="#features" class="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white px-7 py-4 text-base font-semibold text-gray-900 transition hover:bg-gray-50">Explore the zero-wastage promise</a>
+                    </div>
+                    <div class="mt-10 flex flex-wrap gap-3 text-sm font-semibold text-gray-600">
+                        <span class="rounded-full border border-gray-200 bg-white px-4 py-2">Education-first</span>
+                        <span class="rounded-full border border-gray-200 bg-white px-4 py-2">Verified utilities</span>
+                        <span class="rounded-full border border-gray-200 bg-white px-4 py-2">Low-storage friendly</span>
+                        <span class="rounded-full border border-gray-200 bg-white px-4 py-2">India-only ecosystem</span>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="rounded-[2rem] border border-gray-100 bg-white p-6 shadow-soft sm:p-8">
+                        <div class="rounded-[1.5rem] border border-gray-100 bg-gray-50 p-5">
+                            <div class="flex items-center justify-between border-b border-gray-200 pb-4">
+                                <div><p class="text-sm font-semibold text-gray-900">indapp store</p><p class="text-xs text-gray-500">Focused Indian utility marketplace</p></div>
+                                <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">Verified & Clean</span>
+                            </div>
+                            <div class="mt-5 grid grid-cols-2 gap-4 text-sm">
+                                <div class="rounded-2xl border border-gray-200 bg-white p-4"><p class="text-gray-500">Allowed</p><p class="mt-2 font-semibold text-gray-900">Education</p><p class="font-semibold text-gray-900">Tech</p><p class="font-semibold text-gray-900">Sports</p></div>
+                                <div class="rounded-2xl border border-gray-200 bg-white p-4"><p class="text-gray-500">Protected</p><p class="mt-2 font-semibold text-gray-900">Government Apps</p><p class="font-semibold text-gray-900">Payments</p><p class="font-semibold text-gray-900">Citizen Utilities</p></div>
+                            </div>
+                            <div class="mt-5 rounded-2xl border border-gray-200 bg-white p-5">
+                                <p class="text-xs font-bold uppercase tracking-[0.24em] text-gray-500">Store principles</p>
+                                <ul class="mt-4 space-y-3 text-sm text-gray-700">
+                                    <li class="flex items-start gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-green-500"></span><span>No games and no engagement traps.</span></li>
+                                    <li class="flex items-start gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-indigo-600"></span><span>Only useful, relevant, and lightweight apps.</span></li>
+                                    <li class="flex items-start gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-gray-900"></span><span>Verified publishing and quality-first discovery.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="why-indapp" class="mx-auto max-w-7xl px-6 py-6 lg:px-8"><div class="rounded-[2rem] border border-gray-100 bg-white p-8 shadow-soft sm:p-10"><div class="grid gap-8 lg:grid-cols-3"><div><p class="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">Why this matters</p><h2 class="mt-3 text-3xl font-black tracking-tight text-gray-900">A cleaner app ecosystem for Indian families and builders.</h2></div><div class="lg:col-span-2 grid gap-5 sm:grid-cols-3"><div class="rounded-2xl border border-gray-100 bg-gray-50 p-5"><p class="text-3xl font-black text-gray-900">0</p><p class="mt-2 font-semibold text-gray-900">Gaming clutter</p><p class="mt-2 text-sm leading-6 text-gray-600">No addictive game loops, no useless installs, no wasted attention.</p></div><div class="rounded-2xl border border-gray-100 bg-gray-50 p-5"><p class="text-3xl font-black text-gray-900">5</p><p class="mt-2 font-semibold text-gray-900">Focused categories</p><p class="mt-2 text-sm leading-6 text-gray-600">Education, Tech, Sports, Government apps, and Payments only.</p></div><div class="rounded-2xl border border-gray-100 bg-gray-50 p-5"><p class="text-3xl font-black text-gray-900">1</p><p class="mt-2 font-semibold text-gray-900">National purpose</p><p class="mt-2 text-sm leading-6 text-gray-600">A trust-first marketplace designed strictly for India.</p></div></div></div></div></section>
+            <section id="features" class="mx-auto max-w-7xl px-6 py-20 lg:px-8"><div class="max-w-2xl"><p class="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">Core features</p><h2 class="mt-3 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">Designed for trust, speed, and purposeful usage.</h2></div><div class="mt-12 grid gap-6 md:grid-cols-3"><article class="rounded-[1.75rem] border border-gray-100 bg-white p-7 shadow-soft"><div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100 text-green-700">✓</div><h3 class="mt-6 text-2xl font-bold text-gray-900">Parents love us</h3><p class="mt-4 text-base leading-7 text-gray-600">No gaming addiction pathways, no manipulative entertainment feeds, and no time-wasting downloads competing for a child’s attention.</p></article><article class="rounded-[1.75rem] border border-gray-100 bg-white p-7 shadow-soft"><div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-700">⚡</div><h3 class="mt-6 text-2xl font-bold text-gray-900">Phone Saver</h3><p class="mt-4 text-base leading-7 text-gray-600">Ultra-lightweight apps, less storage pressure, lower background clutter, and a sharper mobile experience for everyday Indian users.</p></article><article class="rounded-[1.75rem] border border-gray-100 bg-white p-7 shadow-soft"><div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100 text-gray-900">🛡</div><h3 class="mt-6 text-2xl font-bold text-gray-900">Trusted</h3><p class="mt-4 text-base leading-7 text-gray-600">Verified public utilities and purposeful apps only, helping users discover reliable services with confidence and clarity.</p></article></div></section>
+            <section id="categories" class="mx-auto max-w-7xl px-6 pb-24 lg:px-8"><div class="rounded-[2rem] border border-gray-100 bg-white p-8 shadow-soft sm:p-10"><div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center"><div><p class="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">Allowed app categories</p><h2 class="mt-3 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">Only the categories India truly needs every day.</h2><p class="mt-5 max-w-xl text-base leading-7 text-gray-600">indapp store is intentionally strict. Every listing should serve learning, productivity, movement, public service, or seamless transactions.</p></div><div class="grid gap-4 sm:grid-cols-2"><div class="rounded-2xl border border-gray-100 bg-gray-50 p-5"><p class="text-lg font-bold text-gray-900">Education</p><p class="mt-2 text-sm text-gray-600">Learning platforms, exam prep, skill development, and academic support.</p></div><div class="rounded-2xl border border-gray-100 bg-gray-50 p-5"><p class="text-lg font-bold text-gray-900">Tech</p><p class="mt-2 text-sm text-gray-600">Developer tools, productivity software, digital infrastructure, and utility apps.</p></div><div class="rounded-2xl border border-gray-100 bg-gray-50 p-5"><p class="text-lg font-bold text-gray-900">Sports</p><p class="mt-2 text-sm text-gray-600">Training, fitness, coaching, scores, and purposeful sports engagement.</p></div><div class="rounded-2xl border border-gray-100 bg-gray-50 p-5"><p class="text-lg font-bold text-gray-900">Government & Payments</p><p class="mt-2 text-sm text-gray-600">Citizen services, ID-linked utilities, trusted bill flows, and payment experiences.</p></div></div></div></div></section>
+        </main>
+    </div>
+    <footer class="border-t border-gray-100 bg-white"><div class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between lg:px-8"><div><span class="font-semibold text-gray-900">indapp store</span><span class="mx-2 text-gray-300">•</span><span>Product of Qorelysofts</span></div><p>India-first. Utility-first. Zero-wastage by design.</p></div></footer>
 </body>
 </html>
