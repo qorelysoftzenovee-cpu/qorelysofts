@@ -1,0 +1,32 @@
+{
+  "name": "company-site-qorelysofts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qorelysoftzenovee-cpu/qorelysofts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/qorelysoftzenovee-cpu/qorelysofts/issues"
+  },
+  "homepage": "https://github.com/qorelysoftzenovee-cpu/qorelysofts#readme",
+  "dependencies": {
+    "body-parser": "^2.3.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "multer": "^2.2.0",
+    "razorpay": "^2.9.6",
+    "sqlite3": "^6.0.1"
+  }
+}

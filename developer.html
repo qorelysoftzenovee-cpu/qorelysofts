@@ -1,29 +1,481 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qorelysofts Developer Console | indapp store</title>
-    <meta name="description" content="Qorelysofts Developer Console for indapp store with submission review, verification workflow, and live publishing control.">
+    <title>Qorelysofts Creator Portal | indapp store</title>
+    <meta name="description" content="Private creator portal for compliant onboarding, secure app submission, and internal verification workflows.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{brand:'#312E81',success:'#16A34A'},boxShadow:{soft:'0 18px 50px rgba(15, 23, 42, 0.08)'}}}}</script>
-</head>
-<body class="bg-white text-gray-900 antialiased">
-    <div class="min-h-screen bg-white"><div class="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
-        <header class="mb-6 rounded-[2rem] border border-gray-100 bg-white p-5 shadow-soft sm:p-6"><div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between"><div class="flex items-center gap-4"><div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand text-white shadow-soft"><span class="text-lg font-bold">Q</span></div><div><p class="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">Qorelysofts</p><h1 class="text-2xl font-black tracking-tight text-gray-900 sm:text-3xl">Developer Console — indapp store</h1><p class="mt-1 text-sm text-gray-600">Submit apps for strict verification, approval, and instant live availability.</p></div></div><div class="flex flex-col gap-3 sm:flex-row sm:items-center"><div class="rounded-2xl border border-green-100 bg-green-50 px-4 py-3 text-sm font-semibold text-green-800">Commission: <span class="font-black">Only 10%</span> on premium in-app purchases</div><a href="index.html" class="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-bold text-gray-900 transition hover:bg-gray-50">Back to Main Site</a></div></div></header>
-        <main class="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]"><section class="space-y-6"><div class="rounded-[2rem] border border-gray-100 bg-white p-6 shadow-soft sm:p-7"><p class="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">Onboarding</p><h2 class="mt-3 text-2xl font-black tracking-tight text-gray-900 sm:text-3xl">Publish trusted apps for India’s zero-wastage ecosystem.</h2><p class="mt-4 text-sm leading-7 text-gray-600 sm:text-base">Designed for independent creators and companies building apps in education, tech, sports, public service, and payments.</p><div class="mt-6 grid gap-4 sm:grid-cols-2"><div class="rounded-3xl border border-gray-100 bg-gray-50 p-5"><p class="text-xs font-bold uppercase tracking-[0.24em] text-gray-500">Individual Account</p><p class="mt-3 text-3xl font-black text-gray-900">₹500<span class="text-base font-semibold text-gray-500">/year</span></p><p class="mt-3 text-sm leading-6 text-gray-600">Perfect for solo developers, indie creators, and student builders launching utility-first apps.</p></div><div class="rounded-3xl border border-gray-100 bg-gray-50 p-5"><p class="text-xs font-bold uppercase tracking-[0.24em] text-gray-500">Company Account</p><p class="mt-3 text-3xl font-black text-gray-900">₹1,000<span class="text-base font-semibold text-gray-500">/year</span></p><p class="mt-3 text-sm leading-6 text-gray-600">Built for startups, institutions, and organizations managing multiple verified utility listings.</p></div></div></div><div class="rounded-[2rem] border border-gray-100 bg-white p-6 shadow-soft sm:p-7"><div class="flex items-start justify-between gap-4"><div><p class="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">Verification workflow</p><h3 class="mt-2 text-2xl font-black tracking-tight text-gray-900">Submit first. Go live only after approval.</h3></div><div class="rounded-2xl bg-green-50 px-4 py-2 text-sm font-bold text-green-700">Strict Review</div></div><div class="mt-5 space-y-4 text-sm leading-7 text-gray-600"><p>Every uploaded app enters a <span class="font-bold text-gray-900">pending verification</span> state first.</p><p>Only apps approved from the Admin Review Panel are published to the store and surfaced to users instantly.</p></div></div></section>
-        <section class="space-y-6"><div class="rounded-[2rem] border border-gray-100 bg-white p-6 shadow-soft sm:p-7"><div class="mb-6"><p class="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">Upload New App</p><h2 class="mt-2 text-2xl font-black tracking-tight text-gray-900">Submit your app for review</h2><p class="mt-2 text-sm leading-6 text-gray-600">This submission creates a pending verification entry until an admin approves it.</p></div><div id="upload-alert" class="mb-5 hidden rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-semibold text-green-800"></div><form id="upload-form" class="space-y-5"><div><label for="app-name" class="mb-2 block text-sm font-semibold text-gray-700">App Name</label><input id="app-name" type="text" required placeholder="e.g. DigiLocker Hub" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-900 outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50"></div><div><label for="category" class="mb-2 block text-sm font-semibold text-gray-700">Category</label><select id="category" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-900 outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50"><option>Education</option><option>Tech</option><option>Sports</option><option>Govt</option><option>Payments</option></select></div><div><label for="description" class="mb-2 block text-sm font-semibold text-gray-700">App Description</label><textarea id="description" rows="5" required placeholder="Describe what your app does, who it helps, and why it belongs in indapp store." class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-900 outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50"></textarea></div><div><label class="mb-2 block text-sm font-semibold text-gray-700">Upload APK File</label><div class="rounded-[1.75rem] border-2 border-dashed border-gray-200 bg-gray-50 p-6 text-center sm:p-8"><div class="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-3xl shadow-sm">📦</div><p class="mt-4 text-base font-bold text-gray-900">Drag &amp; drop APK here</p><p class="mt-2 text-sm text-gray-600">or click to browse your verified app package</p><input id="apk-file" type="file" accept=".apk" class="hidden"><button id="apk-select-btn" type="button" class="mt-5 rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Select APK File</button><p id="apk-file-name" class="mt-3 text-xs font-medium text-gray-500">No APK selected</p></div></div><label class="flex items-start gap-3 rounded-2xl border border-green-100 bg-green-50 px-4 py-4 text-sm text-gray-700"><input id="micro-ad" type="checkbox" class="mt-1 h-4 w-4 rounded border-green-300 text-brand focus:ring-brand"><span><span class="font-bold text-gray-900">₹100 Micro-Ad Campaign</span> — feature this app in the Suggested App slot after verification and approval.</span></label><div class="flex flex-col gap-3 sm:flex-row"><button type="submit" class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-900">Submit for Verification</button><a href="store.html" class="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white px-6 py-3.5 text-sm font-bold text-gray-900 transition hover:bg-gray-50">Open Store</a></div></form></div><div class="rounded-[2rem] border border-gray-100 bg-white p-6 shadow-soft sm:p-7"><p class="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">₹100 Micro-Ad Campaign Manager</p><h2 class="mt-2 text-2xl font-black tracking-tight text-gray-900">Promote your utility app with focused reach</h2><div class="mt-5 rounded-[1.75rem] border border-gray-100 bg-gray-50 p-6"><p class="text-lg font-bold text-gray-900">Boost your app to 10,000 real Indian users for just ₹100.</p><p class="mt-3 text-sm leading-7 text-gray-600">Current Balance: ₹0.</p><div class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center"><button type="button" class="inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Launch Campaign</button><span class="text-sm text-gray-500">Verified Partner Feature placement becomes active after approval.</span></div></div></div></section></main>
-        <section class="mt-8 rounded-[2rem] border border-gray-100 bg-white p-6 shadow-soft sm:p-7"><div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div><p class="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">Admin Review Panel</p><h2 class="mt-2 text-2xl font-black tracking-tight text-gray-900">Pending verification queue</h2></div><span class="rounded-full border border-gray-200 bg-gray-50 px-4 py-2 text-sm font-semibold text-gray-600">Apps below are not live until approved</span></div><div id="admin-review-list" class="grid gap-4"></div></section>
-    </div></div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script>
-        const storageKey='indapp_apps', uploadForm=document.getElementById('upload-form'), appNameInput=document.getElementById('app-name'), categoryInput=document.getElementById('category'), descriptionInput=document.getElementById('description'), microAdInput=document.getElementById('micro-ad'), uploadAlert=document.getElementById('upload-alert'), apkFileInput=document.getElementById('apk-file'), apkSelectBtn=document.getElementById('apk-select-btn'), apkFileName=document.getElementById('apk-file-name'), adminReviewList=document.getElementById('admin-review-list');
-        const categoryIcons={Education:'📚',Tech:'🛠️',Sports:'🏆',Govt:'🏛️',Payments:'💳'};
-        const getStoredApps=()=>{try{return JSON.parse(localStorage.getItem(storageKey)||'[]')}catch{return[]}};
-        const setStoredApps=(apps)=>localStorage.setItem(storageKey,JSON.stringify(apps));
-        function renderAdminReviewPanel(){const apps=getStoredApps(),pending=apps.filter(app=>app.status==='pending_verification');if(!pending.length){adminReviewList.innerHTML='<div class="rounded-3xl border border-gray-100 bg-gray-50 px-5 py-6 text-sm text-gray-600">No pending apps. All reviewed submissions are up to date.</div>';return;}adminReviewList.innerHTML=pending.map(app=>`<article class="rounded-3xl border border-gray-100 bg-gray-50 p-5"><div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"><div class="flex items-start gap-4"><div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-2xl shadow-sm">${app.icon||'📱'}</div><div><div class="flex flex-wrap items-center gap-2"><h3 class="text-lg font-bold text-gray-900">${app.name}</h3><span class="rounded-full bg-yellow-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-yellow-800">Pending Verification</span>${app.suggested_ad?'<span class="rounded-full bg-green-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-green-700">Suggested Ad</span>':''}</div><p class="mt-1 text-sm font-medium text-gray-500">${app.category}</p><p class="mt-2 text-sm leading-6 text-gray-600">${app.description}</p></div></div><button data-approve-id="${app.id}" class="approve-btn inline-flex items-center justify-center rounded-full bg-green-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-green-700">Approve &amp; Verify</button></div></article>`).join('');document.querySelectorAll('.approve-btn').forEach(button=>button.addEventListener('click',()=>{const id=button.getAttribute('data-approve-id');setStoredApps(getStoredApps().map(app=>app.id===id?{...app,status:'approved',approvedAt:new Date().toISOString()}:app));renderAdminReviewPanel();}));}
-        apkSelectBtn.addEventListener('click',()=>apkFileInput.click()); apkFileInput.addEventListener('change',()=>{apkFileName.textContent=apkFileInput.files[0]?.name||'No APK selected';});
-        uploadForm.addEventListener('submit',(event)=>{event.preventDefault();const appName=appNameInput.value.trim(), category=categoryInput.value, description=descriptionInput.value.trim(), fileName=apkFileInput.files[0]?.name||`${appName.toLowerCase().replace(/\s+/g,'-')}.apk`;const appObject={id:`app_${Date.now()}`,name:appName,category,description,icon:categoryIcons[category]||'📱',iconUrl:`https://dummyimage.com/128x128/f3f4f6/111827&text=${encodeURIComponent((appName.charAt(0)||'A').toUpperCase())}`,downloadLink:`downloads/${encodeURIComponent(fileName)}`,apkFileName:fileName,status:'pending_verification',suggested_ad:microAdInput.checked,createdAt:new Date().toISOString()};const apps=getStoredApps();apps.push(appObject);setStoredApps(apps);uploadAlert.textContent='App uploaded successfully! It is now live under review on indapp store.';uploadAlert.classList.remove('hidden');uploadForm.reset();apkFileName.textContent='No APK selected';renderAdminReviewPanel();setTimeout(()=>uploadAlert.classList.add('hidden'),5000);});
-        document.addEventListener('DOMContentLoaded',renderAdminReviewPanel);
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#312E81'
+                    },
+                    boxShadow: {
+                        soft: '0 20px 50px rgba(17, 24, 39, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#f8fafc] text-[#111827] antialiased">
+    <div class="min-h-screen">
+        <div class="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
+            <header class="mb-6 rounded-[2rem] border border-gray-200 bg-white p-5 shadow-soft sm:p-6">
+                <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <p class="text-sm font-bold uppercase tracking-[0.26em] text-gray-400">Private Creator Operations</p>
+                        <h1 class="mt-2 text-3xl font-black tracking-tight text-[#111827]">Qorelysofts Developer Compliance Portal</h1>
+                        <p class="mt-2 max-w-2xl text-sm leading-6 text-gray-600">Secure creator onboarding, production upload intake, and internal verification for indapp store publishing.</p>
+                    </div>
+                    <a href="index.html" class="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-bold text-[#111827] transition hover:bg-gray-50">Back to Main Site</a>
+                </div>
+            </header>
+
+            <main class="grid gap-6 xl:grid-cols-[1fr_0.92fr]">
+                <section class="space-y-6">
+                    <div class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-soft sm:p-7">
+                        <div class="mb-6">
+                            <p class="text-sm font-bold uppercase tracking-[0.26em] text-gray-400">Compliance registration</p>
+                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Authorized creator onboarding</h2>
+                            <p class="mt-2 text-sm leading-6 text-gray-600">Submit complete legal identity details for manual trust and policy review before publishing.</p>
+                        </div>
+
+                        <div id="profile-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
+
+                        <form id="profile-form" class="space-y-5">
+                            <div>
+                                <label for="full-name" class="mb-2 block text-sm font-semibold text-gray-700">Full Legal Name / Authorized Representative Name</label>
+                                <input id="full-name" type="text" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter legal full name">
+                            </div>
+
+                            <div>
+                                <label for="phone-number" class="mb-2 block text-sm font-semibold text-gray-700">Contact Phone Number</label>
+                                <input id="phone-number" type="tel" required pattern="^\+91[6-9][0-9]{9}$" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="+919876543210">
+                                <p class="mt-2 text-xs text-gray-500">Must begin with +91 and include a valid 10-digit Indian mobile number.</p>
+                            </div>
+
+                            <div>
+                                <label for="legal-address" class="mb-2 block text-sm font-semibold text-gray-700">Official Physical / Legal Address</label>
+                                <textarea id="legal-address" rows="4" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Registered address, city, state, PIN code"></textarea>
+                            </div>
+
+                            <div>
+                                <span class="mb-2 block text-sm font-semibold text-gray-700">Account Type</span>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button type="button" data-account-type="Individual" class="account-type-btn rounded-2xl border border-gray-200 bg-brand px-4 py-3 text-sm font-bold text-white">Individual</button>
+                                    <button type="button" data-account-type="Organization" class="account-type-btn rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-[#111827]">Organization</button>
+                                </div>
+                                <input id="account-type" type="hidden" value="Individual">
+                            </div>
+
+                            <div id="organization-fields" class="hidden space-y-5 rounded-[1.5rem] border border-gray-200 bg-gray-50 p-4">
+                                <div>
+                                    <label for="organization-name" class="mb-2 block text-sm font-semibold text-gray-700">Organization Name</label>
+                                    <input id="organization-name" type="text" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter organization or company name">
+                                </div>
+                                <div>
+                                    <label for="business-id" class="mb-2 block text-sm font-semibold text-gray-700">Corporate Business Registration ID / PAN</label>
+                                    <input id="business-id" type="text" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter CIN, GSTIN, PAN, or registration reference">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-900">Submit Compliance Profile</button>
+                        </form>
+                    </div>
+
+                    <div class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-soft sm:p-7">
+                        <div class="mb-6">
+                            <p class="text-sm font-bold uppercase tracking-[0.26em] text-gray-400">Production upload intake</p>
+                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Application submission</h2>
+                            <p class="mt-2 text-sm leading-6 text-gray-600">Declare package metadata and attach the distributable build for verification screening.</p>
+                        </div>
+
+                        <div id="app-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
+
+                        <form id="app-form" class="space-y-5">
+                            <div>
+                                <label for="app-title" class="mb-2 block text-sm font-semibold text-gray-700">App Title</label>
+                                <input id="app-title" type="text" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter final product title">
+                            </div>
+
+                            <div>
+                                <label for="app-category" class="mb-2 block text-sm font-semibold text-gray-700">Category</label>
+                                <select id="app-category" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50">
+                                    <option value="Education">Education</option>
+                                    <option value="Tech">Tech Utilities</option>
+                                    <option value="Sports">Sports &amp; Health</option>
+                                    <option value="Govt">Sarkari Utilities</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="package-name" class="mb-2 block text-sm font-semibold text-gray-700">App Package Name</label>
+                                <input id="package-name" type="text" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="com.company.product">
+                            </div>
+
+                            <div>
+                                <label for="app-description" class="mb-2 block text-sm font-semibold text-gray-700">App Description</label>
+                                <textarea id="app-description" rows="4" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Explain the utility, target users, and public value of the application."></textarea>
+                            </div>
+
+                            <div>
+                                <label class="mb-2 block text-sm font-semibold text-gray-700">Secure Build Upload</label>
+                                <div id="drop-zone" class="rounded-[1.75rem] border-2 border-dashed border-gray-200 bg-gray-50 p-6 text-center sm:p-8">
+                                    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-3xl shadow-sm">📦</div>
+                                    <p class="mt-4 text-base font-bold text-[#111827]">Drag and drop release build</p>
+                                    <p class="mt-2 text-sm text-gray-600">or browse for the application package file</p>
+                                    <input id="apk-file" type="file" class="hidden">
+                                    <button id="select-build-btn" type="button" class="mt-5 rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Choose File</button>
+                                    <p id="selected-file-name" class="mt-3 text-xs font-medium text-gray-500">No file selected</p>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-900">Submit App for Review</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="space-y-6">
+                    <div class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-soft sm:p-7">
+                        <div class="mb-5 flex items-center justify-between gap-4">
+                            <div>
+                                <p class="text-sm font-bold uppercase tracking-[0.26em] text-gray-400">Internal access</p>
+                                <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Admin verification panel</h2>
+                            </div>
+                            <span class="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-red-700">Restricted</span>
+                        </div>
+
+                        <div class="rounded-[1.5rem] border border-gray-200 bg-gray-50 p-4">
+                            <label for="admin-passcode" class="mb-2 block text-sm font-semibold text-gray-700">Qorelysofts Internal Passcode</label>
+                            <div class="flex flex-col gap-3 sm:flex-row">
+                                <input id="admin-passcode" type="password" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter internal admin passcode">
+                                <button id="admin-toggle-btn" type="button" class="rounded-full bg-[#111827] px-5 py-3 text-sm font-bold text-white transition hover:bg-black">Unlock Panel</button>
+                            </div>
+                            <p class="mt-3 text-xs text-gray-500">This view is for internal verification staff only.</p>
+                        </div>
+                    </div>
+
+                    <div id="admin-panel" class="hidden rounded-[2rem] border border-gray-200 bg-white p-6 shadow-soft sm:p-7">
+                        <div class="mb-5 flex items-center justify-between gap-4">
+                            <div>
+                                <p class="text-sm font-bold uppercase tracking-[0.26em] text-gray-400">Review queue</p>
+                                <h3 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Under review entries</h3>
+                            </div>
+                            <button id="refresh-admin-panel" type="button" class="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-[#111827] transition hover:bg-gray-50">Refresh</button>
+                        </div>
+
+                        <div id="admin-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
+                        <div id="under-review-list" class="grid gap-4"></div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://ypbcnndadggdamiwqkfn.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwYmNubmRhZGdnZGFtaXdxa2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Mzg5NTAsImV4cCI6MjA5OTUxNDk1MH0.DJHANfWjfMr9qXs0XTPyJcIoM9zq7YHcqWhLtkYrdXs';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const INTERNAL_ADMIN_PASSCODE = 'QORELY-SECURE-ADMIN';
+
+        const profileForm = document.getElementById('profile-form');
+        const appForm = document.getElementById('app-form');
+        const profileAlert = document.getElementById('profile-alert');
+        const appAlert = document.getElementById('app-alert');
+        const adminAlert = document.getElementById('admin-alert');
+        const accountTypeInput = document.getElementById('account-type');
+        const accountTypeButtons = document.querySelectorAll('.account-type-btn');
+        const organizationFields = document.getElementById('organization-fields');
+        const organizationNameInput = document.getElementById('organization-name');
+        const businessIdInput = document.getElementById('business-id');
+        const selectBuildBtn = document.getElementById('select-build-btn');
+        const apkFileInput = document.getElementById('apk-file');
+        const selectedFileName = document.getElementById('selected-file-name');
+        const dropZone = document.getElementById('drop-zone');
+        const adminPasscodeInput = document.getElementById('admin-passcode');
+        const adminToggleBtn = document.getElementById('admin-toggle-btn');
+        const adminPanel = document.getElementById('admin-panel');
+        const refreshAdminPanelBtn = document.getElementById('refresh-admin-panel');
+        const underReviewList = document.getElementById('under-review-list');
+
+        let latestDeveloperRecord = null;
+
+        function setAlert(target, message, kind = 'success') {
+            const styles = kind === 'success'
+                ? 'border-green-200 bg-green-50 text-green-800'
+                : 'border-red-200 bg-red-50 text-red-700';
+            target.className = `mb-5 rounded-2xl border px-4 py-3 text-sm font-semibold ${styles}`;
+            target.textContent = message;
+            target.classList.remove('hidden');
+        }
+
+        function indianPhoneIsValid(phone) {
+            return /^\+91[6-9][0-9]{9}$/.test(phone);
+        }
+
+        function toggleOrganizationFields(type) {
+            const isOrganization = type === 'Organization';
+            organizationFields.classList.toggle('hidden', !isOrganization);
+            organizationNameInput.required = isOrganization;
+            businessIdInput.required = isOrganization;
+            accountTypeButtons.forEach((button) => {
+                const active = button.dataset.accountType === type;
+                button.className = `account-type-btn rounded-2xl border border-gray-200 px-4 py-3 text-sm font-bold transition ${active ? 'bg-brand text-white' : 'bg-white text-[#111827]'}`;
+            });
+        }
+
+        async function createDeveloperProfile(payload) {
+            const { data, error } = await supabaseClient
+                .from('developers')
+                .insert(payload)
+                .select()
+                .single();
+
+            if (error) throw error;
+            latestDeveloperRecord = data;
+            return data;
+        }
+
+        async function createAppSubmission(payload) {
+            const { data, error } = await supabaseClient
+                .from('apps')
+                .insert(payload)
+                .select()
+                .single();
+
+            if (error) throw error;
+            return data;
+        }
+
+        async function fetchUnderReviewEntries() {
+            const { data, error } = await supabaseClient
+                .from('apps')
+                .select('*')
+                .eq('verification_status', 'under_review')
+                .order('id', { ascending: false });
+
+            if (error) throw error;
+
+            const apps = data || [];
+            const developerIds = [...new Set(apps.map((entry) => entry.developer_id).filter(Boolean))];
+
+            if (!developerIds.length) {
+                return apps;
+            }
+
+            const { data: developers, error: developerError } = await supabaseClient
+                .from('developers')
+                .select('*')
+                .in('id', developerIds);
+
+            if (developerError) throw developerError;
+
+            const developerMap = new Map((developers || []).map((developer) => [String(developer.id), developer]));
+            return apps.map((entry) => ({
+                ...entry,
+                developer_details: developerMap.get(String(entry.developer_id)) || null
+            }));
+        }
+
+        function formatCategory(category) {
+            const categoryLabels = {
+                Education: 'Education',
+                Tech: 'Tech Utilities',
+                Sports: 'Sports & Health',
+                Govt: 'Sarkari Utilities'
+            };
+            return categoryLabels[category] || category;
+        }
+
+        async function verifyAndPublish(appId, developerId) {
+            const appUpdate = await supabaseClient
+                .from('apps')
+                .update({ verification_status: 'approved' })
+                .eq('id', appId);
+
+            if (appUpdate.error) throw appUpdate.error;
+
+            if (developerId) {
+                const developerUpdate = await supabaseClient
+                    .from('developers')
+                    .update({ status: 'approved' })
+                    .eq('id', developerId);
+
+                if (developerUpdate.error) throw developerUpdate.error;
+            }
+        }
+
+        function renderUnderReview(entries) {
+            if (!entries.length) {
+                underReviewList.innerHTML = '<div class="rounded-[1.5rem] border border-dashed border-gray-200 bg-gray-50 p-5 text-sm text-gray-600">No applications are currently under review.</div>';
+                return;
+            }
+
+            underReviewList.innerHTML = entries.map((entry) => `
+                <article class="rounded-[1.5rem] border border-gray-200 bg-gray-50 p-5">
+                    <div class="flex flex-col gap-4">
+                        <div class="flex items-start justify-between gap-4">
+                            <div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <h4 class="text-xl font-black text-[#111827]">${entry.title}</h4>
+                                    <span class="rounded-full bg-yellow-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-yellow-800">Under Review</span>
+                                </div>
+                                <p class="mt-1 text-sm font-medium text-gray-500">${formatCategory(entry.category)} • ${entry.package_name || 'No package name recorded'}</p>
+                                <p class="mt-3 text-sm leading-6 text-gray-600">${entry.description}</p>
+                            </div>
+                            <button data-app-id="${entry.id}" data-developer-id="${entry.developer_id || ''}" class="verify-app-btn rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Verify &amp; Publish</button>
+                        </div>
+                        <div class="rounded-2xl border border-gray-200 bg-white p-4 text-sm text-gray-700">
+                            <p><span class="font-semibold text-[#111827]">Developer ID:</span> ${entry.developer_id || 'Not linked'}</p>
+                            <p class="mt-1"><span class="font-semibold text-[#111827]">Representative:</span> ${entry.developer_details?.name || 'Not available'}</p>
+                            <p class="mt-1"><span class="font-semibold text-[#111827]">Phone:</span> ${entry.developer_details?.phone || 'Not available'}</p>
+                            <p class="mt-1"><span class="font-semibold text-[#111827]">Address:</span> ${entry.developer_details?.legal_address || 'Not available'}</p>
+                            <p class="mt-1"><span class="font-semibold text-[#111827]">Account Type:</span> ${entry.developer_details?.account_type || 'Not available'}</p>
+                            <p class="mt-1"><span class="font-semibold text-[#111827]">Organization:</span> ${entry.developer_details?.organization_name || 'Not applicable'}</p>
+                            <p class="mt-1"><span class="font-semibold text-[#111827]">Registration / PAN:</span> ${entry.developer_details?.business_registration_id || 'Not applicable'}</p>
+                            <p class="mt-1"><span class="font-semibold text-[#111827]">Declared file:</span> ${entry.apk_filename || 'Not provided'}</p>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+
+            document.querySelectorAll('.verify-app-btn').forEach((button) => {
+                button.addEventListener('click', async () => {
+                    try {
+                        await verifyAndPublish(button.dataset.appId, button.dataset.developerId || null);
+                        setAlert(adminAlert, 'Application verified and published successfully.', 'success');
+                        loadUnderReviewEntries();
+                    } catch (error) {
+                        setAlert(adminAlert, `Verification failed: ${error.message}`, 'error');
+                    }
+                });
+            });
+        }
+
+        async function loadUnderReviewEntries() {
+            try {
+                const entries = await fetchUnderReviewEntries();
+                renderUnderReview(entries);
+            } catch (error) {
+                underReviewList.innerHTML = `<div class="rounded-[1.5rem] border border-red-200 bg-red-50 p-5 text-sm text-red-700">Unable to load review queue: ${error.message}</div>`;
+            }
+        }
+
+        accountTypeButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                accountTypeInput.value = button.dataset.accountType;
+                toggleOrganizationFields(button.dataset.accountType);
+            });
+        });
+
+        selectBuildBtn.addEventListener('click', () => apkFileInput.click());
+        apkFileInput.addEventListener('change', () => {
+            selectedFileName.textContent = apkFileInput.files[0]?.name || 'No file selected';
+        });
+
+        ['dragenter', 'dragover'].forEach((eventName) => {
+            dropZone.addEventListener(eventName, (event) => {
+                event.preventDefault();
+                dropZone.classList.add('border-brand', 'bg-indigo-50');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach((eventName) => {
+            dropZone.addEventListener(eventName, (event) => {
+                event.preventDefault();
+                dropZone.classList.remove('border-brand', 'bg-indigo-50');
+            });
+        });
+
+        dropZone.addEventListener('drop', (event) => {
+            const file = event.dataTransfer.files[0];
+            if (file) {
+                const transfer = new DataTransfer();
+                transfer.items.add(file);
+                apkFileInput.files = transfer.files;
+                selectedFileName.textContent = file.name;
+            }
+        });
+
+        profileForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const phone = document.getElementById('phone-number').value.trim();
+            if (!indianPhoneIsValid(phone)) {
+                setAlert(profileAlert, 'Contact number must follow the +91 format with a valid Indian mobile number.', 'error');
+                return;
+            }
+
+            const accountType = accountTypeInput.value;
+            const payload = {
+                name: document.getElementById('full-name').value.trim(),
+                email: `${Date.now()}@creator.local`,
+                phone,
+                legal_address: document.getElementById('legal-address').value.trim(),
+                account_type: accountType,
+                organization_name: accountType === 'Organization' ? organizationNameInput.value.trim() : null,
+                business_registration_id: accountType === 'Organization' ? businessIdInput.value.trim() : null,
+                status: 'pending_review'
+            };
+
+            try {
+                const developer = await createDeveloperProfile(payload);
+                setAlert(profileAlert, `Compliance profile submitted successfully. Reference ID: ${developer.id}`, 'success');
+            } catch (error) {
+                setAlert(profileAlert, `Profile submission failed: ${error.message}`, 'error');
+            }
+        });
+
+        appForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (!latestDeveloperRecord) {
+                setAlert(appAlert, 'Please complete and submit the compliance profile before uploading an application.', 'error');
+                return;
+            }
+
+            const payload = {
+                developer_id: latestDeveloperRecord.id,
+                title: document.getElementById('app-title').value.trim(),
+                category: document.getElementById('app-category').value,
+                package_name: document.getElementById('package-name').value.trim(),
+                description: document.getElementById('app-description').value.trim(),
+                apk_filename: apkFileInput.files[0]?.name || null,
+                verification_status: 'under_review',
+                status: 'under_review',
+                icon: '📱'
+            };
+
+            try {
+                const submission = await createAppSubmission(payload);
+                setAlert(appAlert, `Application submitted for review successfully. Queue ID: ${submission.id}`, 'success');
+                appForm.reset();
+                selectedFileName.textContent = 'No file selected';
+                loadUnderReviewEntries();
+            } catch (error) {
+                setAlert(appAlert, `App submission failed: ${error.message}`, 'error');
+            }
+        });
+
+        adminToggleBtn.addEventListener('click', () => {
+            if (adminPasscodeInput.value !== INTERNAL_ADMIN_PASSCODE) {
+                setAlert(adminAlert, 'Incorrect internal passcode.', 'error');
+                adminPanel.classList.add('hidden');
+                return;
+            }
+
+            adminPanel.classList.remove('hidden');
+            adminAlert.classList.add('hidden');
+            loadUnderReviewEntries();
+        });
+
+        refreshAdminPanelBtn.addEventListener('click', loadUnderReviewEntries);
+        toggleOrganizationFields('Individual');
     </script>
 </body>
 </html>
