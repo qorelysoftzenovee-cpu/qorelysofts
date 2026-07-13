@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qorelysofts | Developer Console</title>
+  <meta name="description" content="Secure gateway to the Qorelysofts Developer Console." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#4F46E5',
+            border: '#E5E7EB',
+            body: '#F8FAFC'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-white text-slate-900 antialiased">
+  <div class="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md space-y-8 rounded-3xl border border-slate-200 bg-white px-8 py-10 shadow-[0_24px_80px_rgba(31,41,55,0.08)]">
+      <div class="text-center">
+        <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Secure Access</p>
+        <h1 class="mt-4 text-3xl font-black tracking-tight text-slate-900">qorelysofts | Developer Console</h1>
+      </div>
+      <form id="loginForm" class="mt-8 space-y-6" novalidate>
+        <div class="space-y-5">
+          <label class="block text-sm font-semibold text-slate-700">
+            Developer Email
+            <input
+              type="email"
+              id="email"
+              placeholder="name@example.com"
+              required
+              class="mt-3 w-full rounded-2xl border border-border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
+            />
+          </label>
+          <label class="block text-sm font-semibold text-slate-700">
+            Access Password
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your access password"
+              required
+              class="mt-3 w-full rounded-2xl border border-border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
+            />
+          </label>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            id="submitButton"
+            class="flex w-full items-center justify-center rounded-2xl bg-brand px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-brand/50"
+          >
+            <span id="buttonText">Sign In to Developer Console</span>
+            <svg id="spinner" class="ml-3 hidden h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+          </button>
+        </div>
+      </form>
+      <p id="errorMessage" class="hidden rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700"></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const buttonText = document.getElementById('buttonText');
+    const spinner = document.getElementById('spinner');
+    const errorMessage = document.getElementById('errorMessage');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      errorMessage.classList.add('hidden');
+      errorMessage.textContent = '';
+
+      const emailValue = email.value.trim();
+      const passwordValue = password.value.trim();
+
+      if (!emailValue || !passwordValue) {
+        errorMessage.textContent = 'Please enter your developer email and access password.';
+        errorMessage.classList.remove('hidden');
+        return;
+      }
+
+      buttonText.textContent = 'Signing in...';
+      spinner.classList.remove('hidden');
+      form.querySelector('button').disabled = true;
+
+      setTimeout(() => {
+        window.location.href = 'developer.html';
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
