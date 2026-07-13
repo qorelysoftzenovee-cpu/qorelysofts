@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qorelysofts Creator Portal | indapp store</title>
-    <meta name="description" content="Private creator portal for compliant onboarding, secure app submission, and internal verification workflows.">
+    <title>Qorelysofts Developer Portal | indapp store</title>
+    <meta name="description" content="Private creator dashboard for compliance verification, license activation, app submissions, and internal publishing review.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: '#312E81'
+                        brand: '#312E81',
+                        accent: '#16A34A'
                     },
                     boxShadow: {
                         soft: '0 20px 50px rgba(17, 24, 39, 0.08)'
@@ -25,74 +27,105 @@
 <body class="bg-[#f8fafc] text-[#111827] antialiased">
     <div class="min-h-screen">
         <div class="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
-            <header class="mb-6 rounded-[2rem] border border-gray-200 bg-white p-5 shadow-soft sm:p-6">
+            <header class="mb-6 rounded-[2rem] border border-[#F3F4F6] bg-white p-5 shadow-soft sm:p-6">
                 <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
                     <div>
-                        <p class="text-sm font-bold uppercase tracking-[0.26em] text-gray-400">Private Creator Operations</p>
-                        <h1 class="mt-2 text-3xl font-black tracking-tight text-[#111827]">Qorelysofts Developer Compliance Portal</h1>
-                        <p class="mt-2 max-w-2xl text-sm leading-6 text-gray-600">Secure creator onboarding, production upload intake, and internal verification for indapp store publishing.</p>
+                        <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Private Creator Portal</p>
+                        <h1 class="mt-2 text-3xl font-black tracking-tight text-[#111827]">Qorelysofts Developer Dashboard</h1>
                     </div>
-                    <a href="index.html" class="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-bold text-[#111827] transition hover:bg-gray-50">Back to Main Site</a>
+                    <a href="index.html" class="inline-flex items-center justify-center rounded-full border border-[#F3F4F6] bg-white px-5 py-3 text-sm font-bold text-[#111827] transition hover:bg-gray-50">Back to Main Site</a>
                 </div>
             </header>
 
             <main class="grid gap-6 xl:grid-cols-[1fr_0.92fr]">
                 <section class="space-y-6">
-                    <div class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-soft sm:p-7">
+                    <div class="rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
                         <div class="mb-6">
-                            <p class="text-sm font-bold uppercase tracking-[0.26em] text-gray-400">Compliance registration</p>
-                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Authorized creator onboarding</h2>
-                            <p class="mt-2 text-sm leading-6 text-gray-600">Submit complete legal identity details for manual trust and policy review before publishing.</p>
+                            <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Identity verification</p>
+                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Creator compliance intake</h2>
                         </div>
 
                         <div id="profile-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
 
                         <form id="profile-form" class="space-y-5">
                             <div>
-                                <label for="full-name" class="mb-2 block text-sm font-semibold text-gray-700">Full Legal Name / Authorized Representative Name</label>
-                                <input id="full-name" type="text" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter legal full name">
+                                <label for="full-name" class="mb-2 block text-sm font-semibold text-gray-700">Full Legal Name</label>
+                                <input id="full-name" type="text" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter full legal name">
                             </div>
 
                             <div>
-                                <label for="phone-number" class="mb-2 block text-sm font-semibold text-gray-700">Contact Phone Number</label>
-                                <input id="phone-number" type="tel" required pattern="^\+91[6-9][0-9]{9}$" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="+919876543210">
-                                <p class="mt-2 text-xs text-gray-500">Must begin with +91 and include a valid 10-digit Indian mobile number.</p>
+                                <label for="email-address" class="mb-2 block text-sm font-semibold text-gray-700">Email Address</label>
+                                <input id="email-address" type="email" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter official email address">
                             </div>
 
                             <div>
-                                <label for="legal-address" class="mb-2 block text-sm font-semibold text-gray-700">Official Physical / Legal Address</label>
-                                <textarea id="legal-address" rows="4" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Registered address, city, state, PIN code"></textarea>
+                                <label for="phone-number" class="mb-2 block text-sm font-semibold text-gray-700">Phone Number</label>
+                                <input id="phone-number" type="tel" required pattern="^\+91[6-9][0-9]{9}$" class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="+919876543210">
                             </div>
 
                             <div>
-                                <span class="mb-2 block text-sm font-semibold text-gray-700">Account Type</span>
+                                <label for="physical-address" class="mb-2 block text-sm font-semibold text-gray-700">Physical Address</label>
+                                <textarea id="physical-address" rows="4" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter full legal or business address"></textarea>
+                            </div>
+
+                            <div>
+                                <span class="mb-2 block text-sm font-semibold text-gray-700">Account Status Type</span>
                                 <div class="grid grid-cols-2 gap-3">
-                                    <button type="button" data-account-type="Individual" class="account-type-btn rounded-2xl border border-gray-200 bg-brand px-4 py-3 text-sm font-bold text-white">Individual</button>
-                                    <button type="button" data-account-type="Organization" class="account-type-btn rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-[#111827]">Organization</button>
+                                    <button type="button" data-account-type="Individual" class="account-type-btn rounded-2xl border border-[#F3F4F6] bg-brand px-4 py-3 text-sm font-bold text-white">Individual</button>
+                                    <button type="button" data-account-type="Organization" class="account-type-btn rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3 text-sm font-bold text-[#111827]">Organization</button>
                                 </div>
                                 <input id="account-type" type="hidden" value="Individual">
                             </div>
 
-                            <div id="organization-fields" class="hidden space-y-5 rounded-[1.5rem] border border-gray-200 bg-gray-50 p-4">
+                            <div id="organization-fields" class="hidden space-y-5 rounded-[1.5rem] border border-[#F3F4F6] bg-gray-50 p-4">
                                 <div>
                                     <label for="organization-name" class="mb-2 block text-sm font-semibold text-gray-700">Organization Name</label>
-                                    <input id="organization-name" type="text" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter organization or company name">
+                                    <input id="organization-name" type="text" class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter organization name">
                                 </div>
                                 <div>
-                                    <label for="business-id" class="mb-2 block text-sm font-semibold text-gray-700">Corporate Business Registration ID / PAN</label>
-                                    <input id="business-id" type="text" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter CIN, GSTIN, PAN, or registration reference">
+                                    <label for="business-id" class="mb-2 block text-sm font-semibold text-gray-700">Business Tax / Registration ID</label>
+                                    <input id="business-id" type="text" class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter PAN, CIN, GSTIN, or registration ID">
                                 </div>
                             </div>
 
-                            <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-900">Submit Compliance Profile</button>
+                            <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-900">Submit Verification Profile</button>
                         </form>
                     </div>
 
-                    <div class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-soft sm:p-7">
+                    <div class="rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
                         <div class="mb-6">
-                            <p class="text-sm font-bold uppercase tracking-[0.26em] text-gray-400">Production upload intake</p>
-                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Application submission</h2>
-                            <p class="mt-2 text-sm leading-6 text-gray-600">Declare package metadata and attach the distributable build for verification screening.</p>
+                            <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">License activation</p>
+                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Choose your access plan</h2>
+                        </div>
+
+                        <div id="pricing-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
+
+                        <div class="grid gap-4 md:grid-cols-2">
+                            <article class="rounded-[1.75rem] border border-[#F3F4F6] bg-white p-5 shadow-soft">
+                                <p class="text-sm font-bold uppercase tracking-[0.20em] text-gray-400">Single App Pass</p>
+                                <h3 class="mt-3 text-3xl font-black text-[#111827]">₹250</h3>
+                                <p class="mt-3 text-sm text-gray-600">Allows uploading 1 utility app.</p>
+                                <button data-plan="Single App Pass" data-slots="1" data-amount="25000" class="license-pay-btn mt-5 inline-flex w-full items-center justify-center rounded-full bg-brand px-4 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Pay and Activate</button>
+                            </article>
+
+                            <article class="rounded-[1.75rem] border border-[#F3F4F6] bg-white p-5 shadow-soft">
+                                <p class="text-sm font-bold uppercase tracking-[0.20em] text-gray-400">Ecosystem Growth Bundle</p>
+                                <h3 class="mt-3 text-3xl font-black text-[#111827]">₹1,000</h3>
+                                <p class="mt-3 text-sm text-gray-600">Best Value — Allows uploading 15 utility apps.</p>
+                                <button data-plan="Ecosystem Growth Bundle" data-slots="15" data-amount="100000" class="license-pay-btn mt-5 inline-flex w-full items-center justify-center rounded-full bg-brand px-4 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Pay and Activate</button>
+                            </article>
+                        </div>
+
+                        <div class="mt-5 rounded-2xl border border-[#F3F4F6] bg-gray-50 px-4 py-3 text-sm text-gray-600">
+                            <span class="font-semibold text-[#111827]">Slots Remaining:</span>
+                            <span id="slots-remaining-label">0</span>
+                        </div>
+                    </div>
+
+                    <div class="rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
+                        <div class="mb-6">
+                            <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Distribution upload</p>
+                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Submit application package</h2>
                         </div>
 
                         <div id="app-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
@@ -100,12 +133,22 @@
                         <form id="app-form" class="space-y-5">
                             <div>
                                 <label for="app-title" class="mb-2 block text-sm font-semibold text-gray-700">App Title</label>
-                                <input id="app-title" type="text" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter final product title">
+                                <input id="app-title" type="text" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter application title">
+                            </div>
+
+                            <div>
+                                <label for="package-name" class="mb-2 block text-sm font-semibold text-gray-700">Package Name</label>
+                                <input id="package-name" type="text" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="com.name.product">
+                            </div>
+
+                            <div>
+                                <label for="app-description" class="mb-2 block text-sm font-semibold text-gray-700">Description</label>
+                                <textarea id="app-description" rows="4" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Describe the utility, audience, and public value."></textarea>
                             </div>
 
                             <div>
                                 <label for="app-category" class="mb-2 block text-sm font-semibold text-gray-700">Category</label>
-                                <select id="app-category" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50">
+                                <select id="app-category" required class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50">
                                     <option value="Education">Education</option>
                                     <option value="Tech">Tech Utilities</option>
                                     <option value="Sports">Sports &amp; Health</option>
@@ -114,59 +157,68 @@
                             </div>
 
                             <div>
-                                <label for="package-name" class="mb-2 block text-sm font-semibold text-gray-700">App Package Name</label>
-                                <input id="package-name" type="text" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="com.company.product">
-                            </div>
-
-                            <div>
-                                <label for="app-description" class="mb-2 block text-sm font-semibold text-gray-700">App Description</label>
-                                <textarea id="app-description" rows="4" required class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Explain the utility, target users, and public value of the application."></textarea>
-                            </div>
-
-                            <div>
-                                <label class="mb-2 block text-sm font-semibold text-gray-700">Secure Build Upload</label>
-                                <div id="drop-zone" class="rounded-[1.75rem] border-2 border-dashed border-gray-200 bg-gray-50 p-6 text-center sm:p-8">
+                                <label class="mb-2 block text-sm font-semibold text-gray-700">APK Attachment</label>
+                                <div id="drop-zone" class="rounded-[1.75rem] border-2 border-dashed border-[#F3F4F6] bg-gray-50 p-6 text-center sm:p-8">
                                     <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-3xl shadow-sm">📦</div>
-                                    <p class="mt-4 text-base font-bold text-[#111827]">Drag and drop release build</p>
-                                    <p class="mt-2 text-sm text-gray-600">or browse for the application package file</p>
+                                    <p class="mt-4 text-base font-bold text-[#111827]">Drop APK file here</p>
+                                    <p class="mt-2 text-sm text-gray-600">or choose the distributable build file</p>
                                     <input id="apk-file" type="file" class="hidden">
                                     <button id="select-build-btn" type="button" class="mt-5 rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Choose File</button>
                                     <p id="selected-file-name" class="mt-3 text-xs font-medium text-gray-500">No file selected</p>
                                 </div>
                             </div>
 
-                            <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-900">Submit App for Review</button>
+                            <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-900">Upload for Review</button>
                         </form>
                     </div>
                 </section>
 
                 <section class="space-y-6">
-                    <div class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-soft sm:p-7">
+                    <div class="rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
+                        <div class="mb-6">
+                            <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Micro-ad manager</p>
+                            <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Utility highlight planner</h2>
+                        </div>
+
+                        <div id="campaign-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
+
+                        <div class="rounded-[1.75rem] border border-[#F3F4F6] bg-gray-50 p-5">
+                            <label for="ad-budget" class="mb-2 block text-sm font-semibold text-gray-700">Campaign Budget</label>
+                            <input id="ad-budget" type="range" min="100" max="5000" step="100" value="100" class="w-full accent-[#312E81]">
+                            <div class="mt-4 flex items-center gap-3">
+                                <span class="text-sm font-semibold text-gray-500">₹</span>
+                                <input id="ad-budget-input" type="number" min="100" max="5000" step="100" value="100" class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3 text-sm font-semibold text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50">
+                            </div>
+                            <p id="impression-output" class="mt-4 text-sm font-semibold text-[#111827]">Your utility will be highlighted to 3,000 Indian mobile devices.</p>
+                            <button id="launch-ad-btn" type="button" class="mt-5 inline-flex w-full items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Launch Ad Campaign</button>
+                        </div>
+                    </div>
+
+                    <div class="rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
                         <div class="mb-5 flex items-center justify-between gap-4">
                             <div>
-                                <p class="text-sm font-bold uppercase tracking-[0.26em] text-gray-400">Internal access</p>
-                                <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Admin verification panel</h2>
+                                <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Internal review</p>
+                                <h2 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Qorelysofts Internal Verification Engine</h2>
                             </div>
                             <span class="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-red-700">Restricted</span>
                         </div>
 
-                        <div class="rounded-[1.5rem] border border-gray-200 bg-gray-50 p-4">
-                            <label for="admin-passcode" class="mb-2 block text-sm font-semibold text-gray-700">Qorelysofts Internal Passcode</label>
+                        <div class="rounded-[1.5rem] border border-[#F3F4F6] bg-gray-50 p-4">
+                            <label for="admin-passcode" class="mb-2 block text-sm font-semibold text-gray-700">Internal Passcode</label>
                             <div class="flex flex-col gap-3 sm:flex-row">
-                                <input id="admin-passcode" type="password" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter internal admin passcode">
-                                <button id="admin-toggle-btn" type="button" class="rounded-full bg-[#111827] px-5 py-3 text-sm font-bold text-white transition hover:bg-black">Unlock Panel</button>
+                                <input id="admin-passcode" type="password" class="w-full rounded-2xl border border-[#F3F4F6] bg-white px-4 py-3 text-sm text-[#111827] outline-none transition focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50" placeholder="Enter internal admin passcode">
+                                <button id="admin-toggle-btn" type="button" class="rounded-full bg-[#111827] px-5 py-3 text-sm font-bold text-white transition hover:bg-black">Unlock</button>
                             </div>
-                            <p class="mt-3 text-xs text-gray-500">This view is for internal verification staff only.</p>
                         </div>
                     </div>
 
-                    <div id="admin-panel" class="hidden rounded-[2rem] border border-gray-200 bg-white p-6 shadow-soft sm:p-7">
+                    <div id="admin-panel" class="hidden rounded-[2rem] border border-[#F3F4F6] bg-white p-6 shadow-soft sm:p-7">
                         <div class="mb-5 flex items-center justify-between gap-4">
                             <div>
-                                <p class="text-sm font-bold uppercase tracking-[0.26em] text-gray-400">Review queue</p>
-                                <h3 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Under review entries</h3>
+                                <p class="text-sm font-bold uppercase tracking-[0.24em] text-gray-400">Verification queue</p>
+                                <h3 class="mt-2 text-2xl font-black tracking-tight text-[#111827]">Applications under review</h3>
                             </div>
-                            <button id="refresh-admin-panel" type="button" class="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-[#111827] transition hover:bg-gray-50">Refresh</button>
+                            <button id="refresh-admin-panel" type="button" class="rounded-full border border-[#F3F4F6] bg-white px-4 py-2 text-sm font-semibold text-[#111827] transition hover:bg-gray-50">Refresh</button>
                         </div>
 
                         <div id="admin-alert" class="mb-5 hidden rounded-2xl border px-4 py-3 text-sm font-semibold"></div>
@@ -181,12 +233,16 @@
         const SUPABASE_URL = 'https://ypbcnndadggdamiwqkfn.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwYmNubmRhZGdnZGFtaXdxa2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Mzg5NTAsImV4cCI6MjA5OTUxNDk1MH0.DJHANfWjfMr9qXs0XTPyJcIoM9zq7YHcqWhLtkYrdXs';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const razorpayKey = 'rzp_test_YourKeyHere';
+        const razorpayLogo = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="28" fill="%23312E81"/><path d="M32 78 60 28l28 50H32Z" fill="white"/><circle cx="60" cy="70" r="10" fill="%2316A34A"/></svg>';
         const INTERNAL_ADMIN_PASSCODE = 'QORELY-SECURE-ADMIN';
 
         const profileForm = document.getElementById('profile-form');
         const appForm = document.getElementById('app-form');
         const profileAlert = document.getElementById('profile-alert');
+        const pricingAlert = document.getElementById('pricing-alert');
         const appAlert = document.getElementById('app-alert');
+        const campaignAlert = document.getElementById('campaign-alert');
         const adminAlert = document.getElementById('admin-alert');
         const accountTypeInput = document.getElementById('account-type');
         const accountTypeButtons = document.querySelectorAll('.account-type-btn');
@@ -202,6 +258,12 @@
         const adminPanel = document.getElementById('admin-panel');
         const refreshAdminPanelBtn = document.getElementById('refresh-admin-panel');
         const underReviewList = document.getElementById('under-review-list');
+        const slotsRemainingLabel = document.getElementById('slots-remaining-label');
+        const licenseButtons = document.querySelectorAll('.license-pay-btn');
+        const adBudget = document.getElementById('ad-budget');
+        const adBudgetInput = document.getElementById('ad-budget-input');
+        const impressionOutput = document.getElementById('impression-output');
+        const launchAdBtn = document.getElementById('launch-ad-btn');
 
         let latestDeveloperRecord = null;
 
@@ -225,20 +287,55 @@
             businessIdInput.required = isOrganization;
             accountTypeButtons.forEach((button) => {
                 const active = button.dataset.accountType === type;
-                button.className = `account-type-btn rounded-2xl border border-gray-200 px-4 py-3 text-sm font-bold transition ${active ? 'bg-brand text-white' : 'bg-white text-[#111827]'}`;
+                button.className = `account-type-btn rounded-2xl border border-[#F3F4F6] px-4 py-3 text-sm font-bold transition ${active ? 'bg-brand text-white' : 'bg-white text-[#111827]'}`;
             });
         }
 
-        async function createDeveloperProfile(payload) {
+        function formatCategory(category) {
+            const labels = {
+                Education: 'Education',
+                Tech: 'Tech Utilities',
+                Sports: 'Sports & Health',
+                Govt: 'Sarkari Utilities'
+            };
+            return labels[category] || category;
+        }
+
+        function getProfilePayload() {
+            const accountType = accountTypeInput.value;
+            return {
+                name: document.getElementById('full-name').value.trim(),
+                email: document.getElementById('email-address').value.trim(),
+                phone: document.getElementById('phone-number').value.trim(),
+                legal_address: document.getElementById('physical-address').value.trim(),
+                account_type: accountType,
+                organization_name: accountType === 'Organization' ? organizationNameInput.value.trim() : null,
+                business_registration_id: accountType === 'Organization' ? businessIdInput.value.trim() : null,
+                status: 'pending_review'
+            };
+        }
+
+        async function upsertDeveloperProfile(payload, extraFields = {}) {
+            const merged = { ...payload, ...extraFields };
             const { data, error } = await supabaseClient
                 .from('developers')
-                .insert(payload)
+                .upsert(merged, { onConflict: 'email' })
                 .select()
                 .single();
 
             if (error) throw error;
             latestDeveloperRecord = data;
+            slotsRemainingLabel.textContent = data.paid_slots_remaining ?? 0;
             return data;
+        }
+
+        async function ensureDeveloperProfileExists() {
+            if (latestDeveloperRecord) return latestDeveloperRecord;
+            const payload = getProfilePayload();
+            if (!payload.name || !payload.email || !payload.phone || !payload.legal_address) {
+                throw new Error('Please complete the verification profile first.');
+            }
+            return upsertDeveloperProfile(payload);
         }
 
         async function createAppSubmission(payload) {
@@ -263,10 +360,7 @@
 
             const apps = data || [];
             const developerIds = [...new Set(apps.map((entry) => entry.developer_id).filter(Boolean))];
-
-            if (!developerIds.length) {
-                return apps;
-            }
+            if (!developerIds.length) return apps;
 
             const { data: developers, error: developerError } = await supabaseClient
                 .from('developers')
@@ -282,42 +376,24 @@
             }));
         }
 
-        function formatCategory(category) {
-            const categoryLabels = {
-                Education: 'Education',
-                Tech: 'Tech Utilities',
-                Sports: 'Sports & Health',
-                Govt: 'Sarkari Utilities'
-            };
-            return categoryLabels[category] || category;
-        }
-
         async function verifyAndPublish(appId, developerId) {
-            const appUpdate = await supabaseClient
-                .from('apps')
-                .update({ verification_status: 'approved' })
-                .eq('id', appId);
-
+            const appUpdate = await supabaseClient.from('apps').update({ verification_status: 'approved' }).eq('id', appId);
             if (appUpdate.error) throw appUpdate.error;
 
             if (developerId) {
-                const developerUpdate = await supabaseClient
-                    .from('developers')
-                    .update({ status: 'approved' })
-                    .eq('id', developerId);
-
+                const developerUpdate = await supabaseClient.from('developers').update({ status: 'approved' }).eq('id', developerId);
                 if (developerUpdate.error) throw developerUpdate.error;
             }
         }
 
         function renderUnderReview(entries) {
             if (!entries.length) {
-                underReviewList.innerHTML = '<div class="rounded-[1.5rem] border border-dashed border-gray-200 bg-gray-50 p-5 text-sm text-gray-600">No applications are currently under review.</div>';
+                underReviewList.innerHTML = '<div class="rounded-[1.5rem] border border-dashed border-[#F3F4F6] bg-gray-50 p-5 text-sm text-gray-600">No applications are currently under review.</div>';
                 return;
             }
 
             underReviewList.innerHTML = entries.map((entry) => `
-                <article class="rounded-[1.5rem] border border-gray-200 bg-gray-50 p-5">
+                <article class="rounded-[1.5rem] border border-[#F3F4F6] bg-gray-50 p-5">
                     <div class="flex flex-col gap-4">
                         <div class="flex items-start justify-between gap-4">
                             <div>
@@ -330,14 +406,15 @@
                             </div>
                             <button data-app-id="${entry.id}" data-developer-id="${entry.developer_id || ''}" class="verify-app-btn rounded-full bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-indigo-900">Verify &amp; Publish</button>
                         </div>
-                        <div class="rounded-2xl border border-gray-200 bg-white p-4 text-sm text-gray-700">
+                        <div class="rounded-2xl border border-[#F3F4F6] bg-white p-4 text-sm text-gray-700">
                             <p><span class="font-semibold text-[#111827]">Developer ID:</span> ${entry.developer_id || 'Not linked'}</p>
-                            <p class="mt-1"><span class="font-semibold text-[#111827]">Representative:</span> ${entry.developer_details?.name || 'Not available'}</p>
+                            <p class="mt-1"><span class="font-semibold text-[#111827]">Legal Name:</span> ${entry.developer_details?.name || 'Not available'}</p>
+                            <p class="mt-1"><span class="font-semibold text-[#111827]">Email:</span> ${entry.developer_details?.email || 'Not available'}</p>
                             <p class="mt-1"><span class="font-semibold text-[#111827]">Phone:</span> ${entry.developer_details?.phone || 'Not available'}</p>
                             <p class="mt-1"><span class="font-semibold text-[#111827]">Address:</span> ${entry.developer_details?.legal_address || 'Not available'}</p>
                             <p class="mt-1"><span class="font-semibold text-[#111827]">Account Type:</span> ${entry.developer_details?.account_type || 'Not available'}</p>
                             <p class="mt-1"><span class="font-semibold text-[#111827]">Organization:</span> ${entry.developer_details?.organization_name || 'Not applicable'}</p>
-                            <p class="mt-1"><span class="font-semibold text-[#111827]">Registration / PAN:</span> ${entry.developer_details?.business_registration_id || 'Not applicable'}</p>
+                            <p class="mt-1"><span class="font-semibold text-[#111827]">Registration / Tax ID:</span> ${entry.developer_details?.business_registration_id || 'Not applicable'}</p>
                             <p class="mt-1"><span class="font-semibold text-[#111827]">Declared file:</span> ${entry.apk_filename || 'Not provided'}</p>
                         </div>
                     </div>
@@ -364,6 +441,31 @@
             } catch (error) {
                 underReviewList.innerHTML = `<div class="rounded-[1.5rem] border border-red-200 bg-red-50 p-5 text-sm text-red-700">Unable to load review queue: ${error.message}</div>`;
             }
+        }
+
+        function updateImpressionOutput(value) {
+            const sanitized = Math.min(5000, Math.max(100, Number(value) || 100));
+            const impressions = (sanitized / 100) * 3000;
+            adBudget.value = sanitized;
+            adBudgetInput.value = sanitized;
+            impressionOutput.textContent = `Your utility will be highlighted to ${impressions.toLocaleString('en-IN')} Indian mobile devices.`;
+        }
+
+        function openRazorpayCheckout({ amount, description, name, email, contact, notes, onSuccess }) {
+            const options = {
+                key: razorpayKey,
+                amount,
+                currency: 'INR',
+                name: 'Qorelysofts — indapp store',
+                description,
+                image: razorpayLogo,
+                prefill: { name, email, contact },
+                theme: { color: '#312E81' },
+                notes,
+                handler: onSuccess
+            };
+            const instance = new Razorpay(options);
+            instance.open();
         }
 
         accountTypeButtons.forEach((button) => {
@@ -404,61 +506,138 @@
 
         profileForm.addEventListener('submit', async (event) => {
             event.preventDefault();
+            const payload = getProfilePayload();
 
-            const phone = document.getElementById('phone-number').value.trim();
-            if (!indianPhoneIsValid(phone)) {
-                setAlert(profileAlert, 'Contact number must follow the +91 format with a valid Indian mobile number.', 'error');
+            if (!indianPhoneIsValid(payload.phone)) {
+                setAlert(profileAlert, 'Phone number must follow the +91 format with a valid Indian mobile number.', 'error');
                 return;
             }
 
-            const accountType = accountTypeInput.value;
-            const payload = {
-                name: document.getElementById('full-name').value.trim(),
-                email: `${Date.now()}@creator.local`,
-                phone,
-                legal_address: document.getElementById('legal-address').value.trim(),
-                account_type: accountType,
-                organization_name: accountType === 'Organization' ? organizationNameInput.value.trim() : null,
-                business_registration_id: accountType === 'Organization' ? businessIdInput.value.trim() : null,
-                status: 'pending_review'
-            };
-
             try {
-                const developer = await createDeveloperProfile(payload);
-                setAlert(profileAlert, `Compliance profile submitted successfully. Reference ID: ${developer.id}`, 'success');
+                const developer = await upsertDeveloperProfile(payload);
+                setAlert(profileAlert, `Verification profile submitted successfully. Reference ID: ${developer.id}`, 'success');
             } catch (error) {
                 setAlert(profileAlert, `Profile submission failed: ${error.message}`, 'error');
             }
         });
 
+        licenseButtons.forEach((button) => {
+            button.addEventListener('click', async () => {
+                try {
+                    const profile = getProfilePayload();
+                    if (!profile.name || !profile.email || !profile.phone || !profile.legal_address) {
+                        setAlert(pricingAlert, 'Complete the verification form first before activating a license.', 'error');
+                        return;
+                    }
+                    if (!indianPhoneIsValid(profile.phone)) {
+                        setAlert(pricingAlert, 'Phone number must follow the +91 format with a valid Indian mobile number.', 'error');
+                        return;
+                    }
+
+                    const slots = Number(button.dataset.slots);
+                    const amount = Number(button.dataset.amount);
+                    const plan = button.dataset.plan;
+                    const developer = await upsertDeveloperProfile(profile);
+
+                    openRazorpayCheckout({
+                        amount,
+                        description: `${plan} License Activation`,
+                        name: profile.name,
+                        email: profile.email,
+                        contact: profile.phone,
+                        notes: { developer_id: developer.id, plan, slots },
+                        onSuccess: async (response) => {
+                            try {
+                                const newSlots = Number(developer.paid_slots_remaining || 0) + slots;
+                                const { data, error } = await supabaseClient
+                                    .from('developers')
+                                    .update({
+                                        paid_slots_remaining: newSlots,
+                                        payment_status: 'paid',
+                                        latest_payment_id: response.razorpay_payment_id
+                                    })
+                                    .eq('id', developer.id)
+                                    .select()
+                                    .single();
+
+                                if (error) throw error;
+                                latestDeveloperRecord = data;
+                                slotsRemainingLabel.textContent = data.paid_slots_remaining ?? 0;
+                                setAlert(pricingAlert, `${plan} activated successfully. Slots remaining updated to ${data.paid_slots_remaining}.`, 'success');
+                            } catch (error) {
+                                setAlert(pricingAlert, `Payment succeeded but slot update failed: ${error.message}`, 'error');
+                            }
+                        }
+                    });
+                } catch (error) {
+                    setAlert(pricingAlert, `Unable to start license activation: ${error.message}`, 'error');
+                }
+            });
+        });
+
         appForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            if (!latestDeveloperRecord) {
-                setAlert(appAlert, 'Please complete and submit the compliance profile before uploading an application.', 'error');
-                return;
-            }
-
-            const payload = {
-                developer_id: latestDeveloperRecord.id,
-                title: document.getElementById('app-title').value.trim(),
-                category: document.getElementById('app-category').value,
-                package_name: document.getElementById('package-name').value.trim(),
-                description: document.getElementById('app-description').value.trim(),
-                apk_filename: apkFileInput.files[0]?.name || null,
-                verification_status: 'under_review',
-                status: 'under_review',
-                icon: '📱'
-            };
-
             try {
+                const developer = await ensureDeveloperProfileExists();
+                const payload = {
+                    developer_id: developer.id,
+                    title: document.getElementById('app-title').value.trim(),
+                    category: document.getElementById('app-category').value === 'Tech Utilities' ? 'Tech' : document.getElementById('app-category').value === 'Sports & Health' ? 'Sports' : document.getElementById('app-category').value === 'Sarkari Utilities' ? 'Govt' : document.getElementById('app-category').value,
+                    package_name: document.getElementById('package-name').value.trim(),
+                    description: document.getElementById('app-description').value.trim(),
+                    apk_filename: apkFileInput.files[0]?.name || null,
+                    verification_status: 'under_review',
+                    status: 'under_review',
+                    icon: '📱'
+                };
+
                 const submission = await createAppSubmission(payload);
-                setAlert(appAlert, `Application submitted for review successfully. Queue ID: ${submission.id}`, 'success');
+                setAlert(appAlert, `App uploaded for review successfully. Queue ID: ${submission.id}`, 'success');
                 appForm.reset();
                 selectedFileName.textContent = 'No file selected';
                 loadUnderReviewEntries();
             } catch (error) {
                 setAlert(appAlert, `App submission failed: ${error.message}`, 'error');
+            }
+        });
+
+        adBudget.addEventListener('input', (event) => updateImpressionOutput(event.target.value));
+        adBudgetInput.addEventListener('input', (event) => updateImpressionOutput(event.target.value));
+
+        launchAdBtn.addEventListener('click', async () => {
+            try {
+                const developer = await ensureDeveloperProfileExists();
+                const profile = getProfilePayload();
+                const amountValue = Math.min(5000, Math.max(100, Number(adBudgetInput.value) || 100));
+
+                openRazorpayCheckout({
+                    amount: amountValue * 100,
+                    description: 'Micro-Ad Campaign Activation',
+                    name: profile.name,
+                    email: profile.email,
+                    contact: profile.phone,
+                    notes: { developer_id: developer.id, campaign_budget: amountValue },
+                    onSuccess: async (response) => {
+                        try {
+                            const { error } = await supabaseClient
+                                .from('developers')
+                                .update({
+                                    ad_payment_status: 'paid',
+                                    last_ad_payment_id: response.razorpay_payment_id,
+                                    latest_ad_budget: amountValue
+                                })
+                                .eq('id', developer.id);
+
+                            if (error) throw error;
+                            setAlert(campaignAlert, `Micro-ad campaign activated successfully for ₹${amountValue}.`, 'success');
+                        } catch (error) {
+                            setAlert(campaignAlert, `Campaign payment succeeded but update failed: ${error.message}`, 'error');
+                        }
+                    }
+                });
+            } catch (error) {
+                setAlert(campaignAlert, `Unable to start ad campaign: ${error.message}`, 'error');
             }
         });
 
@@ -476,6 +655,7 @@
 
         refreshAdminPanelBtn.addEventListener('click', loadUnderReviewEntries);
         toggleOrganizationFields('Individual');
+        updateImpressionOutput(100);
     </script>
 </body>
 </html>
