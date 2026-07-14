@@ -209,7 +209,7 @@ app.post('/api/apps/verify', requireAdminKey, async (req, res) => {
 
 app.post('/api/admin/apps/status', requireAdminKey, async (req, res) => {
   try {
-    const { appId, status } = req.body;
+    const { appId, status, rejection_reason } = req.body;
     if (!appId || !status) {
       return res.status(400).json({ error: 'appId and status are required.' });
     }
@@ -219,7 +219,12 @@ app.post('/api/admin/apps/status', requireAdminKey, async (req, res) => {
       return res.status(400).json({ error: 'Invalid status value.' });
     }
 
-    await runQuery('UPDATE apps SET status = ? WHERE id = ?', [status, appId]);
+    if (status === 'rejected') {
+      await runQuery('UPDATE apps SET status = ?, rejection_reason = ? WHERE id = ?', [status, rejection_reason || '', appId]);
+    } else {
+      await runQuery('UPDATE apps SET status = ? WHERE id = ?', [status, appId]);
+    }
+
     res.json({ message: 'App status updated successfully.' });
   } catch (error) {
     res.status(500).json({ error: error.message });

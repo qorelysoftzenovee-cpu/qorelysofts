@@ -272,10 +272,28 @@
             <div class="text-sm leading-6 text-slate-700">${escapeHtml(app.description || 'No description')}</div>
           </td>
           <td class="px-6 py-5 align-top">
-            <div class="space-y-3 sm:space-y-0 sm:flex sm:items-center sm:gap-3">
-              <a href="${escapeHtml(app.apk_url || '#')}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center rounded-2xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Download APK Binary for Testing</a>
-              <button data-action="approve-app" data-id="${app.id}" class="rounded-2xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700">Verify & Publish Live</button>
-              <button data-action="reject-app" data-id="${app.id}" class="rounded-2xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700">Reject Application</button>
+            <div class="space-y-3">
+              <div class="flex flex-wrap gap-3">
+                <a href="${escapeHtml(app.apk_url || '#')}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center rounded-2xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Download APK Binary for Testing</a>
+              </div>
+              <div class="bg-gray-50 border border-gray-200 rounded p-4 mb-4 space-y-3">
+                <label class="flex items-start gap-3 text-sm text-slate-700">
+                  <input type="checkbox" class="safety-check mt-1 h-4 w-4 rounded border-slate-300" data-app-safety="${app.id}">
+                  <span>I confirm this is an original utility, NOT a modded, cracked, or pirated application.</span>
+                </label>
+                <label class="flex items-start gap-3 text-sm text-slate-700">
+                  <input type="checkbox" class="safety-check mt-1 h-4 w-4 rounded border-slate-300" data-app-safety="${app.id}">
+                  <span>I confirm this application is completely free of inappropriate, haram, or adult content.</span>
+                </label>
+                <label class="flex items-start gap-3 text-sm text-slate-700">
+                  <input type="checkbox" class="safety-check mt-1 h-4 w-4 rounded border-slate-300" data-app-safety="${app.id}">
+                  <span>I have downloaded and tested the APK to ensure it does not contain malicious code.</span>
+                </label>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <button data-action="approve-app" data-id="${app.id}" disabled class="rounded-2xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white opacity-50 cursor-not-allowed transition hover:bg-emerald-700">Verify &amp; Publish Live</button>
+                <button data-action="reject-app" data-id="${app.id}" class="rounded-2xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700">Reject Application</button>
+              </div>
             </div>
           </td>
         `;
@@ -292,15 +310,46 @@
         .replace(/'/g, '&#39;');
     }
 
-    async function updateAppVerificationStatus(appId, status) {
+    function showAdminToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = 'admin-toast fixed inset-x-0 top-4 z-50 mx-auto w-fit max-w-xl rounded-2xl px-6 py-4 text-sm font-semibold shadow-lg transition-all';
+      toast.style.backgroundColor = type === 'error' ? '#FECDD3' : '#D1FAE5';
+      toast.style.color = type === 'error' ? '#991B1B' : '#065F46';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-8px)';
+      }, 1800);
+      setTimeout(() => toast.remove(), 2400);
+    }
+
+    function requestAppRejectionReason() {
+      const reason = prompt("Enter the reason for rejection (e.g., 'App crashes on load', 'Violates clean UI policy').");
+      if (reason === null) {
+        return null;
+      }
+      const trimmed = reason.trim();
+      if (!trimmed) {
+        alert('Rejection requires a clear reason before feedback is sent to the developer.');
+        return null;
+      }
+      return trimmed;
+    }
+
+    async function updateAppVerificationStatus(appId, status, rejectionReason = null) {
       if (!adminAuthorized) return false;
+      const body = { appId, status };
+      if (status === 'rejected') {
+        body.rejection_reason = rejectionReason;
+      }
       const response = await fetch('/api/admin/apps/status', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-admin-key': MASTER_ACCESS_KEY
         },
-        body: JSON.stringify({ appId, status })
+        body: JSON.stringify(body)
       });
 
       if (!response.ok) {
@@ -333,6 +382,7 @@
       if (!adminAuthorized) return;
       const button = event.target.closest('button[data-action]');
       if (!button) return;
+      if (button.disabled) return;
       const action = button.dataset.action;
       const id = button.dataset.id;
       const row = button.closest('tr');
@@ -346,7 +396,11 @@
       } else if (action === 'approve-app') {
         success = await updateRecordStatus('apps', id, 'approved');
       } else if (action === 'reject-app') {
-        success = await updateRecordStatus('apps', id, 'rejected');
+        const reason = requestAppRejectionReason();
+        if (reason === null) {
+          return;
+        }
+        success = await updateAppVerificationStatus(id, 'rejected', reason);
       }
 
       if (success) {
@@ -357,7 +411,21 @@
         if (!appBody.querySelector('tr')) {
           appEmpty.classList.remove('hidden');
         }
+        if (action === 'reject-app') {
+          showAdminToast('App rejected and feedback sent to developer.');
+        }
       }
+    }
+
+    function syncSafetyChecklistState(row) {
+      if (!row || row.dataset.type !== 'app') return;
+      const checks = row.querySelectorAll('.safety-check');
+      const approveButton = row.querySelector('button[data-action="approve-app"]');
+      if (!checks.length || !approveButton) return;
+      const allChecked = Array.from(checks).every((checkbox) => checkbox.checked);
+      approveButton.disabled = !allChecked;
+      approveButton.classList.toggle('opacity-50', !allChecked);
+      approveButton.classList.toggle('cursor-not-allowed', !allChecked);
     }
 
     function switchToDevelopers() {
@@ -394,6 +462,11 @@
     developerTab.addEventListener('click', switchToDevelopers);
     appTab.addEventListener('click', switchToApps);
     document.addEventListener('click', handleActionClick);
+    document.addEventListener('change', (event) => {
+      const checkbox = event.target.closest('.safety-check');
+      if (!checkbox) return;
+      syncSafetyChecklistState(checkbox.closest('tr'));
+    });
   </script>
 </body>
 </html>
