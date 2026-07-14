@@ -23,6 +23,16 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET || 'change_me'
 });
 
+const ADMIN_ACCESS_KEY = process.env.ADMIN_ACCESS_KEY || 'QORELY_ADMIN_2026';
+
+function requireAdminKey(req, res, next) {
+  const incomingKey = req.header('x-admin-key');
+  if (!incomingKey || incomingKey !== ADMIN_ACCESS_KEY) {
+    return res.status(403).json({ error: 'Unauthorized admin request.' });
+  }
+  return next();
+}
+
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadsDir),
   filename: (_req, file, cb) => {
@@ -183,7 +193,7 @@ app.get('/api/apps/pending', async (_req, res) => {
   }
 });
 
-app.post('/api/apps/verify', async (req, res) => {
+app.post('/api/apps/verify', requireAdminKey, async (req, res) => {
   try {
     const { appId } = req.body;
     if (!appId) {
@@ -192,6 +202,25 @@ app.post('/api/apps/verify', async (req, res) => {
 
     await runQuery('UPDATE apps SET status = ? WHERE id = ?', ['approved', appId]);
     res.json({ message: 'App approved successfully.' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/admin/apps/status', requireAdminKey, async (req, res) => {
+  try {
+    const { appId, status } = req.body;
+    if (!appId || !status) {
+      return res.status(400).json({ error: 'appId and status are required.' });
+    }
+
+    const allowedStatuses = ['approved', 'rejected'];
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({ error: 'Invalid status value.' });
+    }
+
+    await runQuery('UPDATE apps SET status = ? WHERE id = ?', [status, appId]);
+    res.json({ message: 'App status updated successfully.' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

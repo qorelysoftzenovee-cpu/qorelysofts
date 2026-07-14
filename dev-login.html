@@ -6,6 +6,7 @@
   <title>qorelysofts | Developer Console</title>
   <meta name="description" content="Secure gateway to the Qorelysofts Developer Console." />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -13,92 +14,277 @@
           colors: {
             brand: '#4F46E5',
             border: '#E5E7EB',
-            body: '#F8FAFC'
+            body: '#FFFFFF'
+          },
+          boxShadow: {
+            soft: '0 24px 80px rgba(31,41,55,0.06)'
           }
         }
       }
     }
   </script>
+  <style>
+    /* small helper for the validation list icons */
+    .rule-ok { color: #10B981; } /* emerald-500 */
+    .rule-bad { color: #EF4444; } /* red-500 */
+  </style>
 </head>
 <body class="min-h-screen bg-white text-slate-900 antialiased">
   <div class="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-    <div class="w-full max-w-md space-y-8 rounded-3xl border border-slate-200 bg-white px-8 py-10 shadow-[0_24px_80px_rgba(31,41,55,0.08)]">
-      <div class="text-center">
-        <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Secure Access</p>
-        <h1 class="mt-4 text-3xl font-black tracking-tight text-slate-900">qorelysofts | Developer Console</h1>
-      </div>
-      <form id="loginForm" class="mt-8 space-y-6" novalidate>
-        <div class="space-y-5">
-          <label class="block text-sm font-semibold text-slate-700">
-            Developer Email
-            <input
-              type="email"
-              id="email"
-              placeholder="name@example.com"
-              required
-              class="mt-3 w-full rounded-2xl border border-border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
-            />
-          </label>
-          <label class="block text-sm font-semibold text-slate-700">
-            Access Password
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your access password"
-              required
-              class="mt-3 w-full rounded-2xl border border-border bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
-            />
-          </label>
-        </div>
-
+    <div class="w-full max-w-3xl rounded-3xl border border-slate-200 bg-white px-8 py-10 shadow-soft">
+      <div class="flex items-center justify-between gap-6 mb-6">
         <div>
-          <button
-            type="submit"
-            id="submitButton"
-            class="flex w-full items-center justify-center rounded-2xl bg-brand px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-brand/50"
-          >
-            <span id="buttonText">Sign In to Developer Console</span>
-            <svg id="spinner" class="ml-3 hidden h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-            </svg>
-          </button>
+          <p class="text-xs uppercase tracking-[0.24em] text-slate-500">Secure Access</p>
+          <h1 class="mt-2 text-2xl font-black tracking-tight text-slate-900">qorelysofts | Developer Console</h1>
         </div>
-      </form>
-      <p id="errorMessage" class="hidden rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700"></p>
+        <div class="flex items-center gap-3">
+          <button id="showSignIn" class="px-4 py-2 rounded-full text-sm font-semibold text-slate-700 bg-slate-100">Sign in</button>
+          <button id="showRegister" class="px-4 py-2 rounded-full text-sm font-semibold text-white bg-brand">Register</button>
+        </div>
+      </div>
+
+      <div id="formsWrapper">
+        <!-- Sign In Form -->
+        <form id="signInForm" class="space-y-4" novalidate>
+          <label class="block text-sm font-medium text-slate-700">Email address
+            <input id="signin_email" type="email" required placeholder="name@example.com" class="mt-2 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+          </label>
+          <label class="block text-sm font-medium text-slate-700">Password
+            <input id="signin_password" type="password" required placeholder="••••••••" class="mt-2 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+          </label>
+          <p id="signinError" class="mt-2 hidden text-sm text-red-600">Invalid developer credentials.</p>
+          <div>
+            <button id="signinSubmit" type="submit" class="w-full rounded-2xl bg-brand px-5 py-3 text-sm font-semibold text-white transition hover:scale-[1.01] active:scale-[0.99]">Sign in</button>
+          </div>
+        </form>
+
+        <!-- Register Form -->
+        <form id="registerForm" class="hidden space-y-4" novalidate>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <label class="block text-sm font-medium text-slate-700">Full name
+              <input id="reg_fullname" type="text" required placeholder="Your full name" class="mt-2 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+            </label>
+            <label class="block text-sm font-medium text-slate-700">Email address
+              <input id="reg_email" type="email" required placeholder="name@example.com" class="mt-2 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+            </label>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <label class="block text-sm font-medium text-slate-700">Country
+              <select id="reg_country" class="mt-2 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                <option value="IN" selected>India</option>
+                <option value="US">United States</option>
+                <option value="GB">United Kingdom</option>
+                <option value="IN-OTHER">Other</option>
+              </select>
+            </label>
+            <label class="block text-sm font-medium text-slate-700">Postal / PIN
+              <input id="reg_postal" type="text" placeholder="PIN code" class="mt-2 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+            </label>
+            <label class="block text-sm font-medium text-slate-700">Address
+              <input id="reg_address" type="text" placeholder="Street, City, State" class="mt-2 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+            </label>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <label class="block text-sm font-medium text-slate-700">Create password
+              <input id="reg_password" type="password" required placeholder="Create a strong password" class="mt-2 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+            </label>
+            <label class="block text-sm font-medium text-slate-700">Confirm password
+              <input id="reg_confirm" type="password" required placeholder="Re-enter password" class="mt-2 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+            </label>
+          </div>
+
+          <div id="passwordRules" class="space-y-2 p-4 rounded-lg bg-slate-50">
+            <p class="text-sm font-semibold text-slate-700">Password must include</p>
+            <ul class="mt-2 space-y-2 text-sm text-slate-600">
+              <li id="ruleLength" class="flex items-center gap-3"><svg width="16" height="16" fill="none" stroke="currentColor" class="text-slate-400"><circle cx="8" cy="8" r="6" stroke-width="1.5"></circle></svg><span>At least 8 characters</span></li>
+              <li id="ruleUpper" class="flex items-center gap-3"><svg width="16" height="16" fill="none" stroke="currentColor" class="text-slate-400"><circle cx="8" cy="8" r="6" stroke-width="1.5"></circle></svg><span>One capital letter</span></li>
+              <li id="ruleDigit" class="flex items-center gap-3"><svg width="16" height="16" fill="none" stroke="currentColor" class="text-slate-400"><circle cx="8" cy="8" r="6" stroke-width="1.5"></circle></svg><span>One numeric digit</span></li>
+              <li id="ruleSpecial" class="flex items-center gap-3"><svg width="16" height="16" fill="none" stroke="currentColor" class="text-slate-400"><circle cx="8" cy="8" r="6" stroke-width="1.5"></circle></svg><span>One special character (@,#,$,%)</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <button id="registerSubmit" type="submit" disabled class="w-full rounded-2xl bg-gray-200 text-gray-400 cursor-not-allowed px-5 py-3 text-sm font-semibold transition-all">Create account</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
   <script>
-    const form = document.getElementById('loginForm');
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-    const buttonText = document.getElementById('buttonText');
-    const spinner = document.getElementById('spinner');
-    const errorMessage = document.getElementById('errorMessage');
+    const SUPABASE_URL = 'https://ypbcnndadggdamiwqkfn.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwYmNubmRhZGdnZGFtaXdxa2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Mzg5NTAsImV4cCI6MjA5OTUxNDk1MH0.DJHANfWjfMr9qXs0XTPyJcIoM9zq7YHcqWhLtkYrdXs';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    form.addEventListener('submit', function (event) {
+    const showSignIn = document.getElementById('showSignIn');
+    const showRegister = document.getElementById('showRegister');
+    const signInForm = document.getElementById('signInForm');
+    const registerForm = document.getElementById('registerForm');
+    const signinError = document.getElementById('signinError');
+    const signinSubmit = document.getElementById('signinSubmit');
+
+    function setMode(mode) {
+      if (mode === 'register') {
+        showRegister.classList.add('bg-brand');
+        showRegister.classList.remove('bg-slate-100','text-slate-700');
+        showRegister.classList.add('text-white');
+        showSignIn.classList.remove('bg-brand');
+        signInForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+      } else {
+        showSignIn.classList.add('bg-slate-100');
+        showRegister.classList.remove('bg-brand');
+        showRegister.classList.add('bg-slate-100','text-slate-700');
+        showRegister.classList.remove('text-white');
+        signInForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+      }
+    }
+
+    function showSignInError(message) {
+      signinError.textContent = message;
+      signinError.classList.remove('hidden');
+    }
+
+    function clearSignInError() {
+      signinError.textContent = '';
+      signinError.classList.add('hidden');
+    }
+
+    async function checkSessionAndRedirect() {
+      try {
+        const { data } = await supabase.auth.getSession();
+        if (data?.session) {
+          window.location.href = 'developer.html';
+        }
+      } catch (error) {
+        console.error('Session check failed', error);
+      }
+    }
+
+    async function handleSignIn(event) {
       event.preventDefault();
-      errorMessage.classList.add('hidden');
-      errorMessage.textContent = '';
+      clearSignInError();
+      signinSubmit.disabled = true;
+      signinSubmit.textContent = 'Signing in...';
 
-      const emailValue = email.value.trim();
-      const passwordValue = password.value.trim();
+      const email = document.getElementById('signin_email').value.trim();
+      const password = document.getElementById('signin_password').value;
 
-      if (!emailValue || !passwordValue) {
-        errorMessage.textContent = 'Please enter your developer email and access password.';
-        errorMessage.classList.remove('hidden');
+      if (!email || !password) {
+        showSignInError('Please enter both email and password.');
+        signinSubmit.disabled = false;
+        signinSubmit.textContent = 'Sign in';
         return;
       }
 
-      buttonText.textContent = 'Signing in...';
-      spinner.classList.remove('hidden');
-      form.querySelector('button').disabled = true;
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error || !data?.session) {
+        showSignInError('Invalid developer credentials.');
+        console.error('Sign in failed:', error?.message || 'No session returned');
+        signinSubmit.disabled = false;
+        signinSubmit.textContent = 'Sign in';
+        return;
+      }
 
-      setTimeout(() => {
-        window.location.href = 'developer.html';
-      }, 1000);
+      window.location.href = 'developer.html';
+    }
+
+    showSignIn.addEventListener('click', () => setMode('signin'));
+    showRegister.addEventListener('click', () => setMode('register'));
+    setMode('register');
+
+    // Password validation engine
+    const regPassword = document.getElementById('reg_password');
+    const regConfirm = document.getElementById('reg_confirm');
+    const registerSubmit = document.getElementById('registerSubmit');
+
+    const ruleLength = document.getElementById('ruleLength');
+    const ruleUpper = document.getElementById('ruleUpper');
+    const ruleDigit = document.getElementById('ruleDigit');
+    const ruleSpecial = document.getElementById('ruleSpecial');
+
+    function setRule(node, ok) {
+      if (!node) return;
+      node.classList.toggle('rule-ok', ok);
+      node.classList.toggle('rule-bad', !ok);
+      node.querySelectorAll('svg').forEach(svg => {
+        svg.classList.toggle('hidden', false);
+        svg.setAttribute('stroke', ok ? '#10B981' : '#EF4444');
+      });
+    }
+
+    function validatePassword() {
+      const v = regPassword.value || '';
+      const hasLength = v.length >= 8;
+      const hasUpper = /[A-Z]/.test(v);
+      const hasDigit = /[0-9]/.test(v);
+      const hasSpecial = /[@#$%\^&*!()_+\-=[\]{};':"\\|,.<>\/?]/.test(v);
+
+      setRule(ruleLength, hasLength);
+      setRule(ruleUpper, hasUpper);
+      setRule(ruleDigit, hasDigit);
+      setRule(ruleSpecial, hasSpecial);
+
+      return hasLength && hasUpper && hasDigit && hasSpecial;
+    }
+
+    function checkFormReady() {
+      const fullname = document.getElementById('reg_fullname').value.trim();
+      const email = document.getElementById('reg_email').value.trim();
+      const postal = document.getElementById('reg_postal').value.trim();
+      const address = document.getElementById('reg_address').value.trim();
+      const pwdOk = validatePassword();
+      const confirmMatch = regConfirm.value === regPassword.value && regConfirm.value.length > 0;
+
+      const ready = fullname && email && postal && address && pwdOk && confirmMatch;
+
+      if (ready) {
+        registerSubmit.disabled = false;
+        registerSubmit.className = 'w-full rounded-2xl bg-brand px-5 py-3 text-sm font-semibold text-white hover:scale-[1.01] active:scale-[0.99] transition-all';
+      } else {
+        registerSubmit.disabled = true;
+        registerSubmit.className = 'w-full rounded-2xl bg-gray-200 text-gray-400 cursor-not-allowed px-5 py-3 text-sm font-semibold transition-all';
+      }
+    }
+
+    ['input','change'].forEach(evt => {
+      regPassword.addEventListener(evt, () => { validatePassword(); checkFormReady(); });
+      regConfirm.addEventListener(evt, checkFormReady);
+      document.getElementById('reg_fullname').addEventListener(evt, checkFormReady);
+      document.getElementById('reg_email').addEventListener(evt, checkFormReady);
+      document.getElementById('reg_postal').addEventListener(evt, checkFormReady);
+      document.getElementById('reg_address').addEventListener(evt, checkFormReady);
     });
+
+    // simple client-side submission handlers (placeholder)
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (registerSubmit.disabled) return;
+      registerSubmit.textContent = 'Creating account...';
+      registerSubmit.disabled = true;
+      setTimeout(() => {
+        alert('Account created (demo). Redirecting to dashboard.');
+        window.location.href = 'developer.html';
+      }, 900);
+    });
+
+    signInForm.addEventListener('submit', handleSignIn);
+    document.addEventListener('DOMContentLoaded', checkSessionAndRedirect);
   </script>
+
+  <footer class="bg-gray-900 text-gray-400 py-8">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-6 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-8">
+      <p>© 2026 Qorelysofts Private Limited. Built for India.</p>
+      <div class="flex flex-wrap items-center gap-4 text-sm">
+        <a href="./legal.html?tab=terms" class="transition hover:text-white">Terms & Conditions</a>
+        <a href="./legal.html?tab=privacy" class="transition hover:text-white">Privacy Policy</a>
+        <a href="./legal.html?tab=developer" class="transition hover:text-white">Developer Policy</a>
+        <a href="./legal.html?tab=grievance" class="transition hover:text-white">Grievance & Support</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

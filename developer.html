@@ -6,6 +6,7 @@
   <title>qorelysofts Developer Console</title>
   <meta name="description" content="Enterprise dashboard for app releases and campaign planning." />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -22,8 +23,34 @@
       }
     }
   </script>
+  <style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.4s ease-out forwards;
+    }
+  </style>
 </head>
 <body class="flex h-screen bg-gray-50 text-slate-900">
+  <style>
+    .tab-link {
+      transition: all 0.25s ease;
+    }
+
+    .tab-link.active {
+      border-color: #4338ca;
+      background-color: rgba(79, 70, 229, 0.08);
+      color: #1e293b;
+    }
+  </style>
   <aside class="w-64 bg-white border-r border-gray-200 p-6">
     <div class="mb-10">
       <p class="text-xs uppercase tracking-[0.3em] text-slate-500">Developer Console</p>
@@ -32,19 +59,19 @@
     </div>
 
     <nav class="space-y-3 text-sm">
-      <button data-tab="overview" class="tab-link flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
+      <button data-tab="overview" class="tab-link flex w-full items-center gap-3 rounded-2xl border-l-4 border-transparent px-4 py-3 text-left font-semibold text-slate-700 transition-all duration-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
         <span class="text-lg">📊</span>
         <span>Dashboard Overview</span>
       </button>
-      <button data-tab="releases" class="tab-link flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
+      <button data-tab="releases" class="tab-link flex w-full items-center gap-3 rounded-2xl border-l-4 border-transparent px-4 py-3 text-left font-semibold text-slate-700 transition-all duration-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
         <span class="text-lg">📦</span>
         <span>App Releases & Upload</span>
       </button>
-      <button data-tab="licensing" class="tab-link flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
+      <button data-tab="licensing" class="tab-link flex w-full items-center gap-3 rounded-2xl border-l-4 border-transparent px-4 py-3 text-left font-semibold text-slate-700 transition-all duration-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
         <span class="text-lg">💳</span>
         <span>Licensing & Slots</span>
       </button>
-      <button data-tab="campaign" class="tab-link flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
+      <button data-tab="campaign" class="tab-link flex w-full items-center gap-3 rounded-2xl border-l-4 border-transparent px-4 py-3 text-left font-semibold text-slate-700 transition-all duration-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand/20" type="button">
         <span class="text-lg">📈</span>
         <span>Ad Campaign Builder</span>
       </button>
@@ -73,7 +100,7 @@
       </div>
     </header>
 
-    <main class="h-[calc(100vh-72px)] overflow-y-auto px-8 py-8">
+    <main class="h-[calc(100vh-72px)] overflow-y-auto px-8 py-8 animate-fade-in-up">
       <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h3 class="text-lg font-semibold text-slate-900">Enterprise Operations</h3>
@@ -89,32 +116,41 @@
       <section id="overview" class="space-y-6">
         <div class="grid gap-6 xl:grid-cols-3">
           <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
-            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Release pipeline</p>
-            <p class="mt-4 text-3xl font-black text-slate-900">12 apps</p>
+            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Apps</p>
+            <p id="appsCountValue" class="mt-4 text-3xl font-black text-slate-900">
+              <span class="inline-block h-10 w-24 rounded-2xl bg-slate-200 animate-pulse"></span>
+            </p>
           </article>
           <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
             <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Campaign budget</p>
-            <p class="mt-4 text-3xl font-black text-slate-900">₹4,200</p>
+            <p id="campaignBudgetValue" class="mt-4 text-3xl font-black text-slate-900">
+              <span class="inline-block h-10 w-32 rounded-2xl bg-slate-200 animate-pulse"></span>
+            </p>
           </article>
           <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
-            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Projected reach</p>
-            <p class="mt-4 text-3xl font-black text-slate-900">1.2M impressions</p>
+            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Active uploads / status</p>
+            <div class="mt-4 space-y-2 text-slate-900">
+              <p class="text-3xl font-black" id="approvedCountValue"><span class="inline-block h-10 w-24 rounded-2xl bg-slate-200 animate-pulse"></span></p>
+              <p class="text-sm text-slate-500">approved</p>
+              <p class="text-3xl font-black" id="reviewCountValue"><span class="inline-block h-10 w-24 rounded-2xl bg-slate-200 animate-pulse"></span></p>
+              <p class="text-sm text-slate-500">under review</p>
+            </div>
           </article>
         </div>
 
         <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
           <div class="grid gap-4 md:grid-cols-3">
             <div class="rounded-3xl bg-slate-50 p-5">
-              <p class="text-sm text-slate-500">Active uploads</p>
-              <p class="mt-3 text-2xl font-bold text-slate-900">8</p>
+              <p class="text-sm text-slate-500">Release integrity</p>
+              <p id="statusLabel" class="mt-3 text-2xl font-bold text-slate-900">Loading live metrics...</p>
             </div>
             <div class="rounded-3xl bg-slate-50 p-5">
-              <p class="text-sm text-slate-500">Slot utilization</p>
-              <p class="mt-3 text-2xl font-bold text-slate-900">72%</p>
+              <p class="text-sm text-slate-500">Verified uploads</p>
+              <p class="mt-3 text-2xl font-bold text-slate-900" id="approvedCountSummary"><span class="inline-block h-10 w-20 rounded-2xl bg-slate-200 animate-pulse"></span></p>
             </div>
             <div class="rounded-3xl bg-slate-50 p-5">
-              <p class="text-sm text-slate-500">Release pace</p>
-              <p class="mt-3 text-2xl font-bold text-slate-900">18h</p>
+              <p class="text-sm text-slate-500">Pending review</p>
+              <p class="mt-3 text-2xl font-bold text-slate-900" id="reviewCountSummary"><span class="inline-block h-10 w-20 rounded-2xl bg-slate-200 animate-pulse"></span></p>
             </div>
           </div>
         </div>
@@ -125,51 +161,111 @@
           <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Release builder</p>
-              <h3 class="mt-2 text-2xl font-black text-slate-900">Submit a new app upload</h3>
+              <h3 class="mt-2 text-2xl font-black text-slate-900">Multi-step Upload Wizard</h3>
             </div>
             <span class="rounded-full bg-brand/10 px-4 py-2 text-sm font-semibold text-brand">Supabase live save</span>
           </div>
         </div>
 
-        <div class="grid gap-6 xl:grid-cols-2">
-          <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
-            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">File drop zone</p>
-            <div id="dropZone" class="mt-5 flex min-h-[220px] flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-slate-300 bg-slate-50 p-6 text-center transition hover:border-brand hover:bg-white/90">
-              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-white text-3xl shadow-sm">📦</div>
-              <p class="text-lg font-semibold text-slate-900">Drag & drop your APK</p>
-              <p class="text-sm text-slate-500">Attach a package file to capture metadata.</p>
-              <p id="fileName" class="mt-3 text-sm font-semibold text-brand"></p>
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+          <!-- Step tracker -->
+          <div class="mb-6 flex items-center gap-4">
+            <div id="stepTracker" class="flex w-full items-center justify-between">
+              <div class="flex-1">
+                <div class="flex items-center gap-3">
+                  <div id="step1Indicator" class="flex items-center gap-3">
+                    <div class="h-8 w-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-semibold">1</div>
+                    <div class="text-sm font-semibold text-slate-900">App Details</div>
+                  </div>
+                  <div class="flex-1 border-t border-slate-200 mx-3"></div>
+                  <div id="step2Indicator" class="flex items-center gap-3 opacity-50">
+                    <div class="h-8 w-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-semibold">2</div>
+                    <div class="text-sm text-slate-500">Metadata</div>
+                  </div>
+                  <div class="flex-1 border-t border-slate-200 mx-3"></div>
+                  <div id="step3Indicator" class="flex items-center gap-3 opacity-50">
+                    <div class="h-8 w-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-semibold">3</div>
+                    <div class="text-sm text-slate-500">Package Config</div>
+                  </div>
+                  <div class="flex-1 border-t border-slate-200 mx-3"></div>
+                  <div id="step4Indicator" class="flex items-center gap-3 opacity-50">
+                    <div class="h-8 w-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-semibold">4</div>
+                    <div class="text-sm text-slate-500">Binary Upload</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <form id="releaseForm" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft space-y-5">
-            <div>
-              <label class="text-sm font-semibold text-slate-700">Title</label>
-              <input id="releaseTitle" type="text" placeholder="App title" class="mt-3 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" required />
-            </div>
-            <div>
-              <label class="text-sm font-semibold text-slate-700">Description</label>
-              <textarea id="releaseDescription" rows="4" placeholder="Short release description" class="mt-3 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" required></textarea>
-            </div>
-            <div class="grid gap-5 sm:grid-cols-2">
-              <div>
-                <label class="text-sm font-semibold text-slate-700">Category</label>
-                <select id="releaseCategory" class="mt-3 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" required>
+          <!-- Wizard panes -->
+          <div id="wizardPanes">
+            <!-- Step 1: App Details -->
+            <div id="step1" class="space-y-4">
+              <label class="block text-sm font-semibold text-slate-700">App Title
+                <input id="wizard_title" type="text" placeholder="Application title" class="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+              </label>
+              <label class="block text-sm font-semibold text-slate-700">Category
+                <select id="wizard_category" class="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                   <option value="" disabled selected>Select category</option>
                   <option value="Education">Education</option>
                   <option value="Tech Utilities">Tech Utilities</option>
-                  <option value="Sports">Sports</option>
-                  <option value="Public Help">Public Help</option>
+                  <option value="Sports & Health">Sports & Health</option>
+                  <option value="Sarkari Utilities">Sarkari Utilities</option>
                 </select>
-              </div>
+              </label>
               <div>
-                <label class="text-sm font-semibold text-slate-700">Package Name</label>
-                <input id="releasePackage" type="text" placeholder="com.example.app" class="mt-3 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" required />
+                <p class="text-sm font-semibold text-slate-700">App icon (1:1)</p>
+                <div id="iconDrop" class="mt-2 flex h-36 w-36 items-center justify-center rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 text-center text-slate-500 cursor-pointer transition hover:border-indigo-400">
+                  <span id="iconPreviewText">Drop or click to upload icon</span>
+                </div>
+                <input id="iconFileInput" type="file" accept="image/*" class="hidden" />
               </div>
             </div>
-            <button type="submit" class="inline-flex w-full items-center justify-center rounded-2xl bg-brand px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-600">Save Release Record</button>
-            <p id="releaseMessage" class="hidden rounded-2xl border border-brand/20 bg-brand/5 px-4 py-3 text-sm text-brand"></p>
-          </form>
+
+            <!-- Step 2: Metadata -->
+            <div id="step2" class="hidden space-y-4">
+              <label class="block text-sm font-semibold text-slate-700">App description
+                <textarea id="wizard_description" rows="4" class="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Short, clear description of the app"></textarea>
+              </label>
+              <label class="block text-sm font-semibold text-slate-700">Support URL(s)
+                <input id="wizard_support" type="url" placeholder="https://support.example.com" class="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+              </label>
+            </div>
+
+            <!-- Step 3: Package Config -->
+            <div id="step3" class="hidden space-y-4">
+              <label class="block text-sm font-semibold text-slate-700">Package name
+                <input id="wizard_package" type="text" placeholder="com.qorelysofts.appname" class="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+              </label>
+              <label class="block text-sm font-semibold text-slate-700">Version name
+                <input id="wizard_version_name" type="text" placeholder="1.1.0" value="1.1.0" class="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+              </label>
+              <label class="block text-sm font-semibold text-slate-700">Version code
+                <input id="wizard_version_code" type="number" min="1" value="2" class="mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent" />
+              </label>
+              <p id="packageHint" class="text-sm text-slate-500">Must be a reverse-domain style identifier and a valid release version.</p>
+            </div>
+
+            <!-- Step 4: Binary Upload -->
+            <div id="step4" class="hidden space-y-4">
+              <p class="text-sm font-semibold text-slate-700">Upload APK</p>
+              <div id="apkDrop" class="mt-2 min-h-[160px] flex items-center justify-center rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-500 cursor-pointer transition hover:border-indigo-400">
+                <div>
+                  <div class="mb-3 text-4xl">📦</div>
+                  <div id="apkPreviewText">Drop APK here or click to browse</div>
+                  <div id="apkFileName" class="mt-2 text-sm text-slate-600"></div>
+                </div>
+              </div>
+              <input id="apkFileInput" type="file" accept=".apk,.aab" class="hidden" />
+            </div>
+          </div>
+
+          <!-- Navigation controls -->
+          <div class="mt-6 flex items-center justify-end gap-3">
+            <button id="wizardBack" class="rounded-2xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">Back</button>
+            <button id="wizardNext" class="rounded-2xl bg-brand px-4 py-2 text-sm font-semibold text-white">Save & Next</button>
+          </div>
+          <p id="wizardMessage" class="mt-4 text-sm text-slate-600"></p>
         </div>
       </section>
 
@@ -178,23 +274,21 @@
           <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Licensing</p>
-              <h3 class="mt-2 text-2xl font-black text-slate-900">Slots & packages</h3>
+              <h3 class="mt-2 text-2xl font-black text-slate-900">Early Adopter License</h3>
             </div>
-            <span class="rounded-full bg-brand/10 px-4 py-2 text-sm font-semibold text-brand">₹250 / ₹1000</span>
+            <span class="rounded-full bg-amber-500/10 px-4 py-2 text-sm font-semibold text-amber-700">Pioneer Status</span>
+          </div>
+          <div class="mt-6 rounded-3xl bg-slate-50 p-5">
+            <p class="text-sm text-slate-500">Reserved upload capacity</p>
+            <p id="slotCountDisplay" class="mt-3 text-4xl font-black text-brand">0</p>
+            <p class="mt-2 text-sm text-slate-500">Active lifetime upload slots</p>
           </div>
         </div>
 
-        <div class="grid gap-6 xl:grid-cols-2">
-          <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
-            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Starter package</p>
-            <p class="mt-4 text-3xl font-black text-slate-900">₹250</p>
-            <p class="mt-3 text-sm text-slate-600">Single app upload slot for utility publishers.</p>
-          </article>
-          <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
-            <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Growth package</p>
-            <p class="mt-4 text-3xl font-black text-slate-900">₹1000</p>
-            <p class="mt-3 text-sm text-slate-600">Multi-slot package for higher portfolio capacity.</p>
-          </article>
+        <div class="rounded-3xl border border-slate-200 bg-brand p-8 text-white shadow-soft">
+          <p class="text-sm uppercase tracking-[0.24em] text-amber-200">Pioneer Status: 5 Free App Slots</p>
+          <h3 class="mt-4 text-3xl font-black">5 Free App Slots</h3>
+          <p class="mt-4 max-w-2xl text-sm leading-7 text-amber-100/90">As an early partner, your account is pre-credited with 5 free lifetime utility uploads to help build India's cleanest ecosystem.</p>
         </div>
       </section>
 
@@ -210,15 +304,21 @@
         </div>
 
         <div class="grid gap-6 xl:grid-cols-2">
-          <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
-            <label class="text-sm font-semibold text-slate-700">Campaign budget</label>
-            <div class="mt-4 flex items-center gap-4">
-              <input id="budgetInput" type="range" min="100" max="5000" step="100" value="1000" class="w-full accent-brand" />
-              <span class="w-24 rounded-2xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-900">₹<span id="budgetValue">1000</span></span>
+          <div class="relative rounded-3xl border border-slate-200 bg-white p-6 shadow-soft opacity-50 pointer-events-none">
+            <div class="absolute inset-x-6 top-6 rounded-3xl bg-slate-950/90 px-4 py-3 text-center text-sm font-semibold text-white shadow-lg">Coming Soon</div>
+            <div class="mt-14">
+              <label class="text-sm font-semibold text-slate-700">Campaign budget</label>
+              <div class="mt-4 flex items-center gap-4">
+                <input id="budgetInput" type="range" min="100" max="5000" step="100" value="1000" class="w-full accent-brand" />
+                <span class="w-24 rounded-2xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-900">₹<span id="budgetValue">1000</span></span>
+              </div>
+              <div class="mt-5 rounded-3xl bg-slate-50 p-5">
+                <p class="text-sm text-slate-500">Estimated impressions</p>
+                <p class="mt-3 text-4xl font-black text-slate-900"><span id="impressionsValue">30000</span></p>
+              </div>
             </div>
-            <div class="mt-5 rounded-3xl bg-slate-50 p-5">
-              <p class="text-sm text-slate-500">Estimated impressions</p>
-              <p class="mt-3 text-4xl font-black text-slate-900"><span id="impressionsValue">30000</span></p>
+            <div class="mt-6 rounded-3xl bg-slate-900/5 p-4 text-sm text-slate-600">
+              The Premium Ad Engine is currently locked. Sponsored discovery will activate once our user base crosses the Phase 1 threshold.
             </div>
           </div>
 
@@ -240,6 +340,18 @@
             </div>
           </div>
         </div>
+
+        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft xl:col-span-2">
+          <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Promote a verified app</p>
+          <div class="mt-4 space-y-4">
+            <label class="block text-sm font-semibold text-slate-700">Select app to promote</label>
+            <select id="campaignAppSelect" class="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition duration-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+              <option value="" disabled selected>Loading approved apps…</option>
+            </select>
+            <button id="launchCampaignButton" class="w-full rounded-2xl bg-brand px-4 py-3 text-sm font-semibold text-white transition hover:bg-indigo-600">Launch Campaign</button>
+            <p id="campaignMessage" class="mt-4 hidden rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700"></p>
+          </div>
+        </div>
       </section>
     </main>
   </div>
@@ -249,6 +361,62 @@
     const SUPABASE_URL = 'https://ypbcnndadggdamiwqkfn.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwYmNubmRhZGdnZGFtaXdxa2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Mzg5NTAsImV4cCI6MjA5OTUxNDk1MH0.DJHANfWjfMr9qXs0XTPyJcIoM9zq7YHcqWhLtkYrdXs';
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const GH_OWNER = 'qorelysoftzenovee-cpu';
+    const GH_REPO = 'qorelysofts';
+    const GH_TOKEN = null; // Set this via a secure server-side proxy or environment-backed config
+
+    async function createGithubRelease(packageName, appTitle) {
+      const response = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/releases`, {
+        method: 'POST',
+        headers: {
+          Authorization: `token ${GH_TOKEN}`,
+          Accept: 'application/vnd.github+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          tag_name: `v-${packageName}`,
+          name: `Release for ${appTitle}`
+        })
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`GitHub release creation failed (${response.status}): ${text}`);
+      }
+
+      const data = await response.json();
+      if (!data.upload_url) {
+        throw new Error('GitHub release created but upload_url was not returned.');
+      }
+      return data.upload_url;
+    }
+
+    async function uploadApkToGithub(file, uploadUrl, packageName) {
+      const assetUrl = uploadUrl.replace(/\{.*$/, '') + `?name=${encodeURIComponent(packageName)}.apk`;
+      const response = await fetch(assetUrl, {
+        method: 'POST',
+        headers: {
+          Authorization: `token ${GH_TOKEN}`,
+          Accept: 'application/vnd.github+json',
+          'Content-Type': file.type || 'application/vnd.android.package-archive'
+        },
+        body: file
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`GitHub asset upload failed (${response.status}): ${text}`);
+      }
+
+      const data = await response.json();
+      if (!data.browser_download_url) {
+        throw new Error('GitHub asset upload succeeded but browser_download_url was not returned.');
+      }
+      return data.browser_download_url;
+    }
+
+    let activeDeveloperProfile = null;
 
     const tabs = document.querySelectorAll('[data-tab]');
     const sections = {
@@ -268,6 +436,11 @@
         button.classList.toggle('text-white', isActive);
         button.classList.toggle('bg-slate-100', !isActive);
         button.classList.toggle('text-slate-700', !isActive);
+        if (button.classList.contains('tab-link')) {
+          button.classList.toggle('border-indigo-600', isActive);
+          button.classList.toggle('border-transparent', !isActive);
+          button.classList.toggle('active', isActive);
+        }
       });
     }
 
@@ -275,93 +448,660 @@
       button.addEventListener('click', () => setActiveTab(button.dataset.tab));
     });
 
-    setActiveTab('overview');
-
-    const dropZone = document.getElementById('dropZone');
-    const fileName = document.getElementById('fileName');
-    let selectedFile = '';
-
-    function updateFileName(name) {
-      selectedFile = name || '';
-      fileName.textContent = name ? `File: ${name}` : '';
+    async function enforceSessionGuard() {
+      const { data, error } = await supabaseClient.auth.getSession();
+      if (error) {
+        console.error('Session check failed', error);
+      }
+      if (!data?.session?.user?.id) {
+        window.location.href = 'dev-login.html';
+        return;
+      }
     }
 
-    ['dragenter', 'dragover'].forEach(eventName => {
-      dropZone.addEventListener(eventName, event => {
-        event.preventDefault();
-        dropZone.classList.add('border-brand', 'bg-white');
-      });
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-      dropZone.addEventListener(eventName, event => {
-        event.preventDefault();
-        dropZone.classList.remove('border-brand', 'bg-white');
-      });
-    });
-
-    dropZone.addEventListener('drop', event => {
-      const file = event.dataTransfer.files[0];
-      if (file) {
-        updateFileName(file.name);
+    async function initConsole() {
+      await enforceSessionGuard();
+      const profile = await loadDeveloperProfile();
+      if (!profile?.id) {
+        window.location.href = 'dev-login.html';
+        return;
       }
-    });
+      setActiveTab('overview');
+      try {
+        await loadOverviewMetrics();
+      } catch (error) {
+        console.error('Error loading dashboard metrics:', error);
+      }
+    }
 
-    dropZone.addEventListener('click', () => {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = '.apk,.aab,.zip';
-      input.onchange = () => {
-        if (input.files.length) {
-          updateFileName(input.files[0].name);
-        }
-      };
-      input.click();
-    });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initConsole);
+    } else {
+      initConsole();
+    }
 
-    const releaseForm = document.getElementById('releaseForm');
-    const releaseMessage = document.getElementById('releaseMessage');
+    const appsCountValue = document.getElementById('appsCountValue');
+    const campaignBudgetValue = document.getElementById('campaignBudgetValue');
+    const approvedCountValue = document.getElementById('approvedCountValue');
+    const reviewCountValue = document.getElementById('reviewCountValue');
+    const approvedCountSummary = document.getElementById('approvedCountSummary');
+    const reviewCountSummary = document.getElementById('reviewCountSummary');
+    const statusLabel = document.getElementById('statusLabel');
+    const slotCountDisplay = document.getElementById('slotCountDisplay');
+    const paymentMessage = document.getElementById('paymentMessage');
+    const purchaseSingleSlot = document.getElementById('purchaseSingleSlot');
+    const purchaseGrowthBundle = document.getElementById('purchaseGrowthBundle');
+    const campaignAppSelect = document.getElementById('campaignAppSelect');
+    const launchCampaignButton = document.getElementById('launchCampaignButton');
+    const campaignMessage = document.getElementById('campaignMessage');
 
-    releaseForm.addEventListener('submit', async event => {
-      event.preventDefault();
-      const title = document.getElementById('releaseTitle').value.trim();
-      const description = document.getElementById('releaseDescription').value.trim();
-      const category = document.getElementById('releaseCategory').value;
-      const packageName = document.getElementById('releasePackage').value.trim();
+    function renderLoading(node) {
+      if (!node) return;
+      node.innerHTML = '<span class="inline-block h-10 w-24 rounded-2xl bg-slate-200 animate-pulse"></span>';
+    }
 
-      if (!title || !description || !category || !packageName) {
-        releaseMessage.textContent = 'Please complete every field before saving.';
-        releaseMessage.className = 'rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700';
-        releaseMessage.classList.remove('hidden');
+    function formatRupee(value) {
+      return `₹${Number(value || 0).toLocaleString('en-IN')}`;
+    }
+
+    function formatInteger(value) {
+      return Number.isFinite(value) ? value.toLocaleString('en-IN') : '0';
+    }
+
+    async function resolveCurrentDeveloperId() {
+      if (activeDeveloperProfile?.id) {
+        return activeDeveloperProfile.id;
+      }
+      const profile = await loadDeveloperProfile();
+      return profile?.id ?? null;
+    }
+
+    async function loadDeveloperProfile() {
+      if (activeDeveloperProfile) {
+        return activeDeveloperProfile;
+      }
+
+      if (!supabaseClient.auth || typeof supabaseClient.auth.getUser !== 'function') {
+        throw new Error('Supabase auth is not available');
+      }
+
+      const { data, error } = await supabaseClient.auth.getUser();
+      const authUserId = data?.user?.id;
+      if (!authUserId) {
+        throw new Error('Unable to resolve authenticated user');
+      }
+
+      const { data: developer, error: developerError } = await supabaseClient
+        .from('developers')
+        .select('id, paid_slots_remaining, auth_uid')
+        .eq('auth_uid', authUserId)
+        .single();
+
+      if (developerError) {
+        console.error('Failed to load developer profile:', developerError);
+        return null;
+      }
+
+      if (!developer?.id) {
+        console.error('Developer profile not found for auth_uid', authUserId);
+        return null;
+      }
+
+      activeDeveloperProfile = developer;
+      return developer;
+    }
+
+    async function loadOverviewMetrics() {
+      [appsCountValue, campaignBudgetValue, approvedCountValue, reviewCountValue, approvedCountSummary, reviewCountSummary, slotCountDisplay].forEach(renderLoading);
+      statusLabel.textContent = 'Loading live metrics...';
+
+      if (!activeDeveloperProfile) {
+        await loadDeveloperProfile();
+      }
+
+      const developerId = activeDeveloperProfile?.id || await resolveCurrentDeveloperId();
+      if (!developerId) {
+        appsCountValue.textContent = '0';
+        campaignBudgetValue.textContent = formatRupee(0);
+        approvedCountValue.textContent = '0';
+        reviewCountValue.textContent = '0';
+        approvedCountSummary.textContent = '0';
+        reviewCountSummary.textContent = '0';
+        slotCountDisplay.textContent = '0';
+        statusLabel.textContent = 'Developer session required';
         return;
       }
 
-      releaseMessage.textContent = 'Saving release record...';
-      releaseMessage.className = 'rounded-2xl border border-brand/20 bg-brand/5 px-4 py-3 text-sm text-brand';
-      releaseMessage.classList.remove('hidden');
+      if (activeDeveloperProfile?.paid_slots_remaining != null) {
+        slotCountDisplay.textContent = formatInteger(activeDeveloperProfile.paid_slots_remaining);
+      }
 
+      const [appsResult, approvedResult, reviewResult] = await Promise.all([
+        supabaseClient.from('apps').select('*', { count: 'exact', head: true }).eq('developer_id', developerId),
+        supabaseClient.from('apps').select('*', { count: 'exact', head: true }).eq('developer_id', developerId).eq('verification_status', 'approved'),
+        supabaseClient.from('apps').select('*', { count: 'exact', head: true }).eq('developer_id', developerId).eq('verification_status', 'under_review')
+      ]);
+
+      const totalApps = appsResult.count ?? 0;
+      const approvedCount = approvedResult.count ?? 0;
+      const reviewCount = reviewResult.count ?? 0;
+      appsCountValue.textContent = formatInteger(totalApps);
+      approvedCountValue.textContent = formatInteger(approvedCount);
+      reviewCountValue.textContent = formatInteger(reviewCount);
+      approvedCountSummary.textContent = formatInteger(approvedCount);
+      reviewCountSummary.textContent = formatInteger(reviewCount);
+
+      statusLabel.textContent = `Live sync • ${approvedCount} approved • ${reviewCount} pending`;
+
+      const spendSources = [
+        { table: 'campaigns', column: 'budget' },
+        { table: 'ad_spends', column: 'amount' },
+        { table: 'slot_purchases', column: 'amount' }
+      ];
+
+      let campaignBudget = 0;
+      for (const source of spendSources) {
+        const { data, error } = await supabaseClient.from(source.table).select(source.column).eq('developer_id', developerId);
+        if (!error && Array.isArray(data)) {
+          campaignBudget = data.reduce((acc, row) => acc + Number(row[source.column] || 0), 0);
+          if (campaignBudget > 0) break;
+        }
+      }
+
+      campaignBudgetValue.textContent = formatRupee(campaignBudget);
+      if (campaignBudget === 0) {
+        statusLabel.textContent = 'No campaign spend recorded yet';
+      }
+
+      await refreshSlotCount(developerId);
+      await refreshCampaignAppList(developerId);
+    }
+
+    async function refreshSlotCount(developerId) {
+      const { data: developer, error } = await supabaseClient
+        .from('developers')
+        .select('paid_slots_remaining')
+        .eq('id', developerId)
+        .single();
+      if (error) {
+        console.error('Failed to refresh slot count:', error);
+        slotCountDisplay.textContent = '0';
+        return;
+      }
+      if (developer?.paid_slots_remaining != null) {
+        slotCountDisplay.textContent = formatInteger(developer.paid_slots_remaining);
+        if (activeDeveloperProfile) {
+          activeDeveloperProfile.paid_slots_remaining = developer.paid_slots_remaining;
+        }
+      }
+    }
+
+    async function loadApprovedApps(developerId) {
+      const { data, error } = await supabaseClient
+        .from('apps')
+        .select('id, title')
+        .eq('developer_id', developerId)
+        .eq('verification_status', 'approved')
+        .order('title', { ascending: true });
+
+      if (error) {
+        console.error('Failed to load approved apps for campaign builder:', error);
+        campaignAppSelect.innerHTML = '<option value="" disabled selected>Unable to load apps</option>';
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        campaignAppSelect.innerHTML = '<option value="" disabled selected>No approved apps available</option>';
+        return;
+      }
+
+      campaignAppSelect.innerHTML = '<option value="" disabled selected>Select an approved app</option>';
+      data.forEach(app => {
+        const option = document.createElement('option');
+        option.value = app.id;
+        option.textContent = app.title;
+        campaignAppSelect.appendChild(option);
+      });
+    }
+
+    async function refreshCampaignAppList(developerId) {
+      await loadApprovedApps(developerId);
+    }
+
+    async function updatePaidSlots(developerId, incrementBy) {
+      const { data: current, error: fetchError } = await supabaseClient
+        .from('developers')
+        .select('paid_slots_remaining')
+        .eq('id', developerId)
+        .single();
+      if (fetchError) {
+        throw fetchError;
+      }
+
+      const currentSlots = Number(current?.paid_slots_remaining || 0);
+      const newSlots = currentSlots + incrementBy;
+
+      const { data: updated, error: updateError } = await supabaseClient
+        .from('developers')
+        .update({ paid_slots_remaining: newSlots })
+        .eq('id', developerId)
+        .select('paid_slots_remaining')
+        .single();
+      if (updateError) {
+        throw updateError;
+      }
+      if (activeDeveloperProfile) {
+        activeDeveloperProfile.paid_slots_remaining = updated?.paid_slots_remaining ?? newSlots;
+      }
+      return updated?.paid_slots_remaining ?? newSlots;
+    }
+
+    function showCampaignMessage(message) {
+      campaignMessage.textContent = message;
+      campaignMessage.classList.remove('hidden');
+    }
+
+    function hideCampaignMessage() {
+      campaignMessage.textContent = '';
+      campaignMessage.classList.add('hidden');
+    }
+
+    async function updateAppCampaign(appId, additionalImpressions) {
+      const developerId = activeDeveloperProfile?.id || await resolveCurrentDeveloperId();
+      if (!developerId) {
+        throw new Error('Developer profile missing for campaign update');
+      }
+
+      const { data: current, error: currentError } = await supabaseClient
+        .from('apps')
+        .select('ad_impressions_targeted')
+        .eq('id', appId)
+        .eq('developer_id', developerId)
+        .single();
+      if (currentError) {
+        throw currentError;
+      }
+
+      const newImpressions = Number(current?.ad_impressions_targeted || 0) + additionalImpressions;
+      const { data: updated, error: updateError } = await supabaseClient
+        .from('apps')
+        .update({ is_suggested: true, ad_impressions_targeted: newImpressions })
+        .eq('id', appId)
+        .eq('developer_id', developerId)
+        .select('ad_impressions_targeted')
+        .single();
+      if (updateError) {
+        throw updateError;
+      }
+      return updated;
+    }
+
+    async function handleLaunchCampaign(event) {
+      event.preventDefault();
+      hideCampaignMessage();
+
+      const selectedAppId = campaignAppSelect.value;
+      const budget = Number(budgetInput.value);
+      if (!selectedAppId) {
+        showCampaignMessage('Please select an approved app to promote.');
+        return;
+      }
+      if (!budget || budget < 100) {
+        showCampaignMessage('Please choose a campaign budget of at least ₹100.');
+        return;
+      }
+
+      const amountPaise = budget * 100;
+      const targetedImpressions = Math.round((budget / 100) * 3000);
+
+      const options = {
+        key: 'rzp_test_1DP5mmOlF5G5ag',
+        amount: amountPaise,
+        currency: 'INR',
+        name: 'Qorelysofts',
+        description: `Campaign promotion for selected app`,
+        theme: { color: '#4F46E5' },
+        handler: async function (response) {
+          try {
+            await updateAppCampaign(selectedAppId, targetedImpressions);
+            showCampaignMessage('Campaign Live! Your utility is now being pushed to Indian devices.');
+          } catch (err) {
+            console.error('Campaign update failed after payment:', err);
+            showCampaignMessage('Payment succeeded, but campaign activation failed. Please contact support.');
+          }
+        },
+        modal: {
+          ondismiss: function () {
+            console.log('Campaign payment modal dismissed');
+          }
+        }
+      };
+
+      const razorpay = new Razorpay(options);
+      razorpay.open();
+    }
+
+    async function handlePurchase(amountPaise, slotsToAdd) {
+      hidePaymentSuccess();
+      const developerId = activeDeveloperProfile?.id || await resolveCurrentDeveloperId();
+      if (!developerId) {
+        alert('Unable to identify developer session. Please sign in again.');
+        return;
+      }
+
+      const options = {
+        key: 'rzp_test_1DP5mmOlF5G5ag',
+        amount: amountPaise,
+        currency: 'INR',
+        name: 'Qorelysofts',
+        description: slotsToAdd === 1 ? 'Single App Pass' : 'Ecosystem Growth Bundle',
+        theme: { color: '#4F46E5' },
+        handler: async function (response) {
+          try {
+            const newSlotCount = await updatePaidSlots(developerId, slotsToAdd);
+            slotCountDisplay.textContent = formatInteger(newSlotCount);
+            showPaymentSuccess('Payment Successful. Your upload slots have been credited.');
+          } catch (err) {
+            console.error('Slot update after payment failed:', err);
+            alert('Payment registered, but slot crediting failed. Contact support.');
+          }
+        },
+        modal: {
+          ondismiss: function () {
+            console.log('Payment modal closed');
+          }
+        }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    }
+
+    const wizardSteps = ['step1', 'step2', 'step3', 'step4'];
+    const stepIndicators = [
+      document.getElementById('step1Indicator'),
+      document.getElementById('step2Indicator'),
+      document.getElementById('step3Indicator'),
+      document.getElementById('step4Indicator')
+    ];
+    const wizardBack = document.getElementById('wizardBack');
+    const wizardNext = document.getElementById('wizardNext');
+    const wizardMessage = document.getElementById('wizardMessage');
+    const iconDrop = document.getElementById('iconDrop');
+    const iconFileInput = document.getElementById('iconFileInput');
+    const iconPreviewText = document.getElementById('iconPreviewText');
+    const apkDrop = document.getElementById('apkDrop');
+    const apkFileInput = document.getElementById('apkFileInput');
+    const apkPreviewText = document.getElementById('apkPreviewText');
+    const apkFileName = document.getElementById('apkFileName');
+
+    let currentStep = 0;
+    let iconFile = null;
+    let apkFile = null;
+
+    function updateWizardStep() {
+      wizardSteps.forEach((stepId, index) => {
+        const pane = document.getElementById(stepId);
+        const indicator = stepIndicators[index];
+        const isActive = index === currentStep;
+        pane.classList.toggle('hidden', !isActive);
+        indicator.classList.toggle('opacity-100', isActive);
+        indicator.classList.toggle('opacity-50', !isActive);
+        indicator.querySelector('div:first-child').classList.toggle('bg-indigo-600', isActive);
+        indicator.querySelector('div:first-child').classList.toggle('bg-slate-100', !isActive);
+        indicator.querySelector('div:first-child').classList.toggle('text-white', isActive);
+        indicator.querySelector('div:first-child').classList.toggle('text-slate-500', !isActive);
+        indicator.querySelector('div:last-child').classList.toggle('text-slate-900', isActive);
+        indicator.querySelector('div:last-child').classList.toggle('text-slate-500', !isActive);
+      });
+      wizardBack.disabled = currentStep === 0;
+      wizardBack.className = currentStep === 0 ? 'rounded-2xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed' : 'rounded-2xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700';
+      wizardNext.textContent = currentStep === wizardSteps.length - 1 ? 'Submit for review' : 'Save & Next';
+      wizardMessage.textContent = '';
+    }
+
+    function isValidUrl(value) {
+      try {
+        const url = new URL(value);
+        return ['https:', 'http:'].includes(url.protocol);
+      } catch {
+        return false;
+      }
+    }
+
+    function validateStep(index) {
+      if (index === 0) {
+        const title = document.getElementById('wizard_title').value.trim();
+        const category = document.getElementById('wizard_category').value;
+        return title.length > 0 && category.length > 0 && iconFile !== null;
+      }
+      if (index === 1) {
+        const description = document.getElementById('wizard_description').value.trim();
+        const support = document.getElementById('wizard_support').value.trim();
+        return description.length >= 20 && isValidUrl(support);
+      }
+      if (index === 2) {
+        const pkg = document.getElementById('wizard_package').value.trim();
+        const versionName = document.getElementById('wizard_version_name').value.trim();
+        const versionCode = Number(document.getElementById('wizard_version_code').value);
+        return /^[a-zA-Z]+(\.[a-zA-Z][a-zA-Z0-9_]*)+$/.test(pkg) && versionName.length > 0 && Number.isInteger(versionCode) && versionCode > 0;
+      }
+      if (index === 3) {
+        return apkFile !== null;
+      }
+      return false;
+    }
+
+    function showWizardError(message) {
+      wizardMessage.textContent = message;
+      wizardMessage.className = 'mt-4 text-sm font-semibold text-red-600';
+    }
+
+    function clearWizardMessage() {
+      wizardMessage.textContent = '';
+      wizardMessage.className = 'mt-4 text-sm text-slate-600';
+    }
+
+    function showPaymentSuccess(message) {
+      paymentMessage.textContent = message;
+      paymentMessage.classList.remove('hidden');
+    }
+
+    function hidePaymentSuccess() {
+      paymentMessage.textContent = '';
+      paymentMessage.classList.add('hidden');
+    }
+
+    function getCurrentWizardData() {
+      return {
+        title: document.getElementById('wizard_title').value.trim(),
+        category: document.getElementById('wizard_category').value,
+        description: document.getElementById('wizard_description').value.trim(),
+        support_url: document.getElementById('wizard_support').value.trim(),
+        package_name: document.getElementById('wizard_package').value.trim(),
+        version_name: document.getElementById('wizard_version_name').value.trim(),
+        version_code: Number(document.getElementById('wizard_version_code').value) || 1,
+        icon_file_name: iconFile?.name || null,
+        apk_file_name: apkFile?.name || null,
+        verification_status: 'under_review',
+        published_by: localStorage.getItem('developer_email') || null,
+        created_at: new Date().toISOString()
+      };
+    }
+
+    async function submitWizard() {
+      const developerId = activeDeveloperProfile?.id || await resolveCurrentDeveloperId();
+      if (!developerId) {
+        showWizardError('Unable to determine developer identity. Please sign in again.');
+        return;
+      }
+
+      const payload = getCurrentWizardData();
+      if (!apkFile) {
+        showWizardError('Please upload the APK package before submitting.');
+        return;
+      }
+
+      const originalButtonText = wizardNext.textContent;
+      wizardNext.disabled = true;
+      wizardNext.innerHTML = '<span class="inline-flex items-center gap-2"><svg class="h-4 w-4 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>Uploading APK...</span>';
+      clearWizardMessage();
+
+      const extension = apkFile.name.split('.').pop() || 'apk';
+      const sanitizedPackage = payload.package_name.replace(/[^a-zA-Z0-9_.-]/g, '_');
+      const githubFileName = `${sanitizedPackage}.${extension}`;
+
+      let apkUrl;
+      try {
+        const uploadUrl = await createGithubRelease(payload.package_name, payload.title);
+        apkUrl = await uploadApkToGithub(apkFile, uploadUrl, sanitizedPackage);
+      } catch (uploadError) {
+        showWizardError('APK upload failed to GitHub Releases. Please verify repository credentials.');
+        console.error('GitHub upload error:', uploadError);
+        wizardNext.disabled = false;
+        wizardNext.textContent = originalButtonText;
+        return;
+      }
       const { error } = await supabaseClient.from('apps').insert([
         {
-          title,
-          description,
-          category,
-          package_name: packageName,
-          file_name: selectedFile,
-          verification_status: 'under_review',
-          created_at: new Date().toISOString()
+          developer_id: developerId,
+          title: payload.title,
+          category: payload.category,
+          description: payload.description,
+          support_url: payload.support_url,
+          package_name: payload.package_name,
+          version_name: payload.version_name,
+          version_code: payload.version_code,
+          icon_file_name: payload.icon_file_name,
+          apk_file_name: payload.apk_file_name,
+          apk_url: apkUrl,
+          verification_status: payload.verification_status,
+          published_by: payload.published_by || null,
+          created_at: payload.created_at
         }
       ]);
 
       if (error) {
-        releaseMessage.textContent = 'Unable to save the release. Please try again later.';
-        releaseMessage.className = 'rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700';
+        showWizardError('Submission failed. Please review the form and try again.');
+        console.error(error);
+        wizardNext.disabled = false;
+        wizardNext.textContent = originalButtonText;
         return;
       }
 
-      releaseMessage.textContent = 'Release saved successfully.';
-      releaseForm.reset();
-      updateFileName('');
+      wizardMessage.className = 'mt-4 text-sm font-semibold text-emerald-600';
+      wizardMessage.textContent = 'App uploaded successfully and sent for review. Redirecting...';
+      wizardNext.textContent = 'Done';
+      setTimeout(() => {
+        window.location.href = 'developer.html';
+      }, 1200);
+    }
+
+    function handleWizardNext() {
+      clearWizardMessage();
+      if (!validateStep(currentStep)) {
+        const errors = [
+          'Complete app title, category, and icon to continue.',
+          'Enter a description and verify the support URL.',
+          'Use a valid reverse-domain package name.',
+          'Upload your Android APK file to proceed.'
+        ];
+        showWizardError(errors[currentStep]);
+        return;
+      }
+      if (currentStep === wizardSteps.length - 1) {
+        submitWizard();
+        return;
+      }
+      currentStep += 1;
+      updateWizardStep();
+    }
+
+    wizardBack.addEventListener('click', () => {
+      if (currentStep === 0) return;
+      currentStep -= 1;
+      updateWizardStep();
+      clearWizardMessage();
     });
+
+    wizardNext.addEventListener('click', handleWizardNext);
+
+    function setIconPreview(file) {
+      if (!file) {
+        iconPreviewText.textContent = 'Drop or click to upload icon';
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        iconDrop.style.backgroundImage = `url('${event.target.result}')`;
+        iconDrop.style.backgroundSize = 'cover';
+        iconDrop.style.backgroundPosition = 'center';
+        iconPreviewText.textContent = file.name;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    iconDrop.addEventListener('click', () => iconFileInput.click());
+    ['dragenter', 'dragover'].forEach(evt => {
+      iconDrop.addEventListener(evt, (event) => {
+        event.preventDefault();
+        iconDrop.classList.add('border-indigo-500');
+      });
+    });
+    ['dragleave', 'drop'].forEach(evt => {
+      iconDrop.addEventListener(evt, (event) => {
+        event.preventDefault();
+        iconDrop.classList.remove('border-indigo-500');
+      });
+    });
+    iconDrop.addEventListener('drop', (event) => {
+      event.preventDefault();
+      const file = event.dataTransfer.files[0];
+      if (file) {
+        iconFile = file;
+        setIconPreview(file);
+      }
+    });
+    iconFileInput.addEventListener('change', () => {
+      const file = iconFileInput.files[0];
+      if (file) {
+        iconFile = file;
+        setIconPreview(file);
+      }
+    });
+
+    apkDrop.addEventListener('click', () => apkFileInput.click());
+    ['dragenter', 'dragover'].forEach(evt => {
+      apkDrop.addEventListener(evt, (event) => {
+        event.preventDefault();
+        apkDrop.classList.add('border-indigo-500');
+      });
+    });
+    ['dragleave', 'drop'].forEach(evt => {
+      apkDrop.addEventListener(evt, (event) => {
+        event.preventDefault();
+        apkDrop.classList.remove('border-indigo-500');
+      });
+    });
+    apkDrop.addEventListener('drop', (event) => {
+      event.preventDefault();
+      const file = event.dataTransfer.files[0];
+      if (file && /\.(apk|aab)$/i.test(file.name)) {
+        apkFile = file;
+        apkPreviewText.textContent = 'Ready to upload';
+        apkFileName.textContent = file.name;
+      }
+    });
+    apkFileInput.addEventListener('change', () => {
+      const file = apkFileInput.files[0];
+      if (file && /\.(apk|aab)$/i.test(file.name)) {
+        apkFile = file;
+        apkPreviewText.textContent = 'Ready to upload';
+        apkFileName.textContent = file.name;
+      }
+    });
+
+    updateWizardStep();
 
     const budgetInput = document.getElementById('budgetInput');
     const budgetValue = document.getElementById('budgetValue');
@@ -376,6 +1116,21 @@
 
     budgetInput.addEventListener('input', updateCampaignMetrics);
     updateCampaignMetrics();
+
+    launchCampaignButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      showCampaignMessage('The Premium Ad Engine is currently locked. Sponsored discovery will activate once our user base crosses the Phase 1 threshold.');
+    });
+
+    purchaseSingleSlot.addEventListener('click', async (event) => {
+      event.preventDefault();
+      showPaymentSuccess('Slot purchasing is temporarily paused for Early Adopter onboarding.');
+    });
+
+    purchaseGrowthBundle.addEventListener('click', async (event) => {
+      event.preventDefault();
+      showPaymentSuccess('Slot purchasing is temporarily paused for Early Adopter onboarding.');
+    });
   </script>
 </body>
 </html>

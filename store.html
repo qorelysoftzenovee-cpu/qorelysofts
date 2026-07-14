@@ -23,41 +23,205 @@
             }
         }
     </script>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.4s ease-out forwards;
+        }
+        .language-modal-backdrop {
+            backdrop-filter: blur(8px);
+        }
+        .language-modal {
+            border-top-left-radius: 1.75rem;
+            border-top-right-radius: 1.75rem;
+            box-shadow: 0 -24px 60px rgba(17, 24, 39, 0.16);
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.28s ease, opacity 0.28s ease;
+        }
+        .language-modal.open {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .detail-modal {
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .detail-modal.open {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .detail-modal-close {
+            background: rgba(15, 23, 42, 0.04);
+        }
+        .detail-modal-footer {
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 40;
+            background: white;
+            padding: 1rem 1.25rem 1.25rem;
+            border-top: 1px solid #E5E7EB;
+        }
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid #E5E7EB;
+        }
+        .bottom-nav button {
+            flex: 1;
+        }
+        .bottom-nav .active {
+            background-color: #312E81;
+            color: white;
+        }
+        .updates-pane {
+            min-height: calc(100vh - 140px);
+        }
+        .language-card {
+            transition: transform 0.22s ease, background-color 0.22s ease, border-color 0.22s ease;
+        }
+        .language-card:hover,
+        .language-card:focus-visible {
+            transform: translateY(-2px);
+            background-color: #F8FAFC;
+            border-color: #C7D2FE;
+            outline: none;
+        }
+        .language-card.active {
+            background-color: #EEF2FF;
+            border-color: #C7D2FE;
+        }
+    </style>
 </head>
 <body class="bg-[#f5f7fb] text-[#111827] antialiased">
-    <div class="mx-auto min-h-screen max-w-sm bg-white shadow-handset sm:my-6 sm:min-h-[860px] sm:rounded-[2.5rem] sm:border sm:border-[#F3F4F6] sm:max-w-[430px] sm:overflow-hidden">
+    <div class="mx-auto relative min-h-screen max-w-sm bg-white shadow-handset sm:my-6 sm:min-h-[860px] sm:rounded-[2.5rem] sm:border sm:border-[#F3F4F6] sm:max-w-[430px] sm:overflow-hidden animate-fade-in-up pb-24">
         <header class="sticky top-0 z-30 bg-white/95 px-4 pb-4 pt-5 backdrop-blur sm:px-5">
             <div class="flex items-center gap-3 rounded-full border border-[#F3F4F6] bg-white px-4 py-3 shadow-soft">
                 <span class="text-base text-gray-400">⌕</span>
-                <input type="text" placeholder="Search for apps & utilities..." class="w-full bg-transparent text-sm text-[#111827] outline-none placeholder:text-gray-400">
+                <input id="searchInput" data-i18n-placeholder="search_placeholder" type="text" placeholder="Search for apps & utilities..." class="w-full bg-transparent text-sm text-[#111827] outline-none placeholder:text-gray-400">
+                <button id="languageButton" type="button" aria-label="Choose language" class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-[#E5E7F2] bg-white text-sm font-semibold text-[#111827] transition hover:bg-[#F3F4F6] shadow-sm">文/A</button>
                 <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#F3F4F6] text-xs font-bold text-gray-500">U</div>
             </div>
 
             <div class="mt-4 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <button data-filter="Education" class="category-pill whitespace-nowrap rounded-full bg-brand px-4 py-2.5 text-sm font-bold text-white">Education</button>
-                <button data-filter="Tech" class="category-pill whitespace-nowrap rounded-full border border-[#F3F4F6] bg-white px-4 py-2.5 text-sm font-bold text-[#111827]">Tech Utilities</button>
-                <button data-filter="Sports" class="category-pill whitespace-nowrap rounded-full border border-[#F3F4F6] bg-white px-4 py-2.5 text-sm font-bold text-[#111827]">Sports &amp; Health</button>
-                <button data-filter="Govt" class="category-pill whitespace-nowrap rounded-full border border-[#F3F4F6] bg-white px-4 py-2.5 text-sm font-bold text-[#111827]">Sarkari Utilities</button>
+                <button data-filter="Education" data-i18n="cat_education" class="category-pill whitespace-nowrap rounded-full bg-brand px-4 py-2.5 text-sm font-bold text-white">Education</button>
+                <button data-filter="Tech" data-i18n="cat_tech" class="category-pill whitespace-nowrap rounded-full border border-[#F3F4F6] bg-white px-4 py-2.5 text-sm font-bold text-[#111827]">Tech Utilities</button>
+                <button data-filter="Sports" data-i18n="cat_sports" class="category-pill whitespace-nowrap rounded-full border border-[#F3F4F6] bg-white px-4 py-2.5 text-sm font-bold text-[#111827]">Sports &amp; Health</button>
+                <button data-filter="Govt" data-i18n="cat_sarkari" class="category-pill whitespace-nowrap rounded-full border border-[#F3F4F6] bg-white px-4 py-2.5 text-sm font-bold text-[#111827]">Sarkari Utilities</button>
             </div>
         </header>
 
         <main class="space-y-8 px-4 pb-8 pt-3 sm:px-5">
             <section>
                 <div class="mb-4 flex items-center justify-between">
-                    <h1 class="text-xl font-black tracking-tight text-[#111827]">Top Rated Utilities</h1>
-                    <span class="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">Live</span>
+                    <h1 data-i18n="top_rated" class="text-xl font-black tracking-tight text-[#111827]">Top Rated Utilities</h1>
+                    <span data-i18n="live_status" class="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">Live</span>
                 </div>
-                <div id="top-rated-row" class="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"></div>
+                <div id="top-rated-row" class="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden animate-fade-in-up"></div>
             </section>
 
             <section>
                 <div class="mb-4 flex items-center justify-between">
-                    <h2 class="text-xl font-black tracking-tight text-[#111827]">New &amp; Updated Apps</h2>
-                    <span class="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">Auto Sync</span>
+                    <h2 data-i18n="new_updated_title" class="text-xl font-black tracking-tight text-[#111827]">New &amp; Updated Apps</h2>
+                    <span data-i18n="auto_sync" class="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">Auto Sync</span>
                 </div>
-                <div id="new-updated-row" class="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"></div>
+                <div id="new-updated-row" class="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden animate-fade-in-up"></div>
             </section>
         </main>
+        <section id="updatesPane" class="hidden space-y-6 px-4 pb-8 pt-3 sm:px-5">
+            <div class="updates-pane space-y-6">
+                <div class="mb-4 flex items-center justify-between">
+                    <div>
+                        <h1 data-i18n="updates_title" class="text-xl font-black tracking-tight text-[#111827]">App Updates</h1>
+                        <p data-i18n="updates_description" class="mt-1 text-sm text-slate-500">Latest versions for installed utilities.</p>
+                    </div>
+                    <span data-i18n="live_status" class="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">Live</span>
+                </div>
+                <div id="updatesAvailable" class="space-y-4"></div>
+                <div id="updatesEmpty" data-i18n="updates_empty" class="hidden rounded-3xl border border-dashed border-[#C7D2FE] bg-[#EEF2FF] p-6 text-center text-sm font-semibold text-slate-700">
+                    All your utilities are secure and up to date.
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="bottom-nav">
+        <button id="navHome" type="button" class="rounded-2xl border border-[#E5E7F6] bg-white px-3 py-3 text-sm font-semibold text-[#111827] active">Home</button>
+        <button id="navUpdates" type="button" class="rounded-2xl border border-[#E5E7F6] bg-white px-3 py-3 text-sm font-semibold text-[#111827]">Updates</button>
+    </div>
+
+    <div id="appDetailModal" class="detail-modal fixed inset-0 z-50 hidden flex-col overflow-y-auto bg-white">
+        <div class="relative min-h-screen">
+            <div class="sticky top-0 z-30 border-b border-slate-200 bg-white px-5 py-4 backdrop-blur">
+                <button id="appDetailClose" class="detail-modal-close inline-flex items-center justify-center rounded-3xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-100">← Back</button>
+                <div class="mt-4">
+                    <p class="text-xs uppercase tracking-[0.24em] text-slate-500">App Details</p>
+                    <h2 id="appDetailTitle" class="mt-2 text-2xl font-black text-slate-900">App Title</h2>
+                    <p id="appDetailDeveloper" class="mt-1 text-sm text-slate-500">Developer Name</p>
+                </div>
+            </div>
+            <div class="px-6 pb-36 pt-6">
+                <div id="appDetailIcon" class="mx-auto flex h-32 w-32 items-center justify-center rounded-[2rem] bg-slate-100 text-5xl shadow-soft"></div>
+                <div class="mt-8 space-y-4">
+                    <div class="rounded-[2rem] border border-slate-200 bg-slate-50 p-5">
+                        <p class="text-sm leading-7 text-slate-700" id="appDetailDescription">App description will appear here when the user taps a card.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-modal-footer">
+                <button id="appDetailInstallButton" class="mb-3 inline-flex w-full items-center justify-center rounded-3xl bg-[#16A34A] px-5 py-4 text-base font-semibold text-white transition hover:bg-green-700">Install</button>
+                <button id="appDetailShareButton" class="inline-flex w-full items-center justify-center rounded-3xl border border-slate-200 bg-white px-5 py-4 text-base font-semibold text-slate-900 transition hover:bg-slate-50">Share</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="languageModalBackdrop" class="language-modal-backdrop fixed inset-0 z-40 hidden bg-slate-900/40"></div>
+    <div id="languageModal" class="language-modal fixed inset-x-0 bottom-0 z-50 hidden bg-white px-5 pb-6 pt-4">
+        <div class="mb-4 flex items-center justify-between">
+            <div>
+                <p class="text-xs uppercase tracking-[0.24em] text-slate-500" data-i18n="language_title">Choose language</p>
+                <h3 class="mt-2 text-xl font-semibold text-slate-900">Select your regional interface</h3>
+            </div>
+            <button id="languageModalClose" type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-[#E5E7F2] text-slate-700 transition hover:bg-[#F3F4F6]">✕</button>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2">
+            <button data-lang="en" class="language-card flex min-h-[110px] flex-col items-start justify-center gap-1 rounded-3xl border border-[#E5E7F2] bg-white p-5 text-left shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/30">
+                <span class="text-sm font-semibold text-slate-900">English</span>
+                <span class="text-xs text-slate-500">English</span>
+            </button>
+            <button data-lang="hi" class="language-card flex min-h-[110px] flex-col items-start justify-center gap-1 rounded-3xl border border-[#E5E7F2] bg-white p-5 text-left shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/30">
+                <span class="text-sm font-semibold text-slate-900">हिन्दी</span>
+                <span class="text-xs text-slate-500">Hindi</span>
+            </button>
+            <button data-lang="ta" class="language-card flex min-h-[110px] flex-col items-start justify-center gap-1 rounded-3xl border border-[#E5E7F2] bg-white p-5 text-left shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/30">
+                <span class="text-sm font-semibold text-slate-900">தமிழ்</span>
+                <span class="text-xs text-slate-500">Tamil</span>
+            </button>
+            <button data-lang="te" class="language-card flex min-h-[110px] flex-col items-start justify-center gap-1 rounded-3xl border border-[#E5E7F2] bg-white p-5 text-left shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/30">
+                <span class="text-sm font-semibold text-slate-900">తెలుగు</span>
+                <span class="text-xs text-slate-500">Telugu</span>
+            </button>
+        </div>
     </div>
 
     <script>
@@ -65,21 +229,252 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwYmNubmRhZGdnZGFtaXdxa2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Mzg5NTAsImV4cCI6MjA5OTUxNDk1MH0.DJHANfWjfMr9qXs0XTPyJcIoM9zq7YHcqWhLtkYrdXs';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        const translations = {
+            en: {
+                search_placeholder: 'Search for apps & utilities...',
+                cat_education: 'Education',
+                cat_tech: 'Tech Utilities',
+                cat_sports: 'Sports & Health',
+                cat_sarkari: 'Sarkari Utilities',
+                install_btn: 'Install',
+                top_rated: 'Top Rated Utilities',
+                new_updated_title: 'New & Updated Apps',
+                auto_sync: 'Auto Sync',
+                language_title: 'Choose language',
+                live_status: 'Live',
+                updates_title: 'App Updates',
+                updates_description: 'Latest versions for installed utilities.',
+                updates_empty: 'All your utilities are secure and up to date.',
+                update_btn: 'Update',
+                current_version: 'Current version',
+                empty_category: 'No approved selected tools are available yet.',
+                empty_new_app: 'No fresh approved apps are available right now.'
+            },
+            hi: {
+                search_placeholder: 'ऐप्स और उपयोगिताओं के लिए खोजें...',
+                cat_education: 'शिक्षा',
+                cat_tech: 'तकनीकी उपकरण',
+                cat_sports: 'खेल और स्वास्थ्य',
+                cat_sarkari: 'सरकारी सेवाएं',
+                install_btn: 'इंस्टॉल करें',
+                top_rated: 'शीर्ष रेटेड ऐप्स',
+                new_updated_title: 'नए और अपडेट किए गए ऐप्स',
+                auto_sync: 'स्वचालित सिंक',
+                language_title: 'भाषा चुनें',
+                live_status: 'लाइव',
+                updates_title: 'ऐप अपडेट्स',
+                updates_description: 'इंस्टॉल किए गए उपयोगिताओं के लिए नवीनतम संस्करण।',
+                updates_empty: 'आपकी सभी उपयोगिताएँ सुरक्षित और नवीनतम हैं।',
+                update_btn: 'अपडेट',
+                current_version: 'वर्तमान संस्करण',
+                empty_category: 'कोई अनुमोदित चुने हुए उपकरण अभी उपलब्ध नहीं हैं।',
+                empty_new_app: 'कोई ताज़ा अनुमोदित ऐप्स अभी उपलब्ध नहीं हैं।'
+            },
+            ta: {
+                search_placeholder: 'ஆப்ஸ் மற்றும் பயன்பாடுகளைத் தேடுங்கள்...',
+                cat_education: 'கல்வி',
+                cat_tech: 'தொழில்நுட்ப பயன்பாடுகள்',
+                cat_sports: 'விளையாட்டு & ஆரோக்கியம்',
+                cat_sarkari: 'அரசு பயன்பாடுகள்',
+                install_btn: 'நிறுவு',
+                top_rated: 'சிறந்த பயன்பாடுகள்',
+                new_updated_title: 'புதிய மற்றும் புதுப்பிக்கப்பட்ட Apps',
+                auto_sync: 'தானாக ஒருங்கிணைப்பு',
+                language_title: 'மொழியை தேர்ந்தெடுங்கள்',
+                live_status: 'பலம்',
+                updates_title: 'அப்பிற்கான புதுப்பிப்புகள்',
+                updates_description: 'நிறுவிய பயன்பாடுகளுக்கான சமீபத்திய பதிப்புகள்.',
+                updates_empty: 'உங்கள் அனைத்து பயன்பாடுகளும் பாதுகாப்பாகவும் புதுப்பிக்கப்பட்டவையாகும்.',
+                update_btn: 'புதுப்பிக்கவும்',
+                current_version: 'தற்போதைய பதிப்பு',
+                empty_category: 'தேர்ந்தெடுக்கப்பட்ட எந்த அங்கீகாரம் பெற்ற கருவிகளும் இல்லை.',
+                empty_new_app: 'புதிய அங்கீகாரம் பெற்ற பயன்பாடுகள் இப்போது இல்லை.'
+            },
+            te: {
+                search_placeholder: 'ఆప్స్ & యుటిలిటీల కోసం శోధించండి...',
+                cat_education: 'విద్య',
+                cat_tech: 'టెక్ యూటిలిటీజ్స్',
+                cat_sports: 'క్రీడలు & ఆరోగ్యం',
+                cat_sarkari: 'సర్కారీ యూటిలిటీస్',
+                install_btn: 'ఇన్‌స్టాల్ చేయి',
+                top_rated: 'టాప్ రేటెడ్ యూటిలిటీస్',
+                new_updated_title: 'కొత్త & నవీకరించబడిన అనువర్తనాలు',
+                auto_sync: 'ఆటో సమన్వయం',
+                language_title: 'భాషను ఎంచుకోండి',
+                live_status: 'లైవ్',
+                updates_title: 'యాప్ నవీకరణలు',
+                updates_description: 'ఇన్‌స్టాల్ చేయబడిన యుటిలిటీస్ కోసం తాజా వెర్షన్లు.',
+                updates_empty: 'మీ అన్ని యుటిలిటీస్ సురక్షితంగా మరియు తాజాకరణలతో ఉన్నాయి.',
+                update_btn: 'అప్‌డేట్',
+                current_version: 'ప్రస్తుతం వెర్షన్',
+                empty_category: 'ఏ అంగీకరించిన ఎంచుకున్న సాధనాలు లేవు.',
+                empty_new_app: 'ఇప్పుడే ఏ తాజా అంగీకరించబడిన అనువర్తనాలూ లేవు.'
+            }
+        };
+
         const allowedCategories = ['Education', 'Tech', 'Sports', 'Govt'];
         const categoryPills = document.querySelectorAll('.category-pill');
         const topRatedRow = document.getElementById('top-rated-row');
         const newUpdatedRow = document.getElementById('new-updated-row');
+        const navHomeButton = document.getElementById('navHome');
+        const navUpdatesButton = document.getElementById('navUpdates');
+        const languageButton = document.getElementById('languageButton');
+        const languageModal = document.getElementById('languageModal');
+        const languageModalBackdrop = document.getElementById('languageModalBackdrop');
+        const languageModalClose = document.getElementById('languageModalClose');
+        const languageCards = document.querySelectorAll('[data-lang]');
+        const appDetailModal = document.getElementById('appDetailModal');
+        const appDetailTitle = document.getElementById('appDetailTitle');
+        const appDetailDeveloper = document.getElementById('appDetailDeveloper');
+        const appDetailDescription = document.getElementById('appDetailDescription');
+        const appDetailIcon = document.getElementById('appDetailIcon');
+        const appDetailInstallButton = document.getElementById('appDetailInstallButton');
+        const appDetailShareButton = document.getElementById('appDetailShareButton');
+        const appDetailClose = document.getElementById('appDetailClose');
         let activeCategory = 'Education';
+        let activeLang = localStorage.getItem('indapp_lang') || 'en';
         let approvedApps = [];
+        let activeAppDetail = null;
+
+        let activeSearchTerm = '';
+        let searchDebounceTimer = null;
 
         function formatCategory(category) {
             const labels = {
-                Education: 'Education',
-                Tech: 'Tech Utilities',
-                Sports: 'Sports & Health',
-                Govt: 'Sarkari Utilities'
+                Education: translations[activeLang].cat_education,
+                Tech: translations[activeLang].cat_tech,
+                Sports: translations[activeLang].cat_sports,
+                Govt: translations[activeLang].cat_sarkari
             };
             return labels[category] || category;
+        }
+
+        function updateCategoryPills(category) {
+            categoryPills.forEach((pill) => {
+                const active = pill.dataset.filter === category;
+                pill.className = `category-pill whitespace-nowrap rounded-full border px-4 py-2.5 text-sm font-bold transition ${active ? 'border-brand bg-brand text-white' : 'border-[#F3F4F6] bg-white text-[#111827]'}`;
+            });
+        }
+
+        async function queryCategoryApps(category) {
+            activeCategory = category;
+            activeSearchTerm = '';
+            document.getElementById('searchInput').value = '';
+            updateCategoryPills(category);
+
+            const { data, error } = await supabaseClient
+                .from('apps')
+                .select('*')
+                .eq('verification_status', 'approved')
+                .eq('category', category)
+                .order('is_suggested', { ascending: false })
+                .order('ad_impressions_delivered', { ascending: true })
+                .order('id', { ascending: false });
+
+            if (error) {
+                console.error('Category query failed', error);
+                return;
+            }
+
+            renderRow(topRatedRow, sortPromotedAppsFirst(data || []), translations[activeLang].empty_category);
+            renderRow(newUpdatedRow, sortPromotedAppsFirst(data || []), '');
+        }
+
+        async function querySearchApps(searchTerm) {
+            activeSearchTerm = searchTerm.trim();
+            updateCategoryPills(activeCategory);
+
+            if (!activeSearchTerm) {
+                return queryCategoryApps(activeCategory);
+            }
+
+            const { data, error } = await supabaseClient
+                .from('apps')
+                .select('*')
+                .ilike('title', `%${activeSearchTerm}%`)
+                .eq('verification_status', 'approved')
+                .order('is_suggested', { ascending: false })
+                .order('ad_impressions_delivered', { ascending: true })
+                .order('id', { ascending: false });
+
+            if (error) {
+                console.error('Search query failed', error);
+                return;
+            }
+
+            renderRow(topRatedRow, sortPromotedAppsFirst(data || []), 'No verified utilities match your search.');
+            renderRow(newUpdatedRow, sortPromotedAppsFirst(data || []), '');
+        }
+
+        let activePane = 'store';
+        const installedDevices = [
+            { package_name: 'com.qorelysofts.educube', version_code: 1 },
+            { package_name: 'com.qorelysofts.govhelper', version_code: 1 }
+        ];
+
+        function showStorePane() {
+            activePane = 'store';
+            document.querySelector('main').classList.remove('hidden');
+            document.getElementById('updatesPane').classList.add('hidden');
+            document.getElementById('navHome').classList.add('active');
+            document.getElementById('navUpdates').classList.remove('active');
+        }
+
+        function showUpdatesPane() {
+            activePane = 'updates';
+            document.querySelector('main').classList.add('hidden');
+            document.getElementById('updatesPane').classList.remove('hidden');
+            document.getElementById('navHome').classList.remove('active');
+            document.getElementById('navUpdates').classList.add('active');
+            queryUpdates();
+        }
+
+        function localizeDOM() {
+            document.querySelectorAll('[data-i18n]').forEach((element) => {
+                const key = element.dataset.i18n;
+                const value = translations[activeLang][key];
+                if (value != null) {
+                    element.textContent = value;
+                }
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach((input) => {
+                const key = input.dataset.i18nPlaceholder;
+                const value = translations[activeLang][key];
+                if (value != null) {
+                    input.placeholder = value;
+                }
+            });
+            categoryPills.forEach((pill) => {
+                const token = pill.dataset.i18n;
+                if (token && translations[activeLang][token]) {
+                    pill.textContent = translations[activeLang][token];
+                }
+            });
+            languageCards.forEach((card) => {
+                card.classList.toggle('active', card.dataset.lang === activeLang);
+            });
+        }
+
+        function openLanguageModal() {
+            languageModalBackdrop.classList.remove('hidden');
+            languageModal.classList.add('open');
+            languageModalBackdrop.classList.remove('hidden');
+        }
+
+        function closeLanguageModal() {
+            languageModal.classList.remove('open');
+            languageModalBackdrop.classList.add('hidden');
+        }
+
+        function setLanguage(lang) {
+            if (!translations[lang]) {
+                lang = 'en';
+            }
+            activeLang = lang;
+            localStorage.setItem('indapp_lang', lang);
+            localizeDOM();
+            renderShelves();
+            closeLanguageModal();
         }
 
         function randomSize(id) {
@@ -90,51 +485,194 @@
         function createInstallCard(app) {
             const wrapper = document.createElement('article');
             wrapper.className = 'min-w-[170px] max-w-[170px] snap-start';
+            wrapper.dataset.appId = app.id;
+            wrapper.appData = app;
+            const promoted = isPromotedApp(app);
             wrapper.innerHTML = `
-                <div class="rounded-[1.75rem] border border-[#F3F4F6] bg-white p-4 shadow-soft">
+                <div class="relative rounded-[1.75rem] border border-[#F3F4F6] bg-white p-4 shadow-soft transition-all duration-300 ease-out transform hover:-translate-y-1 hover:shadow-md">
+                    ${promoted ? '<span class="absolute right-3 top-3 rounded-full bg-slate-100 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Promoted</span>' : ''}
                     <div class="flex h-16 w-16 items-center justify-center rounded-[1.4rem] bg-[#F3F4F6] text-2xl">${app.icon || '📱'}</div>
                     <h3 class="mt-4 line-clamp-2 text-sm font-bold text-[#111827]">${app.title}</h3>
                     <p class="mt-1 truncate text-xs font-medium text-gray-500">${app.developer_name || 'Verified Publisher'}</p>
                     <p class="mt-2 text-xs text-gray-400">${randomSize(app.id)}</p>
-                    <button class="install-btn mt-4 inline-flex w-full items-center justify-center rounded-full bg-accent px-3 py-2.5 text-xs font-bold text-white transition hover:bg-green-700" data-app-id="${app.id}">Install</button>
+                    <button class="install-btn mt-4 inline-flex w-full items-center justify-center rounded-full bg-accent px-3 py-2.5 text-xs font-bold text-white transition hover:bg-green-700 relative overflow-hidden" data-app-id="${app.id}">${translations[activeLang].install_btn}</button>
                 </div>
             `;
 
             const button = wrapper.querySelector('.install-btn');
-            button.addEventListener('click', () => simulateInstall(button));
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+                simulateInstall(button, app);
+            });
+            wrapper.addEventListener('click', () => openAppDetailModal(app));
+            if (promoted) {
+                promotedObserver.observe(wrapper);
+            }
             return wrapper;
         }
 
-        function simulateInstall(button) {
+        function openAppDetailModal(app) {
+            activeAppDetail = app;
+            appDetailTitle.textContent = app.title || 'Untitled Utility';
+            appDetailDeveloper.textContent = app.developer_name ? `by ${app.developer_name}` : 'Verified Publisher';
+            appDetailDescription.textContent = app.description || 'No app description available.';
+            appDetailIcon.textContent = app.icon || '📱';
+            appDetailInstallButton.dataset.appId = app.id;
+            appDetailShareButton.dataset.appId = app.id;
+            appDetailModal.classList.remove('hidden');
+            requestAnimationFrame(() => appDetailModal.classList.add('open'));
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAppDetailModal() {
+            if (!appDetailModal) return;
+            appDetailModal.classList.remove('open');
+            setTimeout(() => {
+                appDetailModal.classList.add('hidden');
+            }, 300);
+            document.body.style.overflow = '';
+            activeAppDetail = null;
+        }
+
+        async function simulateInstall(button, app) {
+            if (!app?.apk_url) {
+                alert('APK download link is unavailable for this app.');
+                return;
+            }
             if (button.dataset.installing === 'true') return;
             button.dataset.installing = 'true';
-            let progress = 0;
-            button.textContent = 'Preparing...';
+            button.disabled = true;
+            button.classList.add('relative', 'overflow-hidden');
 
-            const interval = setInterval(() => {
-                progress += 20;
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    button.textContent = 'Installed';
-                    button.classList.remove('bg-accent', 'hover:bg-green-700');
-                    button.classList.add('bg-brand');
+            const originalContent = button.innerHTML;
+            const progressLayer = document.createElement('span');
+            progressLayer.className = 'absolute inset-y-0 left-0 rounded-full bg-emerald-600 transition-all duration-200';
+            progressLayer.style.width = '0%';
+            const label = document.createElement('span');
+            label.className = 'relative z-10';
+            label.textContent = 'Downloading 0%';
+
+            button.innerHTML = '';
+            button.appendChild(progressLayer);
+            button.appendChild(label);
+
+            try {
+                const response = await fetch(app.apk_url);
+                if (!response.ok) {
+                    throw new Error(`Download failed: ${response.status}`);
+                }
+
+                const contentLength = Number(response.headers.get('Content-Length')) || 0;
+                const reader = response.body.getReader();
+                let received = 0;
+                const chunks = [];
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    chunks.push(value);
+                    received += value.byteLength;
+                    const percent = contentLength ? Math.min(100, Math.round((received / contentLength) * 100)) : 0;
+                    progressLayer.style.width = `${percent}%`;
+                    label.textContent = contentLength ? `Downloading ${percent}%...` : 'Downloading...';
+                }
+
+                const blob = new Blob(chunks, { type: response.headers.get('Content-Type') || 'application/vnd.android.package-archive' });
+                label.textContent = 'Installing...';
+                const objectUrl = URL.createObjectURL(blob);
+
+                if (window.AndroidStoreBridge && typeof window.AndroidStoreBridge.installApplication === 'function') {
+                    window.AndroidStoreBridge.installApplication(objectUrl, app.title || 'app.apk');
+                } else {
+                    const anchor = document.createElement('a');
+                    anchor.href = objectUrl;
+                    anchor.download = `${app.title || 'app'}.apk`;
+                    anchor.style.display = 'none';
+                    document.body.appendChild(anchor);
+                    anchor.click();
+                    anchor.remove();
+                }
+            } catch (downloadError) {
+                console.error('Background APK download failed', downloadError);
+                alert('APK download failed. Please try again.');
+                button.innerHTML = originalContent;
+                button.disabled = false;
+                button.dataset.installing = 'false';
+                return;
+            }
+
+            button.dataset.installing = 'false';
+        }
+
+        async function shareAppDetail() {
+            if (!activeAppDetail) return;
+            const shareUrl = `https://qorelysofts.vercel.app/store.html?app=${activeAppDetail.id}`;
+            const shareText = `Check out this clean Indian utility! ${activeAppDetail.title}`;
+            try {
+                if (navigator.share) {
+                    await navigator.share({ title: activeAppDetail.title, text: shareText, url: shareUrl });
                     return;
                 }
-                button.textContent = `Installing ${progress}%`;
-            }, 350);
+                throw new Error('Web Share not supported');
+            } catch (error) {
+                const whatsapp = `whatsapp://send?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`;
+                window.open(whatsapp, '_blank');
+            }
         }
 
         function setActiveCategory(category) {
-            activeCategory = category;
-            categoryPills.forEach((pill) => {
-                const active = pill.dataset.filter === category;
-                pill.className = `category-pill whitespace-nowrap rounded-full border px-4 py-2.5 text-sm font-bold transition ${active ? 'border-brand bg-brand text-white' : 'border-[#F3F4F6] bg-white text-[#111827]'}`;
-            });
-            renderShelves();
+            showStorePane();
+            queryCategoryApps(category);
         }
+
+        appDetailClose.addEventListener('click', closeAppDetailModal);
+        appDetailInstallButton.addEventListener('click', () => {
+            if (activeAppDetail) {
+                simulateInstall(appDetailInstallButton, activeAppDetail);
+            }
+        });
+        appDetailShareButton.addEventListener('click', shareAppDetail);
 
         function getFilteredApps() {
             return approvedApps.filter((app) => app.category === activeCategory);
+        }
+
+        const promotedImpressionCache = new Set();
+        const promotedObserver = new IntersectionObserver(async (entries, observer) => {
+            for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                const card = entry.target;
+                const app = card.appData;
+                if (!app || !isPromotedApp(app) || promotedImpressionCache.has(app.id)) {
+                    observer.unobserve(card);
+                    continue;
+                }
+
+                promotedImpressionCache.add(app.id);
+                observer.unobserve(card);
+
+                try {
+                    await incrementPromotedImpression(app);
+                } catch (error) {
+                    console.error('Promoted impression tracking failed for app', app.id, error);
+                }
+            }
+        }, { threshold: 0.5 });
+
+        function isPromotedApp(app) {
+            return Boolean(app?.is_suggested) && Number(app.ad_impressions_delivered || 0) < Number(app.ad_impressions_targeted || 0);
+        }
+
+        function sortPromotedAppsFirst(apps) {
+            return [...apps].sort((a, b) => {
+                const aPromoted = isPromotedApp(a) ? 1 : 0;
+                const bPromoted = isPromotedApp(b) ? 1 : 0;
+                if (aPromoted !== bPromoted) return bPromoted - aPromoted;
+                if (aPromoted && bPromoted) {
+                    return Number(a.id || 0) - Number(b.id || 0);
+                }
+                return Number(b.id || 0) - Number(a.id || 0);
+            });
         }
 
         function renderRow(container, apps, emptyMessage) {
@@ -151,11 +689,92 @@
 
         function renderShelves() {
             const filtered = getFilteredApps();
-            const topRated = [...filtered].sort((a, b) => Number(b.is_suggested || 0) - Number(a.is_suggested || 0)).slice(0, 10);
-            const newest = [...filtered].sort((a, b) => Number(b.id || 0) - Number(a.id || 0)).slice(0, 10);
+            const topRated = sortPromotedAppsFirst(filtered).slice(0, 10);
+            const newest = sortPromotedAppsFirst(filtered.sort((a, b) => Number(b.id || 0) - Number(a.id || 0))).slice(0, 10);
 
-            renderRow(topRatedRow, topRated, `No approved ${formatCategory(activeCategory).toLowerCase()} tools are available yet.`);
-            renderRow(newUpdatedRow, newest, `No fresh approved ${formatCategory(activeCategory).toLowerCase()} apps are available right now.`);
+            renderRow(topRatedRow, topRated, translations[activeLang].empty_category);
+            renderRow(newUpdatedRow, newest, translations[activeLang].empty_new_app);
+        }
+
+        function createUpdateCard(app) {
+            const wrapper = document.createElement('article');
+            wrapper.className = 'rounded-[1.75rem] border border-[#F3F4F6] bg-white p-4 shadow-soft transition-all duration-300 ease-out';
+            wrapper.innerHTML = `
+                <div class="flex items-start gap-4">
+                    <div class="flex h-16 w-16 items-center justify-center rounded-[1.4rem] bg-[#F3F4F6] text-2xl">${app.icon || '📱'}</div>
+                    <div class="min-w-0 flex-1">
+                        <h3 class="text-sm font-bold text-[#111827]">${app.title}</h3>
+                        <p class="mt-1 text-xs text-slate-500">${app.package_name}</p>
+                        <p class="mt-2 text-xs text-gray-400">${translations[activeLang].current_version}: ${app.version_name || '1.0.0'}</p>
+                    </div>
+                    <button class="update-btn inline-flex h-10 items-center justify-center rounded-full bg-brand px-4 py-2 text-xs font-semibold text-white transition hover:bg-indigo-600 relative overflow-hidden" data-app-id="${app.id}">${translations[activeLang].update_btn}</button>
+                </div>
+            `;
+            const button = wrapper.querySelector('.update-btn');
+            button.addEventListener('click', () => simulateInstall(button, app));
+            return wrapper;
+        }
+
+        function renderUpdates(apps) {
+            const container = document.getElementById('updatesAvailable');
+            const emptyState = document.getElementById('updatesEmpty');
+            container.innerHTML = '';
+            if (!apps.length) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            emptyState.classList.add('hidden');
+            apps.forEach((app) => container.appendChild(createUpdateCard(app)));
+        }
+
+        async function queryUpdates() {
+            const packageNames = installedDevices.map((device) => device.package_name);
+            if (!packageNames.length) {
+                renderUpdates([]);
+                return;
+            }
+
+            const { data, error } = await supabaseClient
+                .from('apps')
+                .select('*')
+                .in('package_name', packageNames)
+                .eq('verification_status', 'approved')
+                .order('id', { ascending: false });
+
+            if (error) {
+                console.error('Update query failed', error);
+                return;
+            }
+
+            const availableUpdates = (data || []).filter((app) => {
+                const installed = installedDevices.find((device) => device.package_name === app.package_name);
+                return installed && Number(app.version_code) > Number(installed.version_code);
+            });
+
+            renderUpdates(availableUpdates);
+        }
+
+        async function incrementPromotedImpression(app) {
+            const delivered = Number(app.ad_impressions_delivered || 0) + 1;
+            const target = Number(app.ad_impressions_targeted || 0);
+            const shouldDisable = target > 0 && delivered >= target;
+
+            const { data, error } = await supabaseClient
+                .from('apps')
+                .update({
+                    ad_impressions_delivered: delivered,
+                    is_suggested: shouldDisable ? false : app.is_suggested
+                })
+                .eq('id', app.id)
+                .select('ad_impressions_delivered, is_suggested')
+                .single();
+
+            if (error) {
+                throw error;
+            }
+
+            app.ad_impressions_delivered = data.ad_impressions_delivered;
+            app.is_suggested = data.is_suggested;
         }
 
         async function fetchApprovedApps() {
@@ -164,6 +783,8 @@
                 .select('*')
                 .eq('verification_status', 'approved')
                 .in('category', allowedCategories)
+                .order('is_suggested', { ascending: false })
+                .order('ad_impressions_delivered', { ascending: true })
                 .order('id', { ascending: false });
 
             if (error) throw error;
@@ -176,12 +797,51 @@
         });
 
         document.addEventListener('DOMContentLoaded', async () => {
-            setActiveCategory('Education');
+            setLanguage(activeLang);
             await fetchApprovedApps();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const deepLinkAppId = urlParams.get('app');
+
+            if (deepLinkAppId) {
+                const deepLinkApp = approvedApps.find((app) => app.id === deepLinkAppId);
+                if (deepLinkApp) {
+                    setActiveCategory(deepLinkApp.category || 'Education');
+                    openAppDetailModal(deepLinkApp);
+                } else {
+                    setActiveCategory('Education');
+                }
+            } else {
+                setActiveCategory('Education');
+            }
+
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (event) => {
+                const value = event.target.value;
+                clearTimeout(searchDebounceTimer);
+                searchDebounceTimer = setTimeout(() => {
+                    querySearchApps(value);
+                }, 300);
+            });
+
+            languageButton.addEventListener('click', openLanguageModal);
+            languageModalClose.addEventListener('click', closeLanguageModal);
+            languageModalBackdrop.addEventListener('click', closeLanguageModal);
+            languageCards.forEach((card) => {
+                card.addEventListener('click', () => setLanguage(card.dataset.lang));
+            });
+            navHomeButton.addEventListener('click', showStorePane);
+            navUpdatesButton.addEventListener('click', showUpdatesPane);
 
             supabaseClient
                 .channel('apps-live-cloud-stream')
-                .on('postgres_changes', { event: '*', schema: 'public', table: 'apps' }, () => fetchApprovedApps())
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'apps' }, () => {
+                    if (activeSearchTerm) {
+                        querySearchApps(activeSearchTerm);
+                    } else {
+                        queryCategoryApps(activeCategory);
+                    }
+                })
                 .subscribe();
         });
     </script>

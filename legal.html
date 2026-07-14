@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qorelysofts Legal & Compliance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+        }
+        .legal-sidebar {
+            min-width: 220px;
+        }
+        .legal-link.active {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="max-w-4xl mx-auto py-12 px-6">
+        <header class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Qorelysofts Compliance Hub</p>
+                <h1 class="mt-3 text-3xl font-semibold leading-tight text-slate-900">Legal Statements for the Indapp Store</h1>
+            </div>
+            <div class="text-right">
+                <a href="index.html" class="inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
+                    Back to Home
+                </a>
+            </div>
+        </header>
+
+        <div class="grid gap-10 lg:grid-cols-[240px_minmax(0,1fr)]">
+            <aside class="legal-sidebar rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sticky top-6 h-fit">
+                <div class="space-y-3">
+                    <button class="legal-link w-full rounded-2xl px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-100" data-target="termsSection">Terms of Service</button>
+                    <button class="legal-link w-full rounded-2xl px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-100" data-target="privacySection">Privacy Policy</button>
+                    <button class="legal-link w-full rounded-2xl px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-100" data-target="developerSection">Developer Agreement</button>
+                    <button class="legal-link w-full rounded-2xl px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-100" data-target="grievanceSection">Grievance Redressal</button>
+                </div>
+            </aside>
+
+            <main class="space-y-10">
+                <section id="termsSection" class="legal-panel rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-slate-900">Terms of Service</h2>
+                    <p class="mt-4 text-slate-700 leading-7">Qorelysofts operates the indapp store as a curated platform for utility applications. We maintain a strict content policy that prioritizes legitimate, purpose-built software and enforces compliance with applicable Indian technology regulations. Users accessing the platform agree to the terms of service governing access, content use, and the distribution of verified application binaries.</p>
+                    <p class="mt-4 text-slate-700 leading-7">The indapp store does not sell user data. We collect data only as necessary to provide, secure, and improve the service, and we retain it in accordance with our published retention policies and legal requirements. All interactions on the platform are subject to our standard usage terms and the Terms of Service contained herein.</p>
+                </section>
+
+                <section id="privacySection" class="legal-panel hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-slate-900">Privacy Policy</h2>
+                    <p class="mt-4 text-slate-700 leading-7">Qorelysofts is committed to protecting user privacy and aligning with Indian data localization laws. Data collected through the indapp store is managed responsibly and only accessed for supporting essential platform features, security, and service improvements.</p>
+                    <p class="mt-4 text-slate-700 leading-7">We do not monetise user information through sale or transfer, and we apply robust administrative, technical, and physical safeguards to protect user data. Any data transfers or disclosures are executed in compliance with applicable statutes, including the Information Technology Act and relevant rules governing personal data in India.</p>
+                </section>
+
+                <section id="developerSection" class="legal-panel hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-slate-900">Developer Agreement</h2>
+                    <p class="mt-4 text-slate-700 leading-7">Developers retain all intellectual property rights in the software they submit to the indapp store. By listing an application on Qorelysofts, developers grant us a non-exclusive license to distribute the approved binary package and related assets through our platform.</p>
+                    <p class="mt-4 text-slate-700 leading-7">Qorelysofts enforces a zero-bloatware and zero-malware policy. We require all applications to comply with our distribution standards and reserve the right to remove any utility that violates these terms, introduces unwanted software, or poses security risks to users.</p>
+                </section>
+
+                <section id="grievanceSection" class="legal-panel hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-slate-900">Grievance Redressal</h2>
+                    <p class="mt-4 text-slate-700 leading-7">Qorelysofts maintains a formal grievance redressal process as required by Indian regulatory standards. Complaints and concerns submitted through the designated channel are acknowledged within 24 hours and managed with priority to ensure transparent resolution.</p>
+                    <p class="mt-4 text-slate-700 leading-7">Our grievance mechanism is designed to address service issues, content concerns, and developer disputes in accordance with IT Rules 2021. We strive to resolve matters within 15 days from the date of receipt, with escalation pathways for unresolved cases.</p>
+
+                    <div class="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                        <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Grievance Officer</p>
+                        <h3 class="mt-3 text-xl font-semibold text-slate-900">[Insert Officer Name]</h3>
+                        <p class="mt-4 text-slate-700 leading-7"><span class="font-semibold">Designation:</span> Grievance Redressal Officer</p>
+                        <p class="mt-2 text-slate-700 leading-7"><span class="font-semibold">Email:</span> <a href="mailto:support@qorelysofts.com" class="text-slate-900 underline">support@qorelysofts.com</a></p>
+                        <p class="mt-2 text-slate-700 leading-7"><span class="font-semibold">Address:</span> [Insert Hyderabad Headquarters Address]</p>
+                        <p class="mt-4 text-slate-700 leading-7"><span class="font-semibold">Response Timeframe:</span> We acknowledge complaints within 24 hours and resolve them within 15 days as per IT Rules 2021.</p>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const links = document.querySelectorAll('.legal-link');
+        const panels = document.querySelectorAll('.legal-panel');
+
+        function showPanel(panelId) {
+            panels.forEach((panel) => {
+                panel.classList.toggle('hidden', panel.id !== panelId);
+            });
+            links.forEach((link) => {
+                link.classList.toggle('active', link.dataset.target === panelId);
+            });
+        }
+
+        links.forEach((link) => {
+            link.addEventListener('click', () => {
+                showPanel(link.dataset.target);
+            });
+        });
+
+        showPanel('termsSection');
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Node artifacts
+node_modules/
+
+# Local logs and temporary files
+server.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local database files
+*.db
+
+# Android / Gradle build artifacts
+indapp-store/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env

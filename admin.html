@@ -1,181 +1,285 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>qorelysofts Owner Audit | Admin</title>
-  <meta name="description" content="Secure owner audit queue for platform approval and rejection of app submissions." />
+  <title>indapp store | Admin Operations</title>
+  <meta name="description" content="Secure platform owner audit dashboard for developer and app review workflows." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: '#4F46E5',
-            danger: '#DC2626',
-            surface: '#F8FAFC'
+            brand: '#0f172a',
+            surface: '#f8fafc',
+            border: '#e2e8f0'
           },
           boxShadow: {
-            soft: '0 24px 80px rgba(15, 23, 42, 0.08)'
+            soft: '0 24px 60px rgba(15, 23, 42, 0.08)'
           }
         }
       }
-    }
+    };
   </script>
+  <style>
+    body {
+      background: #f8fafc;
+      color: #0f172a;
+      min-height: 100vh;
+    }
+    #adminApp {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    #adminApp.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hidden-screen {
+      display: none !important;
+    }
+  </style>
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
-  <div id="authWrapper" class="mx-auto max-w-4xl px-6 py-10">
-    <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-soft">
-      <div class="mb-6">
-        <p class="text-xs uppercase tracking-[0.28em] text-slate-500">Owner Authorization</p>
-        <h1 class="mt-3 text-3xl font-black text-slate-900">Platform Owner Access</h1>
-        <p class="mt-3 text-sm leading-6 text-slate-600">Enter the master password to unlock the audit queue.</p>
+  <div id="gatekeeper" class="fixed inset-0 z-40 flex items-center justify-center bg-slate-50 px-6 py-10">
+    <div class="w-full max-w-2xl rounded-[32px] border border-slate-200 bg-white p-10 shadow-soft">
+      <div class="mb-8 text-center">
+        <p class="text-xs uppercase tracking-[0.28em] text-slate-500">Master Administration Access</p>
+        <h1 class="mt-4 text-3xl font-black text-slate-900">Platform Owner Key Required</h1>
+        <p class="mt-3 text-sm leading-6 text-slate-600">Enter the master administration access key to unlock the owner audit dashboard.</p>
       </div>
       <div class="grid gap-4 sm:grid-cols-[1fr_auto]">
-        <input id="masterPassword" type="password" autocomplete="current-password" placeholder="Enter master password" class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" />
-        <button id="unlockButton" class="rounded-2xl bg-brand px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-600">Unlock</button>
+        <input id="adminKey" type="password" autocomplete="current-password" placeholder="Master Administration Access Key" class="w-full rounded-3xl border border-slate-300 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-900 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200" />
+        <button id="unlockButton" class="rounded-3xl bg-slate-950 px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-slate-800">Unlock</button>
       </div>
-      <p id="authError" class="mt-4 hidden text-sm font-medium text-danger"></p>
+      <p id="gatekeeperError" class="mt-4 hidden rounded-3xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700"></p>
     </div>
   </div>
 
-  <div id="adminApp" class="hidden min-h-screen bg-slate-50">
-    <header class="border-b border-slate-200 bg-white px-6 py-5 shadow-sm">
-      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4">
-        <div>
-          <p class="text-xs uppercase tracking-[0.24em] text-slate-500">Secure owner audit</p>
-          <h2 class="mt-1 text-2xl font-black text-slate-900">Submission Approval Queue</h2>
+  <div id="adminApp" class="hidden min-h-screen">
+    <div class="flex min-h-screen">
+      <aside class="w-64 bg-white border-r border-gray-200 px-6 py-8">
+        <div class="mb-10">
+          <p class="text-xs uppercase tracking-[0.28em] text-slate-500">indapp store</p>
+          <h2 class="mt-3 text-2xl font-black text-slate-900">Admin Operations</h2>
+          <p class="mt-2 text-sm text-slate-500">Owner-only platform audit.</p>
         </div>
-        <div class="rounded-2xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">Owner only</div>
-      </div>
-    </header>
+        <nav class="space-y-3 text-sm">
+          <button id="developerTab" class="tab-btn block w-full rounded-3xl border border-slate-200 bg-slate-100 px-5 py-4 text-left font-semibold text-slate-900 transition hover:bg-slate-50">👥 Developer Identity Verification</button>
+          <button id="appTab" class="tab-btn block w-full rounded-3xl border border-slate-200 bg-white px-5 py-4 text-left font-semibold text-slate-900 transition hover:bg-slate-50">📦 Application Audit Queue</button>
+        </nav>
+      </aside>
 
-    <main class="mx-auto max-w-7xl px-6 py-8">
-      <section class="mb-8 grid gap-6 lg:grid-cols-2">
-        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
-          <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Audit queue</p>
-          <h3 class="mt-3 text-xl font-black text-slate-900">Pending approval requests</h3>
-          <p class="mt-3 text-sm leading-6 text-slate-600">This table is connected directly to the Supabase backend and updates state in real time.</p>
+      <main class="flex-1 bg-slate-50 px-8 py-8">
+        <div class="mb-8 grid gap-6 lg:grid-cols-2">
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <p class="text-xs uppercase tracking-[0.24em] text-slate-500">Secure Owner Control</p>
+            <h3 class="mt-3 text-xl font-black text-slate-900">Audit and Approve Submissions</h3>
+            <p class="mt-3 text-sm leading-6 text-slate-600">Review pending developer identities and app packages before they become live in the store.</p>
+          </div>
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+            <p class="text-xs uppercase tracking-[0.24em] text-slate-500">Live sync</p>
+            <p class="mt-3 text-sm leading-6 text-slate-600">Approvals and rejections update the Supabase backend immediately and remove the row from the dashboard instantly.</p>
+          </div>
         </div>
-        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-soft">
-          <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Guidance</p>
-          <ul class="mt-3 space-y-3 text-sm text-slate-600">
-            <li>• Verify only genuine utility submissions.</li>
-            <li>• Reject incomplete or duplicate packages.</li>
-            <li>• Approved apps move to the live catalog.</li>
-          </ul>
-        </div>
-      </section>
 
-      <section>
-        <div class="rounded-3xl border border-slate-200 bg-white shadow-soft">
-          <div class="overflow-x-auto">
+        <section id="developerSection" class="space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h3 class="text-2xl font-black text-slate-900">Developer Identity Verification</h3>
+              <p class="mt-2 text-sm text-slate-600">Review pending developer records before granting live platform access.</p>
+            </div>
+            <div id="developerCount" class="rounded-3xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">Pending 0</div>
+          </div>
+          <div class="overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-soft">
             <table class="min-w-full divide-y divide-slate-200 text-left text-sm">
               <thead class="bg-slate-50 text-slate-700">
                 <tr>
-                  <th class="px-6 py-4 font-semibold">Developer</th>
-                  <th class="px-6 py-4 font-semibold">Phone / Contact</th>
+                  <th class="px-6 py-4 font-semibold">Full Legal Name</th>
+                  <th class="px-6 py-4 font-semibold">Verified Phone Number</th>
+                  <th class="px-6 py-4 font-semibold">Email</th>
+                  <th class="px-6 py-4 font-semibold">Location / Address</th>
+                  <th class="px-6 py-4 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="developerBody" class="divide-y divide-slate-200 bg-white"></tbody>
+            </table>
+          </div>
+          <div id="developerEmpty" class="rounded-3xl border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-sm text-slate-500 hidden">No developer identity records are currently pending review.</div>
+        </section>
+
+        <section id="appSection" class="hidden space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h3 class="text-2xl font-black text-slate-900">Application Audit Queue</h3>
+              <p class="mt-2 text-sm text-slate-600">Inspect app submissions, download APKs, and approve or reject packages.</p>
+            </div>
+            <div id="appCount" class="rounded-3xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">Pending 0</div>
+          </div>
+          <div class="overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-soft">
+            <table class="min-w-full divide-y divide-slate-200 text-left text-sm">
+              <thead class="bg-slate-50 text-slate-700">
+                <tr>
                   <th class="px-6 py-4 font-semibold">App Title</th>
+                  <th class="px-6 py-4 font-semibold">Target Category</th>
+                  <th class="px-6 py-4 font-semibold">Package Identity Name</th>
                   <th class="px-6 py-4 font-semibold">Description</th>
                   <th class="px-6 py-4 font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody id="auditRows" class="divide-y divide-slate-200 bg-white"></tbody>
+              <tbody id="appBody" class="divide-y divide-slate-200 bg-white"></tbody>
             </table>
           </div>
-          <div id="emptyState" class="hidden p-8 text-center text-sm text-slate-500">No pending submissions found.</div>
-        </div>
-      </section>
-    </main>
+          <div id="appEmpty" class="rounded-3xl border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-sm text-slate-500 hidden">No applications are currently waiting for review.</div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="denyOverlay" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 px-4">
+    <div class="w-full max-w-xl rounded-3xl border border-white/10 bg-white p-10 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+      <p class="text-xl font-semibold uppercase tracking-[0.28em] text-slate-900">Unauthorized Access Denied</p>
+      <p class="mt-4 text-sm leading-6 text-slate-600">The entry key is invalid. Database communication has been blocked and the administration dashboard is unavailable.</p>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script>
-    const MASTER_PASSWORD = 'QorelysoftsMaster2026!';
+    const MASTER_ACCESS_KEY = 'QORELY_ADMIN_2026';
     const SUPABASE_URL = 'https://ypbcnndadggdamiwqkfn.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwYmNubmRhZGdnZGFtaXdxa2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5Mzg5NTAsImV4cCI6MjA5OTUxNDk1MH0.DJHANfWjfMr9qXs0XTPyJcIoM9zq7YHcqWhLtkYrdXs';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let supabaseClient = null;
+    let adminAuthorized = false;
 
-    const authWrapper = document.getElementById('authWrapper');
+    const gatekeeper = document.getElementById('gatekeeper');
     const adminApp = document.getElementById('adminApp');
-    const authError = document.getElementById('authError');
+    const denyOverlay = document.getElementById('denyOverlay');
+    const adminKey = document.getElementById('adminKey');
     const unlockButton = document.getElementById('unlockButton');
-    const masterPasswordInput = document.getElementById('masterPassword');
-    const auditRows = document.getElementById('auditRows');
-    const emptyState = document.getElementById('emptyState');
+    const gatekeeperError = document.getElementById('gatekeeperError');
+    const developerTab = document.getElementById('developerTab');
+    const appTab = document.getElementById('appTab');
+    const developerSection = document.getElementById('developerSection');
+    const appSection = document.getElementById('appSection');
+    const developerBody = document.getElementById('developerBody');
+    const appBody = document.getElementById('appBody');
+    const developerEmpty = document.getElementById('developerEmpty');
+    const appEmpty = document.getElementById('appEmpty');
+    const developerCount = document.getElementById('developerCount');
+    const appCount = document.getElementById('appCount');
 
-    async function fetchPendingApps() {
-      auditRows.innerHTML = '';
-      emptyState.classList.add('hidden');
+    function initializeSupabase() {
+      if (!supabaseClient) {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    }
 
-      const { data: apps, error: appsError } = await supabase
-        .from('apps')
-        .select('id, title, description, package_name, developer_id')
-        .eq('verification_status', 'under_review')
-        .order('created_at', { ascending: false });
+    function showDenyOverlay() {
+      gatekeeper.classList.add('hidden-screen');
+      denyOverlay.classList.remove('hidden');
+    }
 
-      if (appsError) {
-        console.error('Failed to fetch apps:', appsError);
-        auditRows.innerHTML = '<tr><td colspan="5" class="px-6 py-6 text-sm text-danger">Failed to load pending apps.</td></tr>';
-        return;
+    function showAdminLayout() {
+      initializeSupabase();
+      adminAuthorized = true;
+      gatekeeper.classList.add('hidden-screen');
+      adminApp.classList.remove('hidden');
+      requestAnimationFrame(() => adminApp.classList.add('visible'));
+      loadPendingRecords();
+    }
+
+    async function loadPendingRecords() {
+      if (!adminAuthorized) return;
+      developerBody.innerHTML = '';
+      appBody.innerHTML = '';
+      developerEmpty.classList.add('hidden');
+      appEmpty.classList.add('hidden');
+
+      const [developersResponse, appsResponse] = await Promise.all([
+        supabaseClient
+          .from('developers')
+          .select('id, name, phone_number, email, location, physical_address')
+          .eq('verification_status', 'pending_review')
+          .order('created_at', { ascending: false }),
+        supabaseClient
+          .from('apps')
+          .select('id, title, category, package_name, description, apk_url')
+          .eq('verification_status', 'under_review')
+          .order('created_at', { ascending: false })
+      ]);
+
+      const developers = developersResponse.data || [];
+      const apps = appsResponse.data || [];
+
+      developerCount.textContent = `Pending ${developers.length}`;
+      appCount.textContent = `Pending ${apps.length}`;
+
+      if (!developers.length) {
+        developerEmpty.classList.remove('hidden');
       }
 
       if (!apps.length) {
-        emptyState.classList.remove('hidden');
-        return;
+        appEmpty.classList.remove('hidden');
       }
 
-      const developerIds = [...new Set(apps.map((app) => app.developer_id).filter(Boolean))];
-      let developers = [];
-
-      if (developerIds.length) {
-        const { data: devData, error: devError } = await supabase
-          .from('developers')
-          .select('id, name, email, phone_number')
-          .in('id', developerIds);
-
-        if (devError) {
-          console.error('Failed to fetch developers:', devError);
-        } else {
-          developers = devData || [];
-        }
-      }
-
-      const developerMap = developers.reduce((acc, developer) => {
-        acc[developer.id] = developer;
-        return acc;
-      }, {});
-
-      apps.forEach((app) => {
-        const developer = developerMap[app.developer_id] || {};
-        const name = developer.name || 'Unknown Developer';
-        const contact = developer.phone_number || developer.email || 'N/A';
+      developers.forEach((developer) => {
+        const address = developer.location || developer.physical_address || 'Not provided';
         const row = document.createElement('tr');
+        row.dataset.type = 'developer';
+        row.dataset.id = developer.id;
         row.className = 'border-t border-slate-200';
-
         row.innerHTML = `
           <td class="px-6 py-5 align-top">
-            <div class="text-sm font-semibold text-slate-900">${escapeHtml(name)}</div>
+            <div class="text-sm font-semibold text-slate-900">${escapeHtml(developer.name || 'Unknown')}</div>
           </td>
           <td class="px-6 py-5 align-top">
-            <div class="text-sm text-slate-700">${escapeHtml(contact)}</div>
+            <div class="text-sm text-slate-700">+91 ${escapeHtml(developer.phone_number || 'N/A')}</div>
           </td>
           <td class="px-6 py-5 align-top">
-            <div class="text-sm font-semibold text-slate-900">${escapeHtml(app.title || app.package_name || 'Untitled')}</div>
-            <div class="mt-1 text-xs text-slate-500">${escapeHtml(app.package_name || 'No package name')}</div>
+            <div class="text-sm text-slate-700">${escapeHtml(developer.email || 'N/A')}</div>
           </td>
           <td class="px-6 py-5 align-top">
-            <div class="text-sm text-slate-700">${escapeHtml(app.description || 'No description')}</div>
+            <div class="text-sm leading-6 text-slate-700">${escapeHtml(address)}</div>
           </td>
           <td class="px-6 py-5 align-top">
-            <div class="flex flex-col gap-3 sm:flex-row">
-              <button data-action="approve" data-id="${app.id}" class="rounded-2xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700">Verify & Publish</button>
-              <button data-action="reject" data-id="${app.id}" class="rounded-2xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700">Reject</button>
+            <div class="flex flex-wrap gap-3">
+              <button data-action="verify-developer" data-id="${developer.id}" class="rounded-2xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700">Verify Developer</button>
+              <button data-action="reject-developer" data-id="${developer.id}" class="rounded-2xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700">Reject</button>
             </div>
           </td>
         `;
+        developerBody.appendChild(row);
+      });
 
-        auditRows.appendChild(row);
+      apps.forEach((app) => {
+        const row = document.createElement('tr');
+        row.dataset.type = 'app';
+        row.dataset.id = app.id;
+        row.className = 'border-t border-slate-200';
+        row.innerHTML = `
+          <td class="px-6 py-5 align-top">
+            <div class="text-sm font-semibold text-slate-900">${escapeHtml(app.title || 'Untitled')}</div>
+          </td>
+          <td class="px-6 py-5 align-top">
+            <div class="text-sm text-slate-700">${escapeHtml(app.category || 'N/A')}</div>
+          </td>
+          <td class="px-6 py-5 align-top">
+            <div class="text-sm text-slate-700">${escapeHtml(app.package_name || 'N/A')}</div>
+          </td>
+          <td class="px-6 py-5 align-top">
+            <div class="text-sm leading-6 text-slate-700">${escapeHtml(app.description || 'No description')}</div>
+          </td>
+          <td class="px-6 py-5 align-top">
+            <div class="space-y-3 sm:space-y-0 sm:flex sm:items-center sm:gap-3">
+              <a href="${escapeHtml(app.apk_url || '#')}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center rounded-2xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Download APK Binary for Testing</a>
+              <button data-action="approve-app" data-id="${app.id}" class="rounded-2xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700">Verify & Publish Live</button>
+              <button data-action="reject-app" data-id="${app.id}" class="rounded-2xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700">Reject Application</button>
+            </div>
+          </td>
+        `;
+        appBody.appendChild(row);
       });
     }
 
@@ -188,57 +292,108 @@
         .replace(/'/g, '&#39;');
     }
 
-    async function updateAppStatus(appId, status) {
-      const { error } = await supabase
-        .from('apps')
+    async function updateAppVerificationStatus(appId, status) {
+      if (!adminAuthorized) return false;
+      const response = await fetch('/api/admin/apps/status', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': MASTER_ACCESS_KEY
+        },
+        body: JSON.stringify({ appId, status })
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.json().catch(() => ({}));
+        console.error('Admin update failed:', response.status, errorBody);
+        return false;
+      }
+      return true;
+    }
+
+    async function updateRecordStatus(table, id, status) {
+      if (!adminAuthorized) return false;
+
+      if (table === 'apps') {
+        return await updateAppVerificationStatus(id, status);
+      }
+
+      const { error } = await supabaseClient
+        .from(table)
         .update({ verification_status: status })
-        .eq('id', appId);
-
+        .eq('id', id);
       if (error) {
-        console.error(`Failed to update app ${appId}:`, error);
-        return;
+        console.error(`Failed to update ${table} id ${id}:`, error);
+        return false;
       }
-
-      await fetchPendingApps();
+      return true;
     }
 
-    function denyAccess() {
-      document.body.style.display = 'none';
-      document.documentElement.insertAdjacentHTML('beforeend', `
-        <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950 text-white">
-          <div class="rounded-3xl border border-white/10 bg-slate-950/95 px-8 py-6 text-center shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
-            <p class="text-xl font-semibold uppercase tracking-[0.28em]">Access Denied</p>
-            <p class="mt-3 text-sm text-slate-300">The provided password does not match the platform owner credentials.</p>
-          </div>
-        </div>
-      `);
-    }
-
-    unlockButton.addEventListener('click', async () => {
-      const entered = masterPasswordInput.value.trim();
-      if (entered !== MASTER_PASSWORD) {
-        authError.textContent = 'Incorrect password. Access denied.';
-        authError.classList.remove('hidden');
-        denyAccess();
-        return;
-      }
-
-      authWrapper.classList.add('hidden');
-      adminApp.classList.remove('hidden');
-      await fetchPendingApps();
-    });
-
-    document.addEventListener('click', async (event) => {
+    async function handleActionClick(event) {
+      if (!adminAuthorized) return;
       const button = event.target.closest('button[data-action]');
       if (!button) return;
-      const appId = button.dataset.id;
       const action = button.dataset.action;
-      if (action === 'approve') {
-        await updateAppStatus(appId, 'approved');
-      } else if (action === 'reject') {
-        await updateAppStatus(appId, 'rejected');
+      const id = button.dataset.id;
+      const row = button.closest('tr');
+      if (!id || !row) return;
+
+      let success = false;
+      if (action === 'verify-developer') {
+        success = await updateRecordStatus('developers', id, 'verified');
+      } else if (action === 'reject-developer') {
+        success = await updateRecordStatus('developers', id, 'rejected');
+      } else if (action === 'approve-app') {
+        success = await updateRecordStatus('apps', id, 'approved');
+      } else if (action === 'reject-app') {
+        success = await updateRecordStatus('apps', id, 'rejected');
+      }
+
+      if (success) {
+        row.remove();
+        if (!developerBody.querySelector('tr')) {
+          developerEmpty.classList.remove('hidden');
+        }
+        if (!appBody.querySelector('tr')) {
+          appEmpty.classList.remove('hidden');
+        }
+      }
+    }
+
+    function switchToDevelopers() {
+      developerSection.classList.remove('hidden');
+      appSection.classList.add('hidden');
+      developerTab.classList.add('bg-slate-100');
+      appTab.classList.remove('bg-slate-100');
+    }
+
+    function switchToApps() {
+      developerSection.classList.add('hidden');
+      appSection.classList.remove('hidden');
+      appTab.classList.add('bg-slate-100');
+      developerTab.classList.remove('bg-slate-100');
+    }
+
+    unlockButton.addEventListener('click', () => {
+      const enteredKey = adminKey.value.trim();
+      if (enteredKey !== MASTER_ACCESS_KEY) {
+        gatekeeperError.textContent = 'Unauthorized Access Denied';
+        gatekeeperError.classList.remove('hidden');
+        showDenyOverlay();
+        return;
+      }
+      showAdminLayout();
+    });
+
+    adminKey.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        unlockButton.click();
       }
     });
+
+    developerTab.addEventListener('click', switchToDevelopers);
+    appTab.addEventListener('click', switchToApps);
+    document.addEventListener('click', handleActionClick);
   </script>
 </body>
 </html>
