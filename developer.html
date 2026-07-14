@@ -526,9 +526,6 @@
     const reviewCountSummary = document.getElementById('reviewCountSummary');
     const statusLabel = document.getElementById('statusLabel');
     const slotCountDisplay = document.getElementById('slotCountDisplay');
-    const paymentMessage = document.getElementById('paymentMessage');
-    const purchaseSingleSlot = document.getElementById('purchaseSingleSlot');
-    const purchaseGrowthBundle = document.getElementById('purchaseGrowthBundle');
     const campaignAppSelect = document.getElementById('campaignAppSelect');
     const launchCampaignButton = document.getElementById('launchCampaignButton');
     const campaignMessage = document.getElementById('campaignMessage');
@@ -742,6 +739,26 @@
       await loadApprovedApps(developerId);
     }
 
+    async function refreshSlotCount(developerId) {
+      if (!developerId) return;
+      const { data, error } = await supabaseClient
+        .from('developers')
+        .select('paid_slots_remaining')
+        .eq('id', developerId)
+        .single();
+
+      if (error) {
+        console.error('Failed to refresh slot count:', error);
+        return;
+      }
+
+      const slotCount = Number(data?.paid_slots_remaining || 0);
+      slotCountDisplay.textContent = formatInteger(slotCount);
+      if (activeDeveloperProfile) {
+        activeDeveloperProfile.paid_slots_remaining = slotCount;
+      }
+    }
+
     async function updatePaidSlots(developerId, incrementBy) {
       const { data: current, error: fetchError } = await supabaseClient
         .from('developers')
@@ -856,7 +873,6 @@
     }
 
     async function handlePurchase(amountPaise, slotsToAdd) {
-      hidePaymentSuccess();
       const developerId = activeDeveloperProfile?.id || await resolveCurrentDeveloperId();
       if (!developerId) {
         alert('Unable to identify developer session. Please sign in again.');
@@ -874,7 +890,7 @@
           try {
             const newSlotCount = await updatePaidSlots(developerId, slotsToAdd);
             slotCountDisplay.textContent = formatInteger(newSlotCount);
-            showPaymentSuccess('Payment Successful. Your upload slots have been credited.');
+            showCampaignMessage('Payment Successful. Your upload slots have been credited.');
           } catch (err) {
             console.error('Slot update after payment failed:', err);
             alert('Payment registered, but slot crediting failed. Contact support.');
@@ -974,16 +990,6 @@
     function clearWizardMessage() {
       wizardMessage.textContent = '';
       wizardMessage.className = 'mt-4 text-sm text-slate-600';
-    }
-
-    function showPaymentSuccess(message) {
-      paymentMessage.textContent = message;
-      paymentMessage.classList.remove('hidden');
-    }
-
-    function hidePaymentSuccess() {
-      paymentMessage.textContent = '';
-      paymentMessage.classList.add('hidden');
     }
 
     function getCurrentWizardData() {
@@ -1231,15 +1237,6 @@
       showCampaignMessage('The Premium Ad Engine is currently locked. Sponsored discovery will activate once our user base crosses the Phase 1 threshold.');
     });
 
-    purchaseSingleSlot.addEventListener('click', async (event) => {
-      event.preventDefault();
-      showPaymentSuccess('Slot purchasing is temporarily paused for Early Adopter onboarding.');
-    });
-
-    purchaseGrowthBundle.addEventListener('click', async (event) => {
-      event.preventDefault();
-      showPaymentSuccess('Slot purchasing is temporarily paused for Early Adopter onboarding.');
-    });
   </script>
 </body>
 </html>
