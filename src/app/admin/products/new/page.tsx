@@ -62,8 +62,8 @@ export default function NewProductPage() {
       }
 
       const priceNum = parseInt(price, 10);
-      if (isNaN(priceNum) || priceNum < 100 || priceNum > 1000) {
-        throw new Error('Price must be between ₹100 and ₹1,000 ($1 to $10 USD)');
+      if (isNaN(priceNum) || priceNum <= 0) {
+        throw new Error('Price must be a positive number');
       }
 
       // 1. Upload digital file to private bucket
@@ -188,14 +188,12 @@ export default function NewProductPage() {
             id="price"
             type="number"
             required
-            min="100"
-            max="1000"
+            min="1"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            placeholder="e.g., 299"
+            placeholder="e.g., 499"
             className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
           />
-          <p className="mt-1 text-xs text-gray-500">Allowed range: ₹100 to ₹1,000 ($1 to $10 USD).</p>
         </div>
 
         {/* Digital File Upload */}

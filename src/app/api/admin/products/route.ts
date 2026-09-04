@@ -87,9 +87,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (typeof price_inr !== 'number' || price_inr < 100 || price_inr > 1000) {
+    if (typeof price_inr !== 'number' || price_inr <= 0) {
       return NextResponse.json(
-        { error: 'Price must be between ₹100 and ₹1,000 ($1 to $10 USD)' },
+        { error: 'Price must be a positive number' },
         { status: 400 }
       );
     }

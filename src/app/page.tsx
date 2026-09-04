@@ -114,8 +114,8 @@ const faqs = [
     a: 'Yes, 100%! Every single product purchased on QorelySofts comes with a full royalty-free license. You can use it across unlimited personal projects, client work, or your own commercial SaaS businesses without paying any additional royalties.',
   },
   {
-    q: 'Why are all products priced strictly between ₹100 and ₹1,000 ($1 to $10 USD)?',
-    a: 'We built QorelySofts because we were tired of seeing simple boilerplates priced at $100+ or tied to recurring monthly subscriptions. Our mission is to provide world-class, production-ready developer tools at micro-prices everyone can afford.',
+    q: 'How does pricing and licensing work?',
+    a: 'All digital products on QorelySofts are available for a transparent one-time purchase with zero recurring monthly subscription fees. Every single purchase includes full source code, documentation, and an official royalty-free commercial license for personal and client projects.',
   },
   {
     q: 'How fast do I get access after I pay?',
@@ -183,7 +183,7 @@ export default async function HomePage() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75"></span>
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500"></span>
                 </span>
-                <span>Instant Digital Delivery • All Under ₹1,000</span>
+                <span>Instant Digital Delivery • Production-Ready Software Assets</span>
               </div>
 
               {/* High-Converting Main Hook */}
@@ -196,8 +196,7 @@ export default async function HomePage() {
 
               <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
                 Production-ready code boilerplates, responsive templates, and Figma UI kits.
-                Pay once (<strong className="text-white font-bold">₹100 to ₹1,000</strong> / $1 to $10 USD),
-                download in 3 seconds, and build your next big thing without recurring subscription traps.
+                Transparent one-time pricing — pay once, download in 3 seconds, and build your next big thing without recurring subscription traps.
               </p>
 
               {/* Call-to-action buttons */}
@@ -229,8 +228,8 @@ export default async function HomePage() {
                   <span>Instant 1-Click Access</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <IndianRupee className="h-4 w-4 text-brand-400" />
-                  <span>₹100 – ₹1,000 Strict Cap</span>
+                  <Sparkles className="h-4 w-4 text-brand-400" />
+                  <span>Royalty-Free Commercial License</span>
                 </div>
               </div>
             </div>
@@ -258,7 +257,7 @@ export default async function HomePage() {
                         <p className="text-sm font-bold text-white">Direct Download Post-Payment</p>
                       </div>
                       <span className="rounded-full bg-brand-600 px-2.5 py-1 text-xs font-bold text-white shadow-sm">
-                        ₹100 – ₹1,000
+                        One-Time Purchase
                       </span>
                     </div>
                   </div>
@@ -301,8 +300,8 @@ export default async function HomePage() {
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white">
                 <IndianRupee className="h-5 w-5" />
               </div>
-              <h3 className="mt-3 text-sm font-bold text-slate-900">₹100 to ₹1,000 Max</h3>
-              <p className="mt-1 text-xs text-slate-500">Pay once, own forever. No monthly bills.</p>
+              <h3 className="mt-3 text-sm font-bold text-slate-900">One-Time Payment</h3>
+              <p className="mt-1 text-xs text-slate-500">Pay once, own forever. No recurring monthly subscriptions.</p>
             </div>
 
             <div className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400 hover:shadow-md">
@@ -460,7 +459,7 @@ export default async function HomePage() {
               </p>
             </div>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-xs font-bold text-brand-700">
-              <IndianRupee className="h-3.5 w-3.5" /> All Items ₹100 – ₹1,000
+              <Zap className="h-3.5 w-3.5" /> Instant Electronic Delivery
             </span>
           </div>
 
@@ -480,7 +479,7 @@ export default async function HomePage() {
                 Catalog Launching Soon
               </h3>
               <p className="mt-2 max-w-md text-sm text-slate-500 leading-relaxed">
-                We are actively uploading our initial suite of website starters, UI components, and boilerplates priced strictly between ₹100 and ₹1,000.
+                We are actively uploading our initial suite of website starters, UI components, and boilerplates.
               </p>
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                 <Link
@@ -547,8 +546,8 @@ export default async function HomePage() {
               <div className="mt-8 space-y-4">
                 {[
                   {
-                    title: 'Strict ₹100 – ₹1,000 Budget Pricing',
-                    desc: 'Every item stays between $1 and $10 USD. Zero subscription traps or monthly credit charges.',
+                    title: 'Transparent One-Time Pricing',
+                    desc: 'Pay once and own your code forever. Zero subscription traps, recurring memberships, or hidden fees.',
                   },
                   {
                     title: 'Instant Download & Signed Token Security',
@@ -619,8 +618,8 @@ export default async function HomePage() {
             Stop Wasting Time on Boilerplate.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-brand-100 sm:text-base">
-            Grab a production-ready digital asset for ₹100 – ₹1,000 ($1 to $10 USD).
-            Pay securely with Razorpay and launch your project today.
+            Grab a production-ready digital asset today.
+            Pay securely with Razorpay and launch your project in minutes.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
