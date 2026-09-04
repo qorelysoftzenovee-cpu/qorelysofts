@@ -2,50 +2,77 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Let public routes pass without invoking Supabase auth
+  const isAdminRoute = pathname.startsWith('/admin') && !pathname.startsWith('/admin/login');
+
+  if (!isAdminRoute) {
+    return NextResponse.next();
+  }
+
+  // Admin route protection
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // If Supabase env vars are missing on host, safely redirect to login
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.warn('Middleware: Supabase environment variables are missing.');
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = '/admin/login';
+    return NextResponse.redirect(loginUrl);
+  }
+
   let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  try {
+    const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
       cookies: {
         get(name: string) {
           return request.cookies.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
-          request.cookies.set({ name, value, ...options });
-          response = NextResponse.next({
-            request: { headers: request.headers },
-          });
-          response.cookies.set({ name, value, ...options });
+          try {
+            request.cookies.set({ name, value, ...options });
+            response = NextResponse.next({
+              request: { headers: request.headers },
+            });
+            response.cookies.set({ name, value, ...options });
+          } catch {
+            // Ignore cookie modification failures in middleware
+          }
         },
         remove(name: string, options: CookieOptions) {
-          request.cookies.set({ name, value: '', ...options });
-          response = NextResponse.next({
-            request: { headers: request.headers },
-          });
-          response.cookies.set({ name, value: '', ...options });
+          try {
+            request.cookies.set({ name, value: '', ...options });
+            response = NextResponse.next({
+              request: { headers: request.headers },
+            });
+            response.cookies.set({ name, value: '', ...options });
+          } catch {
+            // Ignore cookie modification failures in middleware
+          }
         },
       },
-    }
-  );
+    });
 
-  // Refresh session
-  const { data: { user } } = await supabase.auth.getUser();
-
-  // Protect admin routes
-  if (request.nextUrl.pathname.startsWith('/admin') && !request.nextUrl.pathname.startsWith('/admin/login')) {
+    const { data: { user }, error } = await supabase.auth.getUser();
     const adminEmail = process.env.ADMIN_EMAIL;
 
-    if (!user || !adminEmail || user.email !== adminEmail) {
+    if (error || !user || !adminEmail || user.email !== adminEmail) {
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = '/admin/login';
       return NextResponse.redirect(loginUrl);
     }
+  } catch (err) {
+    console.error('Middleware error in admin check:', err);
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = '/admin/login';
+    return NextResponse.redirect(loginUrl);
   }
 
   return response;
@@ -53,6 +80,11 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    /*
+     * Match admin routes that require protection.
+     * Prevents middleware from executing unnecessarily on public pages,
+     * assets, webhooks, and static files.
+     */
+    '/admin/:path*',
   ],
 };
