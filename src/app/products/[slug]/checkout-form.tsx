@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Loader2, CreditCard } from 'lucide-react';
+import { Loader2, CreditCard, ShieldCheck } from 'lucide-react';
 import type { RazorpayOptions, RazorpayPaymentResponse } from '@/types';
 
 interface Props {
@@ -26,6 +26,7 @@ function loadRazorpayScript(): Promise<boolean> {
 export function CheckoutForm({ productId, price, productTitle }: Props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,7 +36,7 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
     setLoading(true);
 
     try {
-      // 1. Load Razorpay script
+      // 1. Load Razorpay checkout script
       const loaded = await loadRazorpayScript();
       if (!loaded) {
         throw new Error('Failed to load payment gateway. Please check your internet connection.');
@@ -49,6 +50,7 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
           productId,
           customerName: name,
           customerEmail: email,
+          customerPhone: phone || undefined,
         }),
       });
 
@@ -81,7 +83,7 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
               throw new Error(verifyData.error || 'Payment verification failed');
             }
 
-            // 5. Redirect to success page
+            // 5. Redirect to success page with download token
             window.location.href = `/success?token=${verifyData.token}`;
           } catch (err) {
             setError(err instanceof Error ? err.message : 'Payment verification failed');
@@ -90,6 +92,7 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
         prefill: {
           name,
           email,
+          contact: phone || undefined,
         },
         theme: {
           color: '#3b6cff',
@@ -113,7 +116,7 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-          Full Name
+          Full Name *
         </label>
         <input
           id="name"
@@ -128,7 +131,7 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
 
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-          Email Address
+          Email Address (file link sent here) *
         </label>
         <input
           id="email"
@@ -137,6 +140,20 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 transition-colors"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+          Phone Number <span className="text-gray-400 font-normal">(optional, for UPI / OTP)</span>
+        </label>
+        <input
+          id="phone"
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="e.g. 9876543210"
           className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 transition-colors"
         />
       </div>
@@ -155,7 +172,7 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
         {loading ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" />
-            Processing...
+            Connecting to Razorpay...
           </>
         ) : (
           <>
@@ -164,6 +181,17 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
           </>
         )}
       </button>
+
+      {/* Trust & Payment Methods Banner */}
+      <div className="pt-2 border-t border-gray-100 flex flex-col items-center gap-1.5 text-xs text-gray-500">
+        <div className="flex items-center gap-1 font-medium text-gray-600">
+          <ShieldCheck className="h-3.5 w-3.5 text-green-600" />
+          Secured by Razorpay Payment Gateway
+        </div>
+        <div className="text-gray-400">
+          Supports UPI (GPay, PhonePe, Paytm), Cards & NetBanking
+        </div>
+      </div>
     </form>
   );
 }

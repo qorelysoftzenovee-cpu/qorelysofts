@@ -30,6 +30,7 @@ export interface CreateOrderRequest {
   productId: string;
   customerName: string;
   customerEmail: string;
+  customerPhone?: string;
 }
 
 export interface CreateOrderResponse {

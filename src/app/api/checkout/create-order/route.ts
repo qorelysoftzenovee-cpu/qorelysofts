@@ -51,7 +51,9 @@ export async function POST(request: NextRequest) {
       receipt: `rcpt_${crypto.randomUUID().slice(0, 8)}`,
       notes: {
         product_id: product.id,
+        customer_name: body.customerName,
         customer_email: body.customerEmail,
+        ...(body.customerPhone ? { customer_phone: body.customerPhone } : {}),
       },
     });
 

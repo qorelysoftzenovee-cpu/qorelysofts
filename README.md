@@ -7,6 +7,7 @@ A production-ready digital products store built with **Next.js 14 (App Router)**
 - **Storefront**: Clean, responsive grid layout displaying published digital products with prices in INR (₹).
 - **Product Detail**: Full overview, features list, and direct checkout form.
 - **Server-Side Razorpay Integration**: Order generation and cryptographic signature verification (HMAC-SHA256) performed exclusively server-side.
+- **Asynchronous Webhooks**: Webhook listener (`/api/webhooks/razorpay`) ensuring orders are fulfilled even if client connection drops.
 - **Protected Storage**: Digital files are stored in a private Supabase bucket (`digital-assets`) and delivered via 30-minute time-limited signed URLs upon verified payment.
 - **Admin Dashboard**: Protected by Supabase Auth and admin email check. Upload products, attach files, manage thumbnail previews, and monitor sales.
 - **Row Level Security (RLS)**: Strict security policies on database tables.
@@ -40,8 +41,9 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
 # Razorpay
-NEXT_PUBLIC_RAZORPAY_KEY_ID=your_razorpay_key_id
+NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_test_...
 RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+RAZORPAY_WEBHOOK_SECRET=your_razorpay_webhook_secret
 
 # App URL
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -49,6 +51,8 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 # Admin Access
 ADMIN_EMAIL=your_admin_email@domain.com
 ```
+
+For complete instructions on generating keys, test card numbers, UPI VPAs, and webhooks, see the [Razorpay Setup Guide](docs/RAZORPAY_SETUP_GUIDE.md).
 
 ### 3. Database & Storage Setup
 
