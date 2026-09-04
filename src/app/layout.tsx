@@ -8,10 +8,10 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Digital Store',
-    template: '%s | Digital Store',
+    default: 'QorelySofts — Premium Digital Products Store',
+    template: '%s | QorelySofts',
   },
-  description: 'Premium digital products — instant download after purchase.',
+  description: 'Discover premium digital products, development kits, templates, and software tools. Instant download after purchase. Secure payments via Razorpay.',
 };
 
 export default function RootLayout({
