@@ -1,0 +1,17 @@
+{
+  "name": "react-tailwind-component-vault",
+  "version": "1.0.0",
+  "description": "A curated collection of 25 production-ready, fully responsive, and animated React components styled with Tailwind CSS and Lucide React icons.",
+  "main": "index.ts",
+  "author": "QorelySofts (https://www.qorelysofts.co.in)",
+  "license": "Commercial",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "lucide-react": ">=0.400.0",
+    "tailwindcss": ">=3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

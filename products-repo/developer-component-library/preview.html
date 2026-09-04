@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>25 Modern React + Tailwind Component Vault — Interactive Showcase & 1-Click Code Copy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+    pre { scrollbar-width: thin; }
+    .toast {
+      position: fixed; bottom: 28px; right: 28px;
+      background: #10b981; color: white; padding: 14px 24px;
+      border-radius: 14px; font-weight: 700; font-size: 14px;
+      box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+      opacity: 0; transform: translateY(12px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none; z-index: 999;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 selection:bg-blue-600 selection:text-white min-h-screen">
+  <!-- Sticky Top Navigation Bar -->
+  <header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/90 backdrop-blur-xl px-6 py-4 shadow-lg">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center justify-center h-6 w-6 rounded bg-blue-600 text-white font-black text-xs">Q</span>
+          <h1 class="text-lg font-black text-white tracking-tight">React + Tailwind Component Vault</h1>
+          <span class="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-400">25 Components</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-0.5">Click "Copy Code" on any card below to paste directly into your React / Next.js app.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2" id="filter-container">
+        <button onclick="filterCat('all', this)" class="cat-btn active rounded-xl bg-blue-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-md shadow-blue-600/30">All (25)</button>
+        <button onclick="filterCat('heroes', this)" class="cat-btn rounded-xl bg-slate-900 border border-slate-800 px-3.5 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700">Heroes (5)</button>
+        <button onclick="filterCat('pricing', this)" class="cat-btn rounded-xl bg-slate-900 border border-slate-800 px-3.5 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700">Pricing (5)</button>
+        <button onclick="filterCat('testimonials', this)" class="cat-btn rounded-xl bg-slate-900 border border-slate-800 px-3.5 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700">Testimonials (5)</button>
+        <button onclick="filterCat('features', this)" class="cat-btn rounded-xl bg-slate-900 border border-slate-800 px-3.5 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700">Features (5)</button>
+        <button onclick="filterCat('footers', this)" class="cat-btn rounded-xl bg-slate-900 border border-slate-800 px-3.5 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700">Footers (5)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Intro Banner -->
+  <section class="border-b border-slate-800/80 bg-gradient-to-b from-blue-950/20 to-transparent px-6 py-12 text-center">
+    <div class="mx-auto max-w-3xl">
+      <span class="rounded-full bg-blue-500/10 border border-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-400">⚡ Production Ready & Animated</span>
+      <h2 class="mt-4 text-3xl font-black text-white sm:text-4xl tracking-tight">
+        25 Modern React + Tailwind CSS Components
+      </h2>
+      <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+        Engineered for speed, high conversion, and seamless integration. Zero configuration required—simply install <code class="text-blue-400 bg-slate-900 px-1.5 py-0.5 rounded">lucide-react</code>, copy any component, and paste it into your Next.js or React codebase.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content Showcase -->
+  <main class="mx-auto max-w-7xl px-6 py-10 space-y-8">
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="heroes">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            1
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Hero Headers</span>
+              <span class="text-xs font-mono text-slate-500">hero-gradient-headline.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Hero Gradient Headline</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('hero-gradient-headline')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/heroes/hero-gradient-headline.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="hero-gradient-headline">import React from 'react';
+import { ArrowRight, Sparkles } from 'lucide-react';
+
+export function HeroGradientHeadline() {
+  return (
+    &lt;section className=&quot;relative overflow-hidden bg-slate-950 px-6 py-28 text-white sm:py-36&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-4xl text-center&quot;&gt;
+        &lt;h1 className=&quot;text-5xl font-black tracking-tight sm:text-7xl&quot;&gt;
+          Designed for builders.{' '}
+          &lt;span className=&quot;block mt-2 bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 bg-clip-text text-transparent&quot;&gt;
+            Engineered to Convert.
+          &lt;/span&gt;
+        &lt;/h1&gt;
+        &lt;p className=&quot;mx-auto mt-6 max-w-xl text-base text-slate-300&quot;&gt;
+          Stop writing boilerplates. Drop these pre-built React components straight into your Next.js application.
+        &lt;/p&gt;
+        &lt;div className=&quot;mt-8 flex justify-center gap-4&quot;&gt;
+          &lt;button className=&quot;inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg hover:opacity-90&quot;&gt;
+            Get Instant Access &lt;ArrowRight className=&quot;h-4 w-4&quot; /&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="heroes">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            2
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Hero Headers</span>
+              <span class="text-xs font-mono text-slate-500">hero-simple-centered.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Hero Simple Centered</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('hero-simple-centered')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/heroes/hero-simple-centered.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="hero-simple-centered">import React from 'react';
+import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+
+export function HeroSimpleCentered() {
+  return (
+    &lt;section className=&quot;relative overflow-hidden bg-slate-950 px-6 py-24 text-center text-white sm:py-32&quot;&gt;
+      {/* Ambient background glow */}
+      &lt;div className=&quot;pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[450px] w-[600px] rounded-full bg-blue-600/20 blur-[130px]&quot; /&gt;
+
+      &lt;div className=&quot;relative mx-auto max-w-4xl&quot;&gt;
+        &lt;div className=&quot;inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold text-blue-300 backdrop-blur-md&quot;&gt;
+          &lt;Sparkles className=&quot;h-3.5 w-3.5&quot; /&gt; Next-Gen Development Platform
+        &lt;/div&gt;
+
+        &lt;h1 className=&quot;mt-8 text-4xl font-black tracking-tight sm:text-6xl lg:text-7xl&quot;&gt;
+          Build Smarter Applications{' '}
+          &lt;span className=&quot;bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent&quot;&gt;
+            Without the Friction.
+          &lt;/span&gt;
+        &lt;/h1&gt;
+
+        &lt;p className=&quot;mx-auto mt-6 max-w-2xl text-base text-slate-300 sm:text-lg leading-relaxed&quot;&gt;
+          The all-in-one component architecture engineered for speed, conversion, and effortless maintainability.
+          Ship production apps in minutes instead of months.
+        &lt;/p&gt;
+
+        &lt;div className=&quot;mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row&quot;&gt;
+          &lt;button className=&quot;inline-flex items-center gap-2 rounded-xl bg-blue-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:bg-blue-500 hover:shadow-xl hover:shadow-blue-500/40&quot;&gt;
+            Get Started Free &lt;ArrowRight className=&quot;h-4 w-4&quot; /&gt;
+          &lt;/button&gt;
+          &lt;button className=&quot;inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/80 px-6 py-3.5 text-sm font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-colors&quot;&gt;
+            Book Live Demo
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;div className=&quot;mt-12 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400&quot;&gt;
+          &lt;span className=&quot;flex items-center gap-1.5&quot;&gt;&lt;CheckCircle2 className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; Free 14-day trial&lt;/span&gt;
+          &lt;span className=&quot;flex items-center gap-1.5&quot;&gt;&lt;CheckCircle2 className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; No credit card required&lt;/span&gt;
+          &lt;span className=&quot;flex items-center gap-1.5&quot;&gt;&lt;CheckCircle2 className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; Cancel anytime&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="heroes">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            3
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Hero Headers</span>
+              <span class="text-xs font-mono text-slate-500">hero-split-image.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Hero Split Image</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('hero-split-image')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/heroes/hero-split-image.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="hero-split-image">import React from 'react';
+import { ArrowRight, Play, Star, ShieldCheck } from 'lucide-react';
+
+export function HeroSplitImage() {
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white sm:py-28&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl grid items-center gap-12 lg:grid-cols-2&quot;&gt;
+        &lt;div&gt;
+          &lt;div className=&quot;flex items-center gap-1 text-amber-400 text-xs font-bold mb-4&quot;&gt;
+            {[...Array(5)].map((_, i) =&gt; (
+              &lt;Star key={i} className=&quot;h-3.5 w-3.5 fill-amber-400&quot; /&gt;
+            ))}
+            &lt;span className=&quot;ml-2 text-slate-300&quot;&gt;Rated 4.9/5 by 1,200+ engineers&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;h1 className=&quot;text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl&quot;&gt;
+            Transform Your Customer Workflow{' '}
+            &lt;span className=&quot;text-blue-500&quot;&gt;Effortlessly.&lt;/span&gt;
+          &lt;/h1&gt;
+
+          &lt;p className=&quot;mt-6 text-base text-slate-300 leading-relaxed&quot;&gt;
+            Automate data pipelines, streamline team handoffs, and deliver real-time insights with intuitive modular design.
+          &lt;/p&gt;
+
+          &lt;div className=&quot;mt-8 flex flex-wrap gap-4&quot;&gt;
+            &lt;button className=&quot;inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg hover:bg-blue-500 transition-colors&quot;&gt;
+              Start Free Trial &lt;ArrowRight className=&quot;h-4 w-4&quot; /&gt;
+            &lt;/button&gt;
+            &lt;button className=&quot;inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-5 py-3.5 text-sm font-semibold text-slate-200 hover:bg-slate-800 transition-colors&quot;&gt;
+              &lt;Play className=&quot;h-3.5 w-3.5 fill-current&quot; /&gt; Watch Video
+            &lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div className=&quot;mt-10 flex items-center gap-2 text-xs text-slate-400&quot;&gt;
+            &lt;ShieldCheck className=&quot;h-4 w-4 text-emerald-400&quot; /&gt;
+            &lt;span&gt;SOC2 Type II Certified &amp;amp; GDPR Compliant&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div className=&quot;relative&quot;&gt;
+          &lt;div className=&quot;relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl&quot;&gt;
+            &lt;img
+              src=&quot;https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&amp;fit=crop&amp;w=1000&amp;q=80&quot;
+              alt=&quot;Dashboard visualization&quot;
+              className=&quot;h-full w-full object-cover&quot;
+            /&gt;
+            &lt;div className=&quot;absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent&quot; /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="heroes">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            4
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Hero Headers</span>
+              <span class="text-xs font-mono text-slate-500">hero-with-code-preview.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Hero With Code Preview</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('hero-with-code-preview')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/heroes/hero-with-code-preview.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="hero-with-code-preview">import React, { useState } from 'react';
+import { Copy, Check, Terminal, ArrowRight } from 'lucide-react';
+
+export function HeroWithCodePreview() {
+  const [copied, setCopied] = useState(false);
+  const command = 'npx create-rapid-app@latest my-saas';
+
+  const handleCopy = () =&gt; {
+    navigator.clipboard.writeText(command);
+    setCopied(true);
+    setTimeout(() =&gt; setCopied(false), 2000);
+  };
+
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white sm:py-28&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl grid items-center gap-12 lg:grid-cols-12&quot;&gt;
+        &lt;div className=&quot;lg:col-span-6&quot;&gt;
+          &lt;span className=&quot;text-xs font-mono font-bold tracking-wider text-emerald-400 uppercase&quot;&gt;
+            // Developer First Architecture
+          &lt;/span&gt;
+          &lt;h1 className=&quot;mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl&quot;&gt;
+            The CLI that launches SaaS projects in 60 seconds.
+          &lt;/h1&gt;
+          &lt;p className=&quot;mt-4 text-sm text-slate-300 leading-relaxed&quot;&gt;
+            One single terminal command configures authentication, database models, Stripe billing, and TypeScript types automatically.
+          &lt;/p&gt;
+
+          &lt;div className=&quot;mt-8 flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/90 p-2 font-mono text-xs text-slate-200&quot;&gt;
+            &lt;Terminal className=&quot;h-4 w-4 ml-2 text-slate-400&quot; /&gt;
+            &lt;span className=&quot;flex-1 select-all font-semibold text-emerald-400&quot;&gt;{command}&lt;/span&gt;
+            &lt;button
+              onClick={handleCopy}
+              className=&quot;rounded-lg bg-slate-800 px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-700 hover:text-white transition-colors&quot;
+            &gt;
+              {copied ? &lt;Check className=&quot;h-3.5 w-3.5 text-emerald-400&quot; /&gt; : &lt;Copy className=&quot;h-3.5 w-3.5&quot; /&gt;}
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div className=&quot;lg:col-span-6 rounded-2xl border border-slate-800 bg-slate-900/90 p-5 font-mono text-xs shadow-2xl&quot;&gt;
+          &lt;div className=&quot;flex items-center gap-2 pb-3 border-b border-slate-800&quot;&gt;
+            &lt;div className=&quot;h-3 w-3 rounded-full bg-red-500/80&quot; /&gt;
+            &lt;div className=&quot;h-3 w-3 rounded-full bg-yellow-500/80&quot; /&gt;
+            &lt;div className=&quot;h-3 w-3 rounded-full bg-green-500/80&quot; /&gt;
+            &lt;span className=&quot;ml-2 text-slate-500 text-[11px]&quot;&gt;server.ts&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;pre className=&quot;mt-4 overflow-x-auto text-slate-300 leading-relaxed&quot;&gt;
+            &lt;code&gt;{`import { createSaaS } from '@starter/core';
+
+export default createSaaS({
+  auth: 'supabase',
+  billing: 'stripe',
+  analytics: 'posthog',
+  theme: 'dark'
+});`}&lt;/code&gt;
+          &lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="heroes">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            5
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Hero Headers</span>
+              <span class="text-xs font-mono text-slate-500">hero-with-mockup.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Hero With Mockup</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('hero-with-mockup')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/heroes/hero-with-mockup.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="hero-with-mockup">import React from 'react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
+
+export function HeroWithMockup() {
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white sm:py-32&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-5xl text-center&quot;&gt;
+        &lt;h1 className=&quot;text-4xl font-extrabold tracking-tight sm:text-6xl&quot;&gt;
+          Supercharge Your Dev Team&amp;apos;s Velocity
+        &lt;/h1&gt;
+        &lt;p className=&quot;mx-auto mt-6 max-w-xl text-sm sm:text-base text-slate-300&quot;&gt;
+          Clean components with built-in accessibility, responsive layouts, and zero heavy dependencies.
+        &lt;/p&gt;
+        &lt;div className=&quot;mt-8 flex justify-center gap-4&quot;&gt;
+          &lt;button className=&quot;rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg hover:bg-blue-500&quot;&gt;
+            Explore All 25 Components
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+        {/* Perspective Mockup */}
+        &lt;div className=&quot;mt-16 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 shadow-2xl&quot;&gt;
+          &lt;div className=&quot;aspect-[16/9] w-full overflow-hidden rounded-xl bg-slate-950&quot;&gt;
+            &lt;img
+              src=&quot;https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=1200&amp;q=80&quot;
+              alt=&quot;Application view&quot;
+              className=&quot;h-full w-full object-cover&quot;
+            /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="pricing">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            6
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Pricing Tables</span>
+              <span class="text-xs font-mono text-slate-500">pricing-comparison-table.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Pricing Comparison Table</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('pricing-comparison-table')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/pricing/pricing-comparison-table.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="pricing-comparison-table">import React from 'react';
+import { Check, X } from 'lucide-react';
+
+export function PricingComparisonTable() {
+  const rows = [
+    { feature: 'Next.js 14 App Router', free: true, pro: true, team: true },
+    { feature: 'TypeScript Support', free: true, pro: true, team: true },
+    { feature: 'Supabase Authentication', free: false, pro: true, team: true },
+    { feature: 'Stripe &amp; Razorpay Integration', free: false, pro: true, team: true },
+    { feature: 'Role-Based Access Control', free: false, pro: false, team: true },
+    { feature: 'Dedicated Support SLA', free: false, pro: false, team: true }
+  ];
+
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-5xl overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/60 p-6&quot;&gt;
+        &lt;h2 className=&quot;text-2xl font-bold mb-6&quot;&gt;Detailed Feature Comparison&lt;/h2&gt;
+        &lt;table className=&quot;w-full text-left text-xs&quot;&gt;
+          &lt;thead&gt;
+            &lt;tr className=&quot;border-b border-slate-800 text-slate-400&quot;&gt;
+              &lt;th className=&quot;pb-4 font-semibold&quot;&gt;Features&lt;/th&gt;
+              &lt;th className=&quot;pb-4 font-semibold&quot;&gt;Free&lt;/th&gt;
+              &lt;th className=&quot;pb-4 font-semibold text-blue-400&quot;&gt;Pro (₹1,499)&lt;/th&gt;
+              &lt;th className=&quot;pb-4 font-semibold&quot;&gt;Team (₹3,999)&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody className=&quot;divide-y divide-slate-800&quot;&gt;
+            {rows.map((r) =&gt; (
+              &lt;tr key={r.feature}&gt;
+                &lt;td className=&quot;py-3.5 font-medium&quot;&gt;{r.feature}&lt;/td&gt;
+                &lt;td className=&quot;py-3.5&quot;&gt;{r.free ? &lt;Check className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; : &lt;X className=&quot;h-4 w-4 text-slate-600&quot; /&gt;}&lt;/td&gt;
+                &lt;td className=&quot;py-3.5&quot;&gt;{r.pro ? &lt;Check className=&quot;h-4 w-4 text-blue-400&quot; /&gt; : &lt;X className=&quot;h-4 w-4 text-slate-600&quot; /&gt;}&lt;/td&gt;
+                &lt;td className=&quot;py-3.5&quot;&gt;{r.team ? &lt;Check className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; : &lt;X className=&quot;h-4 w-4 text-slate-600&quot; /&gt;}&lt;/td&gt;
+              &lt;/tr&gt;
+            ))}
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="pricing">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            7
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Pricing Tables</span>
+              <span class="text-xs font-mono text-slate-500">pricing-enterprise-cards.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Pricing Enterprise Cards</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('pricing-enterprise-cards')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/pricing/pricing-enterprise-cards.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="pricing-enterprise-cards">import React from 'react';
+import { Check, ArrowRight } from 'lucide-react';
+
+export function PricingEnterpriseCards() {
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-5xl grid gap-8 md:grid-cols-2&quot;&gt;
+        &lt;div className=&quot;rounded-2xl border border-slate-800 bg-slate-900/60 p-8&quot;&gt;
+          &lt;h3 className=&quot;text-xl font-bold&quot;&gt;Standard Cloud&lt;/h3&gt;
+          &lt;p className=&quot;mt-1 text-xs text-slate-400&quot;&gt;For indie startups and fast-moving teams.&lt;/p&gt;
+          &lt;p className=&quot;mt-6 text-4xl font-extrabold&quot;&gt;₹1,499&lt;span className=&quot;text-xs text-slate-400&quot;&gt; / mo&lt;/span&gt;&lt;/p&gt;
+          &lt;ul className=&quot;mt-6 space-y-2.5 text-xs text-slate-300&quot;&gt;
+            &lt;li className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-blue-400&quot; /&gt; Hosted Infrastructure&lt;/li&gt;
+            &lt;li className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-blue-400&quot; /&gt; Automated Daily Backups&lt;/li&gt;
+          &lt;/ul&gt;
+          &lt;button className=&quot;mt-8 w-full rounded-xl bg-slate-800 py-2.5 text-xs font-bold hover:bg-slate-700&quot;&gt;Choose Cloud&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;div className=&quot;rounded-2xl border border-blue-500 bg-slate-900 p-8 shadow-2xl&quot;&gt;
+          &lt;h3 className=&quot;text-xl font-bold&quot;&gt;Self-Hosted Enterprise&lt;/h3&gt;
+          &lt;p className=&quot;mt-1 text-xs text-slate-400&quot;&gt;Deploy on your own private cloud or VPC.&lt;/p&gt;
+          &lt;p className=&quot;mt-6 text-4xl font-extrabold&quot;&gt;Custom&lt;/p&gt;
+          &lt;ul className=&quot;mt-6 space-y-2.5 text-xs text-slate-300&quot;&gt;
+            &lt;li className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; Complete Docker/Helm manifests&lt;/li&gt;
+            &lt;li className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; Custom Security Audits&lt;/li&gt;
+          &lt;/ul&gt;
+          &lt;button className=&quot;mt-8 w-full rounded-xl bg-blue-600 py-2.5 text-xs font-bold hover:bg-blue-500 flex items-center justify-center gap-1.5&quot;&gt;
+            Talk to Enterprise &lt;ArrowRight className=&quot;h-3.5 w-3.5&quot; /&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="pricing">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            8
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Pricing Tables</span>
+              <span class="text-xs font-mono text-slate-500">pricing-single-focus.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Pricing Single Focus</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('pricing-single-focus')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/pricing/pricing-single-focus.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="pricing-single-focus">import React from 'react';
+import { Check, ShieldCheck } from 'lucide-react';
+
+export function PricingSingleFocus() {
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-3xl rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 p-8 sm:p-12 shadow-2xl&quot;&gt;
+        &lt;div className=&quot;text-center&quot;&gt;
+          &lt;span className=&quot;rounded-full bg-blue-500/10 px-3 py-1 text-xs font-bold text-blue-400&quot;&gt;Lifetime License&lt;/span&gt;
+          &lt;h2 className=&quot;mt-4 text-3xl font-extrabold sm:text-4xl&quot;&gt;One Payment. Own Forever.&lt;/h2&gt;
+          &lt;p className=&quot;mt-2 text-sm text-slate-400&quot;&gt;Zero subscriptions. All source files included.&lt;/p&gt;
+          &lt;p className=&quot;mt-6 text-5xl font-black&quot;&gt;₹1,999&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;mt-8 grid gap-3 sm:grid-cols-2 text-xs text-slate-300&quot;&gt;
+          &lt;div className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; 25 React Tailwind Components&lt;/div&gt;
+          &lt;div className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; Complete Interactive Preview&lt;/div&gt;
+          &lt;div className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; Commercial Royalty-Free Rights&lt;/div&gt;
+          &lt;div className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-emerald-400&quot; /&gt; 1-Click Code Copy&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;button className=&quot;mt-8 w-full rounded-xl bg-blue-600 py-3.5 text-sm font-bold hover:bg-blue-500 shadow-lg&quot;&gt;Purchase Instant Download&lt;/button&gt;
+        &lt;p className=&quot;mt-3 text-center text-xs text-slate-500 flex items-center justify-center gap-1&quot;&gt;
+          &lt;ShieldCheck className=&quot;h-3.5 w-3.5 text-emerald-400&quot; /&gt; 30-Day Money-Back Guarantee
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="pricing">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            9
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Pricing Tables</span>
+              <span class="text-xs font-mono text-slate-500">pricing-three-tier.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Pricing Three Tier</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('pricing-three-tier')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/pricing/pricing-three-tier.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="pricing-three-tier">import React from 'react';
+import { Check } from 'lucide-react';
+
+export function PricingThreeTier() {
+  const tiers = [
+    { name: 'Starter', price: '₹499', desc: 'For single projects and indie makers.', features: ['5 Projects', 'Community Support', 'Basic Analytics', '1 GB Storage'] },
+    { name: 'Pro Builder', price: '₹1,499', desc: 'Our most popular plan for professionals.', features: ['Unlimited Projects', 'Priority Support', 'Full Analytics Suite', '25 GB Storage', 'Custom Domains'], popular: true },
+    { name: 'Enterprise', price: '₹3,999', desc: 'For scale-ups and established dev agencies.', features: ['Unlimited Everything', 'Dedicated Engineer', '99.9% SLA', 'Custom Billing', 'SSO &amp; Audit Logs'] }
+  ];
+
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl&quot;&gt;
+        &lt;div className=&quot;text-center&quot;&gt;
+          &lt;h2 className=&quot;text-3xl font-extrabold sm:text-4xl&quot;&gt;Simple, Transparent Pricing&lt;/h2&gt;
+          &lt;p className=&quot;mt-2 text-sm text-slate-400&quot;&gt;Pick the plan that suits your application.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;mt-12 grid gap-8 lg:grid-cols-3&quot;&gt;
+          {tiers.map((t) =&gt; (
+            &lt;div key={t.name} className={`relative flex flex-col justify-between rounded-2xl border p-8 ${t.popular ? 'border-blue-500 bg-slate-900 shadow-2xl' : 'border-slate-800 bg-slate-900/50'}`}&gt;
+              {t.popular &amp;&amp; &lt;span className=&quot;absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 px-3 py-1 text-[11px] font-bold&quot;&gt;Most Popular&lt;/span&gt;}
+              &lt;div&gt;
+                &lt;h3 className=&quot;text-lg font-bold&quot;&gt;{t.name}&lt;/h3&gt;
+                &lt;p className=&quot;mt-1 text-xs text-slate-400&quot;&gt;{t.desc}&lt;/p&gt;
+                &lt;p className=&quot;mt-6 text-4xl font-black&quot;&gt;{t.price}&lt;span className=&quot;text-xs text-slate-400 font-normal&quot;&gt; / month&lt;/span&gt;&lt;/p&gt;
+                &lt;ul className=&quot;mt-6 space-y-3 text-xs text-slate-300&quot;&gt;
+                  {t.features.map((f) =&gt; (
+                    &lt;li key={f} className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-blue-400&quot; /&gt; {f}&lt;/li&gt;
+                  ))}
+                &lt;/ul&gt;
+              &lt;/div&gt;
+              &lt;button className={`mt-8 w-full rounded-xl py-3 text-xs font-bold transition-colors ${t.popular ? 'bg-blue-600 hover:bg-blue-500 text-white' : 'border border-slate-700 bg-slate-800 hover:bg-slate-700'}`}&gt;
+                Choose {t.name}
+              &lt;/button&gt;
+            &lt;/div&gt;
+          ))}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="pricing">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            10
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Pricing Tables</span>
+              <span class="text-xs font-mono text-slate-500">pricing-toggle-monthly-annual.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Pricing Toggle Monthly Annual</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('pricing-toggle-monthly-annual')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/pricing/pricing-toggle-monthly-annual.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="pricing-toggle-monthly-annual">import React, { useState } from 'react';
+import { Check } from 'lucide-react';
+
+export function PricingToggleMonthlyAnnual() {
+  const [annual, setAnnual] = useState(true);
+
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white text-center&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-4xl&quot;&gt;
+        &lt;h2 className=&quot;text-3xl font-extrabold sm:text-4xl&quot;&gt;Predictable Pricing for High-Growth Apps&lt;/h2&gt;
+        &lt;p className=&quot;mt-2 text-sm text-slate-400&quot;&gt;Switch between monthly and annual billing.&lt;/p&gt;
+        
+        {/* Toggle */}
+        &lt;div className=&quot;mt-8 inline-flex items-center gap-3 rounded-full border border-slate-800 bg-slate-900 p-1.5 text-xs font-semibold&quot;&gt;
+          &lt;button onClick={() =&gt; setAnnual(false)} className={`rounded-full px-4 py-1.5 ${!annual ? 'bg-blue-600 text-white' : 'text-slate-400'}`}&gt;Monthly&lt;/button&gt;
+          &lt;button onClick={() =&gt; setAnnual(true)} className={`rounded-full px-4 py-1.5 flex items-center gap-1.5 ${annual ? 'bg-blue-600 text-white' : 'text-slate-400'}`}&gt;
+            Annual &lt;span className=&quot;rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] text-emerald-400&quot;&gt;Save 20%&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;div className=&quot;mt-12 mx-auto max-w-md rounded-2xl border border-blue-500 bg-slate-900 p-8 shadow-2xl&quot;&gt;
+          &lt;h3 className=&quot;text-lg font-bold&quot;&gt;Full Access Pass&lt;/h3&gt;
+          &lt;p className=&quot;mt-4 text-5xl font-black&quot;&gt;{annual ? '₹999' : '₹1,299'}&lt;span className=&quot;text-xs text-slate-400 font-normal&quot;&gt; / month&lt;/span&gt;&lt;/p&gt;
+          &lt;ul className=&quot;mt-6 space-y-3 text-left text-xs text-slate-300&quot;&gt;
+            &lt;li className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-blue-400&quot; /&gt; Complete 25 Component Vault&lt;/li&gt;
+            &lt;li className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-blue-400&quot; /&gt; Unlimited Commercial Projects&lt;/li&gt;
+            &lt;li className=&quot;flex items-center gap-2&quot;&gt;&lt;Check className=&quot;h-4 w-4 text-blue-400&quot; /&gt; Lifetime Updates Included&lt;/li&gt;
+          &lt;/ul&gt;
+          &lt;button className=&quot;mt-8 w-full rounded-xl bg-blue-600 py-3 text-sm font-bold hover:bg-blue-500&quot;&gt;Get Started&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="testimonials">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            11
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Testimonials</span>
+              <span class="text-xs font-mono text-slate-500">testimonial-carousel-slider.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Testimonial Carousel Slider</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('testimonial-carousel-slider')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/testimonials/testimonial-carousel-slider.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="testimonial-carousel-slider">import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+
+export function TestimonialCarouselSlider() {
+  const reviews = [
+    { quote: 'These components saved our engineering team 3 weeks of work on our latest client redesign.', author: 'Karan Sharma', role: 'CTO, DevScale' },
+    { quote: 'The accessibility and responsiveness out of the box are top tier. 10/10 recommendation.', author: 'Sophie Laurent', role: 'Lead Frontend, OrbitApp' },
+    { quote: 'Zero bloat, clean Tailwind classes, and instant integration. Exactly what modern devs need.', author: 'Amit Verma', role: 'Founder, QuickShip' }
+  ];
+  const [curr, setCurr] = useState(0);
+
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white text-center&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-3xl rounded-2xl border border-slate-800 bg-slate-900/60 p-8 sm:p-12&quot;&gt;
+        &lt;div className=&quot;flex justify-center gap-1 text-amber-400 mb-6&quot;&gt;
+          {[...Array(5)].map((_, i) =&gt; &lt;Star key={i} className=&quot;h-4 w-4 fill-amber-400&quot; /&gt;}
+        &lt;/div&gt;
+        &lt;p className=&quot;text-lg sm:text-xl font-medium leading-relaxed italic text-slate-200&quot;&gt;
+          &amp;ldquo;{reviews[curr].quote}&amp;rdquo;
+        &lt;/p&gt;
+        &lt;h4 className=&quot;mt-6 font-bold text-white text-base&quot;&gt;{reviews[curr].author}&lt;/h4&gt;
+        &lt;p className=&quot;text-xs text-slate-400&quot;&gt;{reviews[curr].role}&lt;/p&gt;
+        &lt;div className=&quot;mt-8 flex justify-center gap-3&quot;&gt;
+          &lt;button onClick={() =&gt; setCurr((c) =&gt; (c === 0 ? reviews.length - 1 : c - 1))} className=&quot;rounded-full border border-slate-700 p-2 hover:bg-slate-800&quot;&gt;&lt;ChevronLeft className=&quot;h-4 w-4&quot; /&gt;&lt;/button&gt;
+          &lt;button onClick={() =&gt; setCurr((c) =&gt; (c === reviews.length - 1 ? 0 : c + 1))} className=&quot;rounded-full border border-slate-700 p-2 hover:bg-slate-800&quot;&gt;&lt;ChevronRight className=&quot;h-4 w-4&quot; /&gt;&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="testimonials">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            12
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Testimonials</span>
+              <span class="text-xs font-mono text-slate-500">testimonial-centered-quote.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Testimonial Centered Quote</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('testimonial-centered-quote')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/testimonials/testimonial-centered-quote.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="testimonial-centered-quote">import React from 'react';
+
+export function TestimonialCenteredQuote() {
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-24 text-white text-center&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-4xl&quot;&gt;
+        &lt;blockquote className=&quot;text-2xl font-bold tracking-tight sm:text-3xl text-slate-100 leading-relaxed&quot;&gt;
+          &amp;ldquo;This library transformed how fast our engineers can ship client web apps. The quality is unmistakably world-class.&amp;rdquo;
+        &lt;/blockquote&gt;
+        &lt;div className=&quot;mt-8 flex items-center justify-center gap-3&quot;&gt;
+          &lt;div className=&quot;h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center font-bold text-xs&quot;&gt;NL&lt;/div&gt;
+          &lt;div className=&quot;text-left&quot;&gt;
+            &lt;p className=&quot;font-bold text-sm&quot;&gt;Nathan Lewis&lt;/p&gt;
+            &lt;p className=&quot;text-xs text-slate-400&quot;&gt;Head of Product at Nexus Software&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="testimonials">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            13
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Testimonials</span>
+              <span class="text-xs font-mono text-slate-500">testimonial-grid-wall.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Testimonial Grid Wall</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('testimonial-grid-wall')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/testimonials/testimonial-grid-wall.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="testimonial-grid-wall">import React from 'react';
+import { Star } from 'lucide-react';
+
+export function TestimonialGridWall() {
+  const items = [
+    { text: 'Unmatched speed. We copy-pasted the hero and pricing cards and had our landing page live in 20 minutes.', name: 'Rohan Gupta', company: 'Inflow AI' },
+    { text: 'Tailwind transitions feel buttery smooth on mobile. Our conversion rate increased by 28%.', name: 'Emily Vance', company: 'Starlight SaaS' },
+    { text: 'Best component pack I have purchased this year. Completely clean TypeScript code.', name: 'Devon Miles', company: 'CloudBase' }
+  ];
+
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl grid gap-6 md:grid-cols-3&quot;&gt;
+        {items.map((it) =&gt; (
+          &lt;div key={it.name} className=&quot;rounded-2xl border border-slate-800 bg-slate-900/50 p-6&quot;&gt;
+            &lt;div className=&quot;flex gap-1 text-amber-400 mb-3&quot;&gt;
+              {[...Array(5)].map((_, i) =&gt; &lt;Star key={i} className=&quot;h-3.5 w-3.5 fill-amber-400&quot; /&gt;}
+            &lt;/div&gt;
+            &lt;p className=&quot;text-xs text-slate-300 leading-relaxed&quot;&gt;&amp;ldquo;{it.text}&amp;rdquo;&lt;/p&gt;
+            &lt;div className=&quot;mt-4 pt-4 border-t border-slate-800&quot;&gt;
+              &lt;p className=&quot;font-bold text-xs text-white&quot;&gt;{it.name}&lt;/p&gt;
+              &lt;p className=&quot;text-[11px] text-slate-500&quot;&gt;{it.company}&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="testimonials">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            14
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Testimonials</span>
+              <span class="text-xs font-mono text-slate-500">testimonial-metrics-cards.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Testimonial Metrics Cards</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('testimonial-metrics-cards')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/testimonials/testimonial-metrics-cards.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="testimonial-metrics-cards">import React from 'react';
+
+export function TestimonialMetricsCards() {
+  const stats = [
+    { metric: '340%', label: 'Revenue Growth', quote: 'Our new landing page converted visitors 3x better.' },
+    { metric: '15 hrs', label: 'Saved per Sprint', quote: 'Design-to-code handoffs are completely seamless.' },
+    { metric: '99.9%', label: 'Lighthouse Score', quote: 'Zero bloat means perfect performance scores on mobile.' }
+  ];
+
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl grid gap-6 sm:grid-cols-3&quot;&gt;
+        {stats.map((s) =&gt; (
+          &lt;div key={s.label} className=&quot;rounded-2xl border border-slate-800 bg-slate-900/60 p-6&quot;&gt;
+            &lt;p className=&quot;text-4xl font-black text-blue-400&quot;&gt;{s.metric}&lt;/p&gt;
+            &lt;p className=&quot;text-xs font-bold text-white mt-1&quot;&gt;{s.label}&lt;/p&gt;
+            &lt;p className=&quot;mt-3 text-xs text-slate-400&quot;&gt;&amp;ldquo;{s.quote}&amp;rdquo;&lt;/p&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="testimonials">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            15
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Testimonials</span>
+              <span class="text-xs font-mono text-slate-500">testimonial-split-photo.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Testimonial Split Photo</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('testimonial-split-photo')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/testimonials/testimonial-split-photo.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="testimonial-split-photo">import React from 'react';
+
+export function TestimonialSplitPhoto() {
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-5xl grid items-center gap-8 md:grid-cols-2 rounded-3xl border border-slate-800 bg-slate-900/60 p-8 sm:p-12&quot;&gt;
+        &lt;div className=&quot;aspect-square overflow-hidden rounded-2xl bg-slate-800&quot;&gt;
+          &lt;img
+            src=&quot;https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=800&amp;q=80&quot;
+            alt=&quot;Customer portrait&quot;
+            className=&quot;h-full w-full object-cover&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;p className=&quot;text-lg font-medium leading-relaxed italic text-slate-200&quot;&gt;
+            &amp;ldquo;We replaced our entire frontend design workflow with these components. The code is modular, robust, and effortlessly customizable.&amp;rdquo;
+          &lt;/p&gt;
+          &lt;div className=&quot;mt-6&quot;&gt;
+            &lt;h4 className=&quot;font-bold text-base text-white&quot;&gt;Maya Lin&lt;/h4&gt;
+            &lt;p className=&quot;text-xs text-slate-400&quot;&gt;Co-Founder, Horizon Studio&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="features">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            16
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Feature Grids</span>
+              <span class="text-xs font-mono text-slate-500">feature-alternating-rows.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Feature Alternating Rows</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('feature-alternating-rows')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/features/feature-alternating-rows.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="feature-alternating-rows">import React from 'react';
+import { ArrowRight } from 'lucide-react';
+
+export function FeatureAlternatingRows() {
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white space-y-16&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl grid items-center gap-10 md:grid-cols-2&quot;&gt;
+        &lt;div&gt;
+          &lt;span className=&quot;text-xs font-bold text-blue-400&quot;&gt;01. SPEED&lt;/span&gt;
+          &lt;h3 className=&quot;text-2xl font-bold mt-2&quot;&gt;Instant Setup in Seconds&lt;/h3&gt;
+          &lt;p className=&quot;mt-3 text-xs text-slate-400 leading-relaxed&quot;&gt;
+            Copy the raw component JSX directly into your React project. Everything works with stock Tailwind CSS utility classes.
+          &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;aspect-video rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden&quot;&gt;
+          &lt;img src=&quot;https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&amp;fit=crop&amp;w=800&amp;q=80&quot; alt=&quot;Code preview&quot; className=&quot;h-full w-full object-cover&quot; /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div className=&quot;mx-auto max-w-6xl grid items-center gap-10 md:grid-cols-2&quot;&gt;
+        &lt;div className=&quot;order-2 md:order-1 aspect-video rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden&quot;&gt;
+          &lt;img src=&quot;https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&amp;fit=crop&amp;w=800&amp;q=80&quot; alt=&quot;Analytics view&quot; className=&quot;h-full w-full object-cover&quot; /&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;order-1 md:order-2&quot;&gt;
+          &lt;span className=&quot;text-xs font-bold text-emerald-400&quot;&gt;02. PERFORMANCE&lt;/span&gt;
+          &lt;h3 className=&quot;text-2xl font-bold mt-2&quot;&gt;Zero Bundle Overhead&lt;/h3&gt;
+          &lt;p className=&quot;mt-3 text-xs text-slate-400 leading-relaxed&quot;&gt;
+            No massive UI framework packages bloating your client bundle. Just pure semantic HTML and Tailwind.
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="features">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            17
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Feature Grids</span>
+              <span class="text-xs font-mono text-slate-500">feature-bento-grid.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Feature Bento Grid</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('feature-bento-grid')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/features/feature-bento-grid.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="feature-bento-grid">import React from 'react';
+import { Zap, Shield, Sparkles, Terminal } from 'lucide-react';
+
+export function FeatureBentoGrid() {
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl&quot;&gt;
+        &lt;h2 className=&quot;text-3xl font-extrabold text-center mb-12&quot;&gt;Engineered for Rapid Development&lt;/h2&gt;
+        &lt;div className=&quot;grid gap-6 md:grid-cols-3&quot;&gt;
+          &lt;div className=&quot;md:col-span-2 rounded-2xl border border-slate-800 bg-slate-900/80 p-8&quot;&gt;
+            &lt;Zap className=&quot;h-6 w-6 text-blue-400 mb-4&quot; /&gt;
+            &lt;h3 className=&quot;text-xl font-bold&quot;&gt;Lightning Fast Micro-Transitions&lt;/h3&gt;
+            &lt;p className=&quot;mt-2 text-xs text-slate-400 leading-relaxed&quot;&gt;
+              Every button, accordion, and carousel includes GPU-accelerated Tailwind transitions for silky smooth 60fps animations.
+            &lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div className=&quot;rounded-2xl border border-slate-800 bg-slate-900/80 p-8&quot;&gt;
+            &lt;Shield className=&quot;h-6 w-6 text-emerald-400 mb-4&quot; /&gt;
+            &lt;h3 className=&quot;text-lg font-bold&quot;&gt;Full Accessibility&lt;/h3&gt;
+            &lt;p className=&quot;mt-2 text-xs text-slate-400&quot;&gt;ARIA tags and keyboard navigation pre-configured.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div className=&quot;rounded-2xl border border-slate-800 bg-slate-900/80 p-8&quot;&gt;
+            &lt;Sparkles className=&quot;h-6 w-6 text-purple-400 mb-4&quot; /&gt;
+            &lt;h3 className=&quot;text-lg font-bold&quot;&gt;Copy-Paste Simplicity&lt;/h3&gt;
+            &lt;p className=&quot;mt-2 text-xs text-slate-400&quot;&gt;Zero external npm dependencies except lucide-react.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div className=&quot;md:col-span-2 rounded-2xl border border-slate-800 bg-slate-900/80 p-8&quot;&gt;
+            &lt;Terminal className=&quot;h-6 w-6 text-amber-400 mb-4&quot; /&gt;
+            &lt;h3 className=&quot;text-xl font-bold&quot;&gt;100% Strict TypeScript&lt;/h3&gt;
+            &lt;p className=&quot;mt-2 text-xs text-slate-400 leading-relaxed&quot;&gt;
+              Full prop type safety so your IDE provides autocomplete out of the box.
+            &lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="features">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            18
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Feature Grids</span>
+              <span class="text-xs font-mono text-slate-500">feature-card-hover-effects.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Feature Card Hover Effects</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('feature-card-hover-effects')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/features/feature-card-hover-effects.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="feature-card-hover-effects">import React from 'react';
+
+export function FeatureCardHoverEffects() {
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-5xl grid gap-6 sm:grid-cols-3&quot;&gt;
+        {['Figma to Code', 'High Conversion', 'Dark Mode Default'].map((title, i) =&gt; (
+          &lt;div
+            key={title}
+            className=&quot;group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/10&quot;
+          &gt;
+            &lt;div className=&quot;text-4xl font-black text-slate-800 group-hover:text-blue-500/30 transition-colors&quot;&gt;0{i + 1}&lt;/div&gt;
+            &lt;h3 className=&quot;mt-4 text-lg font-bold text-white group-hover:text-blue-400 transition-colors&quot;&gt;{title}&lt;/h3&gt;
+            &lt;p className=&quot;mt-2 text-xs text-slate-400&quot;&gt;Interactive micro-interactions designed to elevate user engagement.&lt;/p&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="features">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            19
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Feature Grids</span>
+              <span class="text-xs font-mono text-slate-500">feature-comparison-matrix.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Feature Comparison Matrix</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('feature-comparison-matrix')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/features/feature-comparison-matrix.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="feature-comparison-matrix">import React from 'react';
+
+export function FeatureComparisonMatrix() {
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-4xl rounded-2xl border border-slate-800 bg-slate-900/70 p-8&quot;&gt;
+        &lt;h2 className=&quot;text-2xl font-bold text-center mb-8&quot;&gt;Building from Scratch vs. Component Vault&lt;/h2&gt;
+        &lt;div className=&quot;grid grid-cols-2 gap-6 text-xs&quot;&gt;
+          &lt;div className=&quot;rounded-xl bg-red-500/10 border border-red-500/20 p-5 space-y-2&quot;&gt;
+            &lt;h4 className=&quot;font-bold text-red-400&quot;&gt;Building From Scratch&lt;/h4&gt;
+            &lt;p className=&quot;text-slate-400&quot;&gt;• 40+ hours writing CSS&lt;/p&gt;
+            &lt;p className=&quot;text-slate-400&quot;&gt;• Inconsistent spacing &amp;amp; tokens&lt;/p&gt;
+            &lt;p className=&quot;text-slate-400&quot;&gt;• Mobile responsiveness bugs&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div className=&quot;rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-5 space-y-2&quot;&gt;
+            &lt;h4 className=&quot;font-bold text-emerald-400&quot;&gt;With This Component Pack&lt;/h4&gt;
+            &lt;p className=&quot;text-slate-300&quot;&gt;• 1-click copy into project&lt;/p&gt;
+            &lt;p className=&quot;text-slate-300&quot;&gt;• Cohesive modern design system&lt;/p&gt;
+            &lt;p className=&quot;text-slate-300&quot;&gt;• Tested across all screen sizes&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="features">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            20
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Feature Grids</span>
+              <span class="text-xs font-mono text-slate-500">feature-grid-with-icons.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Feature Grid With Icons</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('feature-grid-with-icons')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/features/feature-grid-with-icons.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="feature-grid-with-icons">import React from 'react';
+import { Layout, Palette, Code, Smartphone, Database, Lock } from 'lucide-react';
+
+export function FeatureGridWithIcons() {
+  const list = [
+    { icon: Layout, title: 'Responsive Grids', desc: 'Fluid breakpoints from mobile to 4K displays.' },
+    { icon: Palette, title: 'Tailwind Tokens', desc: 'Pre-configured color palettes and typography.' },
+    { icon: Code, title: 'Clean Architecture', desc: 'Modular components ready to extract and modify.' },
+    { icon: Smartphone, title: 'Mobile First', desc: 'Tested on real iOS and Android devices.' },
+    { icon: Database, title: 'State-Ready', desc: 'Ready to connect to Supabase or Prisma backends.' },
+    { icon: Lock, title: 'Enterprise Secure', desc: 'Safe from XSS, zero dangerouslySetInnerHTML.' }
+  ];
+
+  return (
+    &lt;section className=&quot;bg-slate-950 px-6 py-20 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl&quot;&gt;
+        &lt;h2 className=&quot;text-3xl font-extrabold text-center mb-12&quot;&gt;Core Capabilities&lt;/h2&gt;
+        &lt;div className=&quot;grid gap-6 sm:grid-cols-2 lg:grid-cols-3&quot;&gt;
+          {list.map((it) =&gt; (
+            &lt;div key={it.title} className=&quot;rounded-2xl border border-slate-800 bg-slate-900/60 p-6 hover:border-slate-700 transition-colors&quot;&gt;
+              &lt;it.icon className=&quot;h-5 w-5 text-blue-400 mb-3&quot; /&gt;
+              &lt;h3 className=&quot;text-base font-bold&quot;&gt;{it.title}&lt;/h3&gt;
+              &lt;p className=&quot;mt-1 text-xs text-slate-400&quot;&gt;{it.desc}&lt;/p&gt;
+            &lt;/div&gt;
+          ))}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="footers">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            21
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Footers</span>
+              <span class="text-xs font-mono text-slate-500">footer-badges-socials.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Footer Badges Socials</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('footer-badges-socials')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/footers/footer-badges-socials.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="footer-badges-socials">import React from 'react';
+import { Github, Star } from 'lucide-react';
+
+export function FooterBadgesSocials() {
+  return (
+    &lt;footer className=&quot;border-t border-slate-800 bg-slate-950 px-6 py-10 text-xs text-slate-400&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4&quot;&gt;
+        &lt;p className=&quot;font-mono&quot;&gt;React 18 • Next.js 14 • Tailwind CSS 3.4&lt;/p&gt;
+        &lt;div className=&quot;flex items-center gap-3&quot;&gt;
+          &lt;div className=&quot;inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900 px-3 py-1 text-slate-300&quot;&gt;
+            &lt;Github className=&quot;h-3.5 w-3.5&quot; /&gt;
+            &lt;span className=&quot;font-semibold&quot;&gt;Star on GitHub&lt;/span&gt;
+            &lt;Star className=&quot;h-3 w-3 fill-amber-400 text-amber-400&quot; /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/footer&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="footers">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            22
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Footers</span>
+              <span class="text-xs font-mono text-slate-500">footer-dark-enterprise.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Footer Dark Enterprise</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('footer-dark-enterprise')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/footers/footer-dark-enterprise.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="footer-dark-enterprise">import React from 'react';
+
+export function FooterDarkEnterprise() {
+  return (
+    &lt;footer className=&quot;border-t border-slate-800 bg-slate-950 px-6 py-12 text-xs text-slate-400&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4&quot;&gt;
+        &lt;div className=&quot;flex items-center gap-2&quot;&gt;
+          &lt;span className=&quot;h-2 w-2 rounded-full bg-emerald-400 animate-pulse&quot; /&gt;
+          &lt;span className=&quot;font-mono text-slate-300&quot;&gt;All systems operational (99.98%)&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;flex gap-6&quot;&gt;
+          &lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Security&lt;/a&gt;
+          &lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;SOC 2 Report&lt;/a&gt;
+          &lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Status&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/footer&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="footers">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            23
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Footers</span>
+              <span class="text-xs font-mono text-slate-500">footer-minimal-centered.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Footer Minimal Centered</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('footer-minimal-centered')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/footers/footer-minimal-centered.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="footer-minimal-centered">import React from 'react';
+
+export function FooterMinimalCentered() {
+  return (
+    &lt;footer className=&quot;border-t border-slate-800 bg-slate-950 px-6 py-12 text-center text-xs text-slate-500&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-3xl space-y-4&quot;&gt;
+        &lt;div className=&quot;flex justify-center gap-6 text-slate-400 font-medium&quot;&gt;
+          &lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Docs&lt;/a&gt;
+          &lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Components&lt;/a&gt;
+          &lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Pricing&lt;/a&gt;
+          &lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Support&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;p&gt;&amp;copy; {new Date().getFullYear()} DevComponents UI. Clean React + Tailwind Assets.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/footer&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="footers">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            24
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Footers</span>
+              <span class="text-xs font-mono text-slate-500">footer-multi-column-newsletter.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Footer Multi Column Newsletter</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('footer-multi-column-newsletter')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/footers/footer-multi-column-newsletter.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="footer-multi-column-newsletter">import React from 'react';
+import { ArrowRight, Github, Twitter, Linkedin } from 'lucide-react';
+
+export function FooterMultiColumnNewsletter() {
+  return (
+    &lt;footer className=&quot;border-t border-slate-800 bg-slate-950 px-6 py-16 text-slate-400 text-xs&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl grid gap-10 lg:grid-cols-5&quot;&gt;
+        &lt;div className=&quot;lg:col-span-2&quot;&gt;
+          &lt;h3 className=&quot;text-base font-bold text-white&quot;&gt;DevComponents&lt;/h3&gt;
+          &lt;p className=&quot;mt-2 text-xs text-slate-400 max-w-sm&quot;&gt;
+            Curated Tailwind CSS &amp;amp; React components for developers and indie creators.
+          &lt;/p&gt;
+          &lt;div className=&quot;mt-4 flex gap-3 text-slate-400&quot;&gt;
+            &lt;Github className=&quot;h-4 w-4 hover:text-white cursor-pointer&quot; /&gt;
+            &lt;Twitter className=&quot;h-4 w-4 hover:text-white cursor-pointer&quot; /&gt;
+            &lt;Linkedin className=&quot;h-4 w-4 hover:text-white cursor-pointer&quot; /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;h4 className=&quot;font-semibold text-white mb-3&quot;&gt;Components&lt;/h4&gt;
+          &lt;ul className=&quot;space-y-2&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Hero Headers&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Pricing Tables&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Feature Grids&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;h4 className=&quot;font-semibold text-white mb-3&quot;&gt;Company&lt;/h4&gt;
+          &lt;ul className=&quot;space-y-2&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;About Us&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot; className=&quot;hover:text-white&quot;&gt;Terms of Service&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;h4 className=&quot;font-semibold text-white mb-3&quot;&gt;Subscribe&lt;/h4&gt;
+          &lt;div className=&quot;flex gap-1.5&quot;&gt;
+            &lt;input type=&quot;email&quot; placeholder=&quot;Email&quot; className=&quot;rounded-lg border border-slate-800 bg-slate-900 px-3 py-1.5 text-xs text-white focus:outline-none&quot; /&gt;
+            &lt;button className=&quot;rounded-lg bg-blue-600 px-3 py-1.5 text-white font-bold hover:bg-blue-500&quot;&gt;→&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/footer&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="comp-card rounded-2xl border border-slate-800 bg-slate-900/70 backdrop-blur-sm overflow-hidden shadow-2xl transition-all hover:border-slate-700" data-cat="footers">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-6 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center h-7 w-7 rounded-lg bg-blue-600/20 text-xs font-black text-blue-400 border border-blue-500/30">
+            25
+          </span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[11px] font-bold text-blue-400 uppercase tracking-wider">Footers</span>
+              <span class="text-xs font-mono text-slate-500">footer-with-cta-banner.tsx</span>
+            </div>
+            <h2 class="text-base font-bold text-white mt-1">Footer With Cta Banner</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyCode('footer-with-cta-banner')" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-blue-600/20 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl transition-all cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>Copy Code</span>
+          </button>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="rounded-xl border border-slate-800/80 bg-slate-950 p-4 relative group">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-900 text-[11px] font-mono text-slate-400">
+            <span>// Location: <code>components/footers/footer-with-cta-banner.tsx</code></span>
+            <span>TypeScript + Tailwind CSS</span>
+          </div>
+          <pre class="overflow-x-auto text-xs text-emerald-400 font-mono leading-relaxed max-h-72 p-2 select-all"><code id="footer-with-cta-banner">import React from 'react';
+import { ArrowRight } from 'lucide-react';
+
+export function FooterWithCtaBanner() {
+  return (
+    &lt;div className=&quot;bg-slate-950 text-white&quot;&gt;
+      &lt;div className=&quot;mx-auto max-w-6xl px-6 pt-16&quot;&gt;
+        &lt;div className=&quot;rounded-3xl bg-gradient-to-r from-blue-600 to-indigo-600 p-8 sm:p-12 text-center&quot;&gt;
+          &lt;h3 className=&quot;text-2xl sm:text-3xl font-extrabold&quot;&gt;Ready to ship your next application?&lt;/h3&gt;
+          &lt;p className=&quot;mt-2 text-xs sm:text-sm text-blue-100&quot;&gt;Get all 25 components with royalty-free license.&lt;/p&gt;
+          &lt;button className=&quot;mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-xs font-bold text-blue-700 shadow-lg hover:bg-slate-100&quot;&gt;
+            Download Now &lt;ArrowRight className=&quot;h-3.5 w-3.5&quot; /&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;footer className=&quot;mt-16 border-t border-slate-800 py-8 text-center text-xs text-slate-500&quot;&gt;
+        &amp;copy; {new Date().getFullYear()} DevComponents. Built for developers.
+      &lt;/footer&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+    <span>Code copied to clipboard!</span>
+  </div>
+
+  <footer class="border-t border-slate-800 bg-slate-950 px-6 py-8 text-center text-xs text-slate-500">
+    <p>© QorelySofts Component Vault. Licensed for unlimited commercial and personal projects.</p>
+  </footer>
+
+  <script>
+    function copyCode(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const code = el.innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2200);
+      });
+    }
+
+    function filterCat(cat, btn) {
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.className = 'cat-btn rounded-xl bg-slate-900 border border-slate-800 px-3.5 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-slate-700';
+      });
+      if (btn) {
+        btn.className = 'cat-btn active rounded-xl bg-blue-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-md shadow-blue-600/30';
+      }
+
+      document.querySelectorAll('.comp-card').forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
