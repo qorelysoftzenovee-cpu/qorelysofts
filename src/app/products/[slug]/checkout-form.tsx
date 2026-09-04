@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Loader2, CreditCard, ShieldCheck } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
 import type { RazorpayOptions, RazorpayPaymentResponse } from '@/types';
 
 interface Props {
@@ -29,6 +30,17 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => {
+      if (data?.user) {
+        if (data.user.email) setEmail(data.user.email);
+        const fullName = data.user.user_metadata?.full_name;
+        if (fullName) setName(fullName);
+      }
+    });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
