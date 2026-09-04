@@ -44,7 +44,36 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create Razorpay order (amount in paise)
+    const hasRazorpayKeys = Boolean(
+      process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET
+    );
+
+    const downloadToken = crypto.randomUUID();
+
+    if (!hasRazorpayKeys) {
+      // Sandbox/Test mode: allow zero-error delivery testing while awaiting live Razorpay keys
+      const testOrderId = `test_order_${Date.now()}_${crypto.randomUUID().slice(0, 6)}`;
+      const { error: insertError } = await supabase.from('orders').insert({
+        product_id: body.productId,
+        customer_name: body.customerName,
+        customer_email: body.customerEmail,
+        razorpay_order_id: testOrderId,
+        status: 'paid', // Mark paid so download link is generated immediately for testing
+        download_token: downloadToken,
+      });
+
+      if (insertError) {
+        console.error('Error inserting test order:', insertError);
+        return NextResponse.json({ error: 'Failed to create order' }, { status: 500 });
+      }
+
+      return NextResponse.json({
+        testMode: true,
+        token: downloadToken,
+      });
+    }
+
+    // Live mode: Create Razorpay order (amount in paise)
     const razorpayOrder = await getRazorpay().orders.create({
       amount: product.price_inr * 100,
       currency: 'INR',
@@ -56,9 +85,6 @@ export async function POST(request: NextRequest) {
         ...(body.customerPhone ? { customer_phone: body.customerPhone } : {}),
       },
     });
-
-    // Generate a secure download token
-    const downloadToken = crypto.randomUUID();
 
     // Insert pending order
     const { error: insertError } = await supabase.from('orders').insert({
@@ -86,8 +112,9 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Create order error:', error);
+    const message = error instanceof Error ? error.message : 'Internal server error';
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: message },
       { status: 500 }
     );
   }

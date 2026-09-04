@@ -72,6 +72,12 @@ export function CheckoutForm({ productId, price, productTitle }: Props) {
         throw new Error(orderData.error || 'Failed to create order');
       }
 
+      // If in test mode (awaiting Razorpay live key activation), deliver file immediately
+      if (orderData.testMode && orderData.token) {
+        window.location.href = `/success?token=${orderData.token}`;
+        return;
+      }
+
       // 3. Open Razorpay checkout modal
       const options: RazorpayOptions = {
         key: orderData.keyId,
