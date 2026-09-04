@@ -17,77 +17,118 @@ import {
   Smartphone,
   BarChart3,
   IndianRupee,
+  CheckCircle2,
+  Lock,
+  Sparkles,
+  HelpCircle,
 } from 'lucide-react';
 import type { Product } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-/* ─── Category data ────────────────────────────────────────────── */
+/* ─── Visual Category Data with Curated Unsplash Photography ──────── */
 const categories = [
   {
     title: 'Website Templates',
-    description: 'Production-ready HTML, React & Next.js templates',
+    description: 'Production-ready Next.js, React, and Tailwind CSS responsive templates.',
     icon: LayoutTemplate,
-    color: 'bg-blue-50 text-blue-600',
+    image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
+    tag: 'Frontend',
     href: '/#products',
   },
   {
-    title: 'UI Kits & Design',
-    description: 'Figma & Tailwind component kits for rapid prototyping',
+    title: 'UI Kits & Design Systems',
+    description: 'Figma component systems and modern UI assets for rapid prototyping.',
     icon: Palette,
-    color: 'bg-purple-50 text-purple-600',
+    image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80',
+    tag: 'Design',
     href: '/#products',
   },
   {
-    title: 'Source Code',
-    description: 'Full-stack boilerplates, APIs & micro-SaaS starters',
+    title: 'Source Code & Starters',
+    description: 'Full-stack boilerplates, REST APIs, and micro-SaaS starter repositories.',
     icon: Code,
-    color: 'bg-green-50 text-green-600',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Full-Stack',
     href: '/#products',
   },
   {
-    title: 'Mobile Apps',
-    description: 'React Native & Flutter app templates with backends',
+    title: 'Mobile App Templates',
+    description: 'Cross-platform React Native & Flutter starters with backend integration.',
     icon: Smartphone,
-    color: 'bg-orange-50 text-orange-600',
+    image: 'https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=800&q=80',
+    tag: 'Mobile',
     href: '/#products',
   },
   {
-    title: 'Documents & eBooks',
-    description: 'Technical guides, checklists & digital workbooks',
+    title: 'Developer Guides & Docs',
+    description: 'Handcrafted architecture blueprints, checklists, and technical eBooks.',
     icon: FileText,
-    color: 'bg-pink-50 text-pink-600',
+    image: 'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=800&q=80',
+    tag: 'Docs',
     href: '/#products',
   },
   {
-    title: 'Analytics & Tools',
-    description: 'Dashboards, spreadsheets & data-analysis kits',
+    title: 'Dashboards & Analytics',
+    description: 'Interactive admin control panels, data tables, and charting components.',
     icon: BarChart3,
-    color: 'bg-teal-50 text-teal-600',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+    tag: 'Analytics',
     href: '/#products',
   },
 ];
 
-/* ─── How-it-works steps ───────────────────────────────────────── */
+/* ─── 3-Step Flow ─────────────────────────────────────────────────── */
 const steps = [
   {
+    step: '01',
     icon: Zap,
     title: 'Browse & Choose',
-    description: 'Explore our curated catalog of digital products, each vetted for quality.',
+    description: 'Pick from verified, production-ready software assets crafted specifically for creators & developers.',
   },
   {
-    icon: CreditCard,
-    title: 'Secure Checkout',
-    description: 'Pay safely with UPI, cards, or net banking via Razorpay — 100 % encrypted.',
+    step: '02',
+    icon: Lock,
+    title: 'Secure Razorpay Checkout',
+    description: 'Pay instantly via UPI (GPay, PhonePe, Paytm), credit/debit cards, or net banking with 256-bit encryption.',
   },
   {
+    step: '03',
     icon: Download,
-    title: 'Instant Download',
-    description: 'Get immediate access. Download your product right after payment — no waiting.',
+    title: 'Immediate File Access',
+    description: 'Your secure download link is generated on-screen immediately, plus accessible anytime under My Orders.',
   },
 ];
 
-/* ═══════════════════════════════════════════════════════════════ */
+/* ─── Honest FAQ Data ─────────────────────────────────────────────── */
+const faqs = [
+  {
+    q: 'How do I receive my digital purchase?',
+    a: 'Instantly! Once your Razorpay payment completes, you are automatically shown a secure download link on the order confirmation screen. If you have an account, it also appears under your "My Orders" dashboard.',
+  },
+  {
+    q: 'What is the pricing range of products on QorelySofts?',
+    a: 'Every single product is strictly priced between ₹100 and ₹1,000 INR (approximately $1 to $10 USD). We believe premium developer assets should be accessible to everyone without expensive monthly subscriptions.',
+  },
+  {
+    q: 'What payment options are supported?',
+    a: 'We process all payments through Razorpay, supporting Indian UPI (Google Pay, PhonePe, Paytm, BHIM), all major Credit/Debit Cards (Visa, Mastercard, RuPay), Net Banking, and digital wallets.',
+  },
+  {
+    q: 'Are the products licensed for commercial projects?',
+    a: 'Yes! All digital templates, boilerplates, and UI kits purchased on QorelySofts include a royalty-free license allowing you to build both personal and commercial client applications.',
+  },
+  {
+    q: 'What if I encounter an issue with a download?',
+    a: 'Our support team is ready to assist. You can reach out directly to qorelysoftzenovee@gmail.com with your Order ID, and we will verify your purchase and re-issue fresh download links within 24 hours.',
+  },
+  {
+    q: 'Are the files virus-scanned and verified?',
+    a: 'Absolutely. Every uploaded digital package is screened, tested for code integrity, and stored in secure cloud storage before being listed on the platform.',
+  },
+];
+
+/* ═══════════════════════════════════════════════════════════════════ */
 
 export default async function HomePage() {
   const supabase = createAdminClient();
@@ -105,77 +146,132 @@ export default async function HomePage() {
   const items = (products as Product[]) || [];
 
   return (
-    <>
-      {/* ──── HERO SECTION ──────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-brand-900">
-        {/* Background image overlay */}
+    <div className="relative overflow-hidden">
+      {/* ──── HERO SECTION ──────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-slate-950 text-white">
+        {/* Background ambient lighting glows */}
+        <div className="pointer-events-none absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-brand-600/20 blur-[120px]" />
+        <div className="pointer-events-none absolute -right-40 top-1/4 h-[550px] w-[550px] rounded-full bg-blue-500/15 blur-[140px]" />
+
+        {/* Subtle photo overlay */}
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1920&q=80"
-            alt="Digital workspace background"
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80"
+            alt="Software team collaboration"
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-10"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/80 to-slate-950" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32 lg:py-40">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            {/* Left — Copy */}
-            <div className="text-center lg:text-left">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-600/20 px-3 py-1 text-xs font-semibold text-brand-300 ring-1 ring-brand-500/30 backdrop-blur-sm">
-                <Zap className="h-3 w-3" /> Instant Digital Delivery
-              </span>
+        <div className="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32 lg:py-36">
+          <div className="grid items-center gap-12 lg:grid-cols-12">
+            {/* Left Content */}
+            <div className="text-center lg:col-span-7 lg:text-left">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-4 py-1.5 text-xs font-medium text-brand-300 backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75"></span>
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500"></span>
+                </span>
+                <span className="tracking-wide">Instant Digital Downloads • ₹100 – ₹1,000 Max</span>
+              </div>
+
               <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Digital{' '}
-                <span className="bg-gradient-to-r from-brand-400 to-blue-400 bg-clip-text text-transparent">
-                  Products
-                </span>{' '}
-                for Creators &amp; Developers
+                Premium Software &amp;{' '}
+                <span className="bg-gradient-to-r from-brand-400 via-blue-400 to-teal-300 bg-clip-text text-transparent">
+                  Digital Assets
+                </span>
               </h1>
-              <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-300 lg:max-w-xl">
-                Templates, source code, UI kits, and development tools —
-                priced from <span className="font-semibold text-white">₹100 to ₹1,000</span> ($1 to $10 USD).
-                Download instantly after secure checkout.
+
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+                Curated code boilerplates, UI kits, templates, and developer toolkits.
+                All priced affordably from <strong className="text-white font-semibold">₹100 to ₹1,000</strong> ($1 to $10 USD).
+                No recurring subscriptions — purchase once, own forever.
               </p>
+
+              {/* Action Buttons */}
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
                 <Link
                   href="#products"
-                  className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 transition-all hover:bg-brand-500 hover:shadow-xl hover:shadow-brand-500/30 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                  className="group inline-flex items-center gap-2 rounded-xl bg-brand-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-500 hover:shadow-xl hover:shadow-brand-500/40 focus:outline-none focus:ring-2 focus:ring-brand-400"
                 >
-                  Explore Products <ArrowRight className="h-4 w-4" />
+                  Browse Products
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
+
                 <Link
-                  href="/about"
-                  className="inline-flex items-center gap-2 rounded-lg border border-gray-600 px-6 py-3.5 text-sm font-semibold text-gray-300 transition-all hover:border-gray-400 hover:text-white"
+                  href="#categories"
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900/60 px-6 py-3.5 text-sm font-semibold text-slate-300 backdrop-blur-sm transition-all duration-300 hover:border-slate-500 hover:bg-slate-800/80 hover:text-white"
                 >
-                  Learn More
+                  Explore Categories
                 </Link>
+              </div>
+
+              {/* Security Pill Strip */}
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-6 border-t border-slate-800/80 pt-6 text-xs text-slate-400 lg:justify-start">
+                <div className="flex items-center gap-1.5">
+                  <ShieldCheck className="h-4 w-4 text-green-400" />
+                  <span>Razorpay 256-Bit SSL</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Zap className="h-4 w-4 text-amber-400" />
+                  <span>Instant Delivery</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <IndianRupee className="h-4 w-4 text-blue-400" />
+                  <span>₹100 – ₹1,000 Price Cap</span>
+                </div>
               </div>
             </div>
 
-            {/* Right — Hero image */}
-            <div className="relative mx-auto hidden lg:block">
-              <div className="relative h-[420px] w-[480px] overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
-                <Image
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=960&q=80"
-                  alt="Digital products dashboard preview"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent" />
-              </div>
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 -left-4 rounded-xl border border-white/10 bg-gray-900/80 p-4 shadow-xl backdrop-blur-md">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20">
-                    <ShieldCheck className="h-5 w-5 text-green-400" />
+            {/* Right Visual Graphic */}
+            <div className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
+              <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-2 shadow-2xl shadow-brand-950/50 backdrop-blur-xl">
+                {/* Main Screen Preview */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-900">
+                  <Image
+                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80"
+                    alt="Developer coding setup"
+                    fill
+                    className="object-cover transition-transform duration-700 hover:scale-105"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+
+                  {/* Overlay text on image */}
+                  <div className="absolute bottom-4 left-4 right-4 rounded-xl border border-white/10 bg-slate-950/70 p-3.5 backdrop-blur-md">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs font-medium text-brand-300">Production-Ready Assets</p>
+                        <p className="text-sm font-bold text-white">Direct Download Post-Payment</p>
+                      </div>
+                      <span className="rounded-full bg-brand-600/30 px-2.5 py-1 text-[11px] font-semibold text-brand-300 ring-1 ring-brand-500/30">
+                        ₹100 - ₹1,000
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Glass Badges */}
+                <div className="animate-float absolute -top-5 -right-3 hidden rounded-xl border border-white/15 bg-slate-900/90 p-3 shadow-2xl backdrop-blur-md sm:flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-green-500/20 text-green-400">
+                    <ShieldCheck className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400">Payments Secured by</p>
-                    <p className="text-sm font-semibold text-white">Razorpay</p>
+                    <p className="text-[11px] text-slate-400">Security Verified</p>
+                    <p className="text-xs font-bold text-white">Razorpay Protected</p>
+                  </div>
+                </div>
+
+                <div className="animate-float-reverse absolute -bottom-5 -left-3 hidden rounded-xl border border-white/15 bg-slate-900/90 p-3 shadow-2xl backdrop-blur-md sm:flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500/20 text-brand-400">
+                    <Zap className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-slate-400">Delivery Speed</p>
+                    <p className="text-xs font-bold text-white">Instant 1-Click Access</p>
                   </div>
                 </div>
               </div>
@@ -183,77 +279,114 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Wave divider */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-            <path d="M0 60L60 50C120 40 240 20 360 15C480 10 600 20 720 30C840 40 960 50 1080 45C1200 40 1320 20 1380 10L1440 0V60H0Z" fill="white" />
-          </svg>
-        </div>
+        {/* Sleek bottom gradient divider */}
+        <div className="h-8 w-full bg-gradient-to-b from-transparent to-slate-50" />
       </section>
 
-      {/* ──── HIGHLIGHTS BAR ────────────────────────────────────── */}
-      <section className="border-b border-gray-100 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-            <div className="text-center">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+      {/* ──── VALUE ASSURANCE STRIP ─────────────────────────────────── */}
+      <section className="border-b border-slate-200/80 bg-slate-50 py-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:gap-6">
+            <div className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-md">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white">
                 <IndianRupee className="h-5 w-5" />
               </div>
-              <p className="mt-2 text-sm font-semibold text-gray-900">₹100 – ₹1,000</p>
-              <p className="text-xs text-gray-500">$1 – $10 USD Max</p>
+              <h3 className="mt-3 text-sm font-bold text-slate-900">₹100 to ₹1,000</h3>
+              <p className="mt-1 text-xs text-slate-500">$1 – $10 USD Fair Pricing</p>
             </div>
-            <div className="text-center">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-green-50 text-green-600">
-                <Download className="h-5 w-5" />
+
+            <div className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-green-300 hover:shadow-md">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-50 text-green-600 transition-colors group-hover:bg-green-600 group-hover:text-white">
+                <Zap className="h-5 w-5" />
               </div>
-              <p className="mt-2 text-sm font-semibold text-gray-900">Instant Access</p>
-              <p className="text-xs text-gray-500">Download Immediately</p>
+              <h3 className="mt-3 text-sm font-bold text-slate-900">Instant Download</h3>
+              <p className="mt-1 text-xs text-slate-500">Zero waiting or queue time</p>
             </div>
-            <div className="text-center">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-purple-50 text-purple-600">
+
+            <div className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-purple-300 hover:shadow-md">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-600 transition-colors group-hover:bg-purple-600 group-hover:text-white">
                 <ShieldCheck className="h-5 w-5" />
               </div>
-              <p className="mt-2 text-sm font-semibold text-gray-900">Secure Payments</p>
-              <p className="text-xs text-gray-500">256-bit Encryption</p>
+              <h3 className="mt-3 text-sm font-bold text-slate-900">Razorpay Encrypted</h3>
+              <p className="mt-1 text-xs text-slate-500">UPI, Cards &amp; NetBanking</p>
             </div>
-            <div className="text-center">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-orange-50 text-orange-600">
+
+            <div className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-300 hover:shadow-md">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-50 text-orange-600 transition-colors group-hover:bg-orange-600 group-hover:text-white">
                 <Headphones className="h-5 w-5" />
               </div>
-              <p className="mt-2 text-sm font-semibold text-gray-900">Email Support</p>
-              <p className="text-xs text-gray-500">24-Hour Response</p>
+              <h3 className="mt-3 text-sm font-bold text-slate-900">Direct Support</h3>
+              <p className="mt-1 text-xs text-slate-500">Email reply within 24h</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ──── CATEGORIES ────────────────────────────────────────── */}
-      <section className="bg-gray-50 py-16 sm:py-20">
+      {/* ──── BROWSE CATEGORIES WITH RICH PHOTOGRAPHY ───────────────── */}
+      <section id="categories" className="scroll-mt-20 bg-white py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Browse by Category
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-gray-500">
-              From ready-to-deploy templates to full source-code projects — find exactly what you need.
-            </p>
+          <div className="flex flex-col items-center justify-between gap-4 text-center sm:text-left sm:flex-row">
+            <div>
+              <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-brand-600">
+                <Sparkles className="h-3.5 w-3.5" /> Curated Collections
+              </span>
+              <h2 className="mt-1 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+                Browse by Category
+              </h2>
+              <p className="mt-2 text-sm text-slate-500 max-w-xl">
+                Explore handpicked developer toolkits, ready-to-deploy templates, and design assets.
+              </p>
+            </div>
+            <Link
+              href="#products"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700"
+            >
+              View all products <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
 
+          {/* Cards Grid */}
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((cat) => (
               <Link
                 key={cat.title}
                 href={cat.href}
-                className="group flex items-start gap-4 rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md hover:border-gray-300"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/10"
               >
-                <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg ${cat.color}`}>
-                  <cat.icon className="h-6 w-6" />
+                {/* Photo Thumbnail */}
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100">
+                  <Image
+                    src={cat.image}
+                    alt={cat.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+                  
+                  {/* Category Pill */}
+                  <span className="absolute left-3 top-3 rounded-full bg-slate-900/80 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-md">
+                    {cat.tag}
+                  </span>
+
+                  {/* Icon badge */}
+                  <div className="absolute bottom-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg bg-white/95 text-brand-600 shadow-md backdrop-blur-sm">
+                    <cat.icon className="h-5 w-5" />
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 group-hover:text-brand-600 transition-colors">
+
+                {/* Content */}
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="text-base font-bold text-slate-900 transition-colors group-hover:text-brand-600">
                     {cat.title}
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500 leading-relaxed">{cat.description}</p>
+                  <p className="mt-1.5 flex-1 text-xs text-slate-500 leading-relaxed">
+                    {cat.description}
+                  </p>
+                  <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-xs font-semibold text-brand-600">
+                    <span>Explore Assets</span>
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </div>
                 </div>
               </Link>
             ))}
@@ -261,139 +394,163 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──── HOW IT WORKS ──────────────────────────────────────── */}
-      <section className="bg-white py-16 sm:py-20">
+      {/* ──── HOW IT WORKS ──────────────────────────────────────────── */}
+      <section className="border-y border-slate-200/80 bg-slate-50/70 py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-600">
+              Simple &amp; Frictionless
+            </span>
+            <h2 className="mt-1 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
               How It Works
             </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-gray-500">
-              Three simple steps from browsing to building.
+            <p className="mx-auto mt-2 max-w-lg text-sm text-slate-500">
+              Get immediate access to your files in three effortless steps.
             </p>
           </div>
 
-          <div className="relative mt-14">
-            {/* Connecting line */}
-            <div className="absolute left-1/2 top-12 hidden h-px w-[60%] -translate-x-1/2 bg-gradient-to-r from-transparent via-brand-200 to-transparent lg:block" />
-
-            <div className="grid gap-10 sm:grid-cols-3">
-              {steps.map((step, i) => (
-                <div key={step.title} className="relative flex flex-col items-center text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 ring-4 ring-white shadow-sm">
-                    <step.icon className="h-7 w-7" />
+          <div className="mt-14 grid gap-8 sm:grid-cols-3">
+            {steps.map((item) => (
+              <div
+                key={item.step}
+                className="group relative rounded-2xl border border-slate-200/90 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lg"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white">
+                    <item.icon className="h-6 w-6" />
                   </div>
-                  <span className="mt-4 inline-flex h-6 w-6 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
-                    {i + 1}
-                  </span>
-                  <h3 className="mt-3 text-lg font-semibold text-gray-900">{step.title}</h3>
-                  <p className="mt-2 max-w-xs text-sm text-gray-500 leading-relaxed">
-                    {step.description}
-                  </p>
+                  <span className="text-3xl font-black text-slate-200">{item.step}</span>
                 </div>
-              ))}
-            </div>
+                <h3 className="mt-5 text-base font-bold text-slate-900">{item.title}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-slate-500">{item.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ──── PRODUCTS ─────────────────────────────────────────── */}
-      <section id="products" className="scroll-mt-20 bg-gray-50 py-16 sm:py-20">
+      {/* ──── OUR PRODUCTS (LIVE DB / CLEAN EMPTY STATE) ─────────────── */}
+      <section id="products" className="scroll-mt-20 bg-white py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+          <div className="flex flex-col items-center justify-between gap-4 text-center sm:text-left sm:flex-row">
             <div>
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Our Products
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-600">
+                Direct Storefront
+              </span>
+              <h2 className="mt-1 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+                Published Digital Products
               </h2>
-              <p className="mt-2 text-gray-500">
-                Handpicked digital assets ready for your next project.
+              <p className="mt-2 text-sm text-slate-500">
+                All items packaged with full instructions, virus-scanned, and ready for instant electronic delivery.
               </p>
             </div>
-            {items.length > 0 && (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
-                <IndianRupee className="h-3 w-3" /> ₹100 – ₹1,000 ($1 – $10 USD)
-              </span>
-            )}
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50/80 px-4 py-1.5 text-xs font-semibold text-brand-700">
+              <IndianRupee className="h-3.5 w-3.5" /> ₹100 – ₹1,000 ($1 – $10 USD)
+            </span>
           </div>
 
           {items.length > 0 ? (
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {items.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
           ) : (
-            <div className="mt-10 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-300 bg-white py-20 text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
+            <div className="mt-12 flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50/60 p-12 text-center sm:p-16">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-100/80 text-brand-600 shadow-sm">
                 <Package className="h-8 w-8" />
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                Products Coming Soon
+              <h3 className="mt-5 text-xl font-bold text-slate-900">
+                Catalog Launching Soon
               </h3>
-              <p className="mt-2 max-w-sm text-sm text-gray-500">
-                We&apos;re preparing our catalog of digital products priced between ₹100 and ₹1,000 ($1 to $10 USD).
-                Check back soon or contact us to get notified!
+              <p className="mt-2 max-w-md text-sm text-slate-500 leading-relaxed">
+                We are actively uploading our initial suite of website starters, UI components, and boilerplates priced strictly between ₹100 and ₹1,000.
               </p>
-              <Link
-                href="/contact"
-                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-brand-500"
-              >
-                Get Notified <ArrowRight className="h-4 w-4" />
-              </Link>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-brand-500"
+                >
+                  Request a Product <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition-all hover:bg-slate-50"
+                >
+                  Learn About Us
+                </Link>
+              </div>
             </div>
           )}
         </div>
       </section>
 
-      {/* ──── TRUST & SECURITY ──────────────────────────────────── */}
-      <section className="bg-white py-16 sm:py-20">
+      {/* ──── DEEP DIVE / WHY QORELYSOFTS ────────────────────────────── */}
+      <section className="border-t border-slate-200/80 bg-slate-900 py-20 text-white">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className="relative">
-              <div className="relative h-[360px] overflow-hidden rounded-2xl shadow-xl">
+          <div className="grid items-center gap-12 lg:grid-cols-12">
+            {/* Left Photo Showcase */}
+            <div className="relative lg:col-span-6">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-700/80 shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80"
-                  alt="Secure digital transactions"
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80"
+                  alt="Modern development analytics dashboard"
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-brand-900/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/80 via-transparent to-transparent" />
+              </div>
+
+              {/* Floating feature note */}
+              <div className="absolute -bottom-5 right-4 rounded-xl border border-slate-700 bg-slate-950/90 p-4 shadow-xl backdrop-blur-md">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-600/30 text-brand-400">
+                    <Zap className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-white">Instant Electronic Delivery</p>
+                    <p className="text-[11px] text-slate-400">Direct Download Post-Payment</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Quality Products, Secure Payments
+            {/* Right Feature Checklist */}
+            <div className="lg:col-span-6">
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-400">
+                Built for Creators &amp; Developers
+              </span>
+              <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                Why Developers Choose QorelySofts
               </h2>
-              <p className="mt-4 text-gray-500 leading-relaxed">
-                Every product is reviewed before listing, and every transaction is protected with bank-grade encryption. All products priced affordably between ₹100 and ₹1,000 ($1 to $10 USD).
+              <p className="mt-4 text-sm leading-relaxed text-slate-300">
+                Building software from scratch takes unnecessary time. We provide clean, tested, and production-ready digital foundations so you can ship projects faster.
               </p>
 
-              <div className="mt-8 space-y-5">
+              <div className="mt-8 space-y-4">
                 {[
                   {
-                    icon: ShieldCheck,
-                    title: 'Razorpay-Secured Payments',
-                    desc: '256-bit SSL encryption with PCI-DSS compliant payment processing.',
+                    title: 'Strict ₹100 – ₹1,000 Budget Pricing',
+                    desc: 'Every item stays between $1 and $10 USD. No predatory pricing or hidden fees.',
                   },
                   {
-                    icon: Download,
-                    title: 'Instant Digital Delivery',
-                    desc: 'No waiting — download your purchase immediately after payment confirmation.',
+                    title: 'Instant Download & Signed Token Security',
+                    desc: 'Instant delivery after Razorpay payment plus secure 30-minute signed download URLs.',
                   },
                   {
-                    icon: Headphones,
-                    title: 'Dedicated Support',
-                    desc: 'Get help within 24 hours via email for any order or product questions.',
+                    title: 'Virus-Free & Manually Inspected Files',
+                    desc: 'Zero adware or malicious scripts. Every zip archive is thoroughly reviewed.',
+                  },
+                  {
+                    title: 'Full Commercial & Personal Use License',
+                    desc: 'Use templates and assets across unlimited personal and client software projects.',
                   },
                 ].map((item) => (
-                  <div key={item.title} className="flex gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                      <item.icon className="h-5 w-5" />
-                    </div>
+                  <div key={item.title} className="flex items-start gap-3 rounded-xl border border-slate-800 bg-slate-800/40 p-4 backdrop-blur-sm">
+                    <CheckCircle2 className="h-5 w-5 shrink-0 text-brand-400 mt-0.5" />
                     <div>
-                      <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                      <p className="mt-0.5 text-sm text-gray-500">{item.desc}</p>
+                      <h3 className="text-sm font-bold text-white">{item.title}</h3>
+                      <p className="mt-0.5 text-xs text-slate-400">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -403,43 +560,68 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──── CTA BANNER ────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-brand-600 to-brand-700">
-        <div className="absolute inset-0 opacity-10">
-          <svg className="h-full w-full" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1" />
-              </pattern>
-            </defs>
-            <rect width="400" height="400" fill="url(#grid)" />
-          </svg>
-        </div>
+      {/* ──── HONEST FAQ SECTION ────────────────────────────────────── */}
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="text-center">
+            <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600 mb-3">
+              <HelpCircle className="h-5 w-5" />
+            </div>
+            <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+              Frequently Asked Questions
+            </h2>
+            <p className="mx-auto mt-2 max-w-lg text-sm text-slate-500">
+              Clear answers to common questions about orders, downloads, and payments.
+            </p>
+          </div>
 
-        <div className="relative mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20">
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Ready to Build Something Amazing?
+          <div className="mt-12 space-y-4">
+            {faqs.map((faq) => (
+              <div
+                key={faq.q}
+                className="rounded-2xl border border-slate-200/90 bg-slate-50/50 p-6 transition-colors hover:border-slate-300 hover:bg-slate-50"
+              >
+                <h3 className="text-base font-bold text-slate-900">{faq.q}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ──── CALL TO ACTION ────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-700 via-brand-600 to-blue-800 py-20 text-white">
+        {/* Glow orb */}
+        <div className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
+
+        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3.5 py-1 text-xs font-semibold backdrop-blur-md">
+            <Sparkles className="h-3.5 w-3.5" /> Start Building Today
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            Ready to Accelerate Your Development?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-brand-100">
-            Get instant access to digital products starting at just ₹100.
-            No subscriptions — pay once, download forever.
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-brand-100 sm:text-base">
+            Get instant access to digital products priced from ₹100 to ₹1,000 ($1 to $10 USD).
+            Pay securely with Razorpay and download your files in seconds.
           </p>
-          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="#products"
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-brand-700 shadow-lg transition-all hover:bg-gray-50 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-700"
+              className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-bold text-brand-700 shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-2xl"
             >
-              Browse All Products <ArrowRight className="h-4 w-4" />
+              Browse Products Now <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/20"
             >
-              Contact Us
+              Contact Support
             </Link>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
