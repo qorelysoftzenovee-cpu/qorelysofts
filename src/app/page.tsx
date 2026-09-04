@@ -136,7 +136,7 @@ export default async function HomePage() {
               </h1>
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-300 lg:max-w-xl">
                 Templates, source code, UI kits, and development tools —
-                starting at just <span className="font-semibold text-white">₹100</span>.
+                priced from <span className="font-semibold text-white">₹100 to ₹1,000</span> ($1 to $10 USD).
                 Download instantly after secure checkout.
               </p>
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
@@ -200,7 +200,7 @@ export default async function HomePage() {
                 <IndianRupee className="h-5 w-5" />
               </div>
               <p className="mt-2 text-sm font-semibold text-gray-900">₹100 – ₹1,000</p>
-              <p className="text-xs text-gray-500">Affordable Pricing</p>
+              <p className="text-xs text-gray-500">$1 – $10 USD Max</p>
             </div>
             <div className="text-center">
               <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-green-50 text-green-600">
@@ -311,7 +311,7 @@ export default async function HomePage() {
             </div>
             {items.length > 0 && (
               <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
-                <IndianRupee className="h-3 w-3" /> ₹100 – ₹1,000
+                <IndianRupee className="h-3 w-3" /> ₹100 – ₹1,000 ($1 – $10 USD)
               </span>
             )}
           </div>
@@ -331,7 +331,7 @@ export default async function HomePage() {
                 Products Coming Soon
               </h3>
               <p className="mt-2 max-w-sm text-sm text-gray-500">
-                We&apos;re preparing our catalog of digital products priced from ₹100 to ₹1,000.
+                We&apos;re preparing our catalog of digital products priced between ₹100 and ₹1,000 ($1 to $10 USD).
                 Check back soon or contact us to get notified!
               </p>
               <Link
@@ -366,7 +366,7 @@ export default async function HomePage() {
                 Quality Products, Secure Payments
               </h2>
               <p className="mt-4 text-gray-500 leading-relaxed">
-                Every product is reviewed before listing, and every transaction is protected with bank-grade encryption. All products priced affordably between ₹100 and ₹1,000.
+                Every product is reviewed before listing, and every transaction is protected with bank-grade encryption. All products priced affordably between ₹100 and ₹1,000 ($1 to $10 USD).
               </p>
 
               <div className="mt-8 space-y-5">
