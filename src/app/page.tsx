@@ -9,13 +9,14 @@ import {
   Zap,
   CreditCard,
   Headphones,
-  Star,
+  Package,
   Code,
   Palette,
   FileText,
   LayoutTemplate,
   Smartphone,
   BarChart3,
+  IndianRupee,
 } from 'lucide-react';
 import type { Product } from '@/types';
 
@@ -72,7 +73,7 @@ const steps = [
   {
     icon: Zap,
     title: 'Browse & Choose',
-    description: 'Explore our curated catalog of premium digital products, each vetted for quality.',
+    description: 'Explore our curated catalog of digital products, each vetted for quality.',
   },
   {
     icon: CreditCard,
@@ -83,36 +84,6 @@ const steps = [
     icon: Download,
     title: 'Instant Download',
     description: 'Get immediate access. Download your product right after payment — no waiting.',
-  },
-];
-
-/* ─── Trust stats ──────────────────────────────────────────────── */
-const stats = [
-  { label: 'Digital Products', value: '50+' },
-  { label: 'Happy Customers', value: '1,200+' },
-  { label: 'Instant Downloads', value: '100%' },
-  { label: 'Secure Payments', value: '256-bit' },
-];
-
-/* ─── Testimonials ─────────────────────────────────────────────── */
-const testimonials = [
-  {
-    name: 'Arjun Mehta',
-    role: 'Full-Stack Developer',
-    text: 'The Next.js boilerplate saved me weeks of setup. Clean code, well-documented, and production-ready out of the box.',
-    rating: 5,
-  },
-  {
-    name: 'Priya Sharma',
-    role: 'UI/UX Designer',
-    text: 'Fantastic design kits! The Figma components are pixel-perfect and the Tailwind integration is seamless.',
-    rating: 5,
-  },
-  {
-    name: 'Rahul Verma',
-    role: 'Startup Founder',
-    text: 'Downloaded the SaaS starter kit and launched our MVP in under a week. Best investment for our startup.',
-    rating: 5,
   },
 ];
 
@@ -157,15 +128,16 @@ export default async function HomePage() {
                 <Zap className="h-3 w-3" /> Instant Digital Delivery
               </span>
               <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Premium Digital{' '}
+                Digital{' '}
                 <span className="bg-gradient-to-r from-brand-400 to-blue-400 bg-clip-text text-transparent">
                   Products
                 </span>{' '}
                 for Creators &amp; Developers
               </h1>
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-300 lg:max-w-xl">
-                Discover high-quality templates, source code, UI kits, and development tools.
-                Download instantly after secure checkout — start building today.
+                Templates, source code, UI kits, and development tools —
+                starting at just <span className="font-semibold text-white">₹100</span>.
+                Download instantly after secure checkout.
               </p>
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
                 <Link
@@ -219,16 +191,38 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──── TRUST STATS BAR ───────────────────────────────────── */}
+      {/* ──── HIGHLIGHTS BAR ────────────────────────────────────── */}
       <section className="border-b border-gray-100 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-2xl font-bold text-gray-900 sm:text-3xl">{stat.value}</p>
-                <p className="mt-1 text-sm text-gray-500">{stat.label}</p>
+            <div className="text-center">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+                <IndianRupee className="h-5 w-5" />
               </div>
-            ))}
+              <p className="mt-2 text-sm font-semibold text-gray-900">₹100 – ₹1,000</p>
+              <p className="text-xs text-gray-500">Affordable Pricing</p>
+            </div>
+            <div className="text-center">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-green-50 text-green-600">
+                <Download className="h-5 w-5" />
+              </div>
+              <p className="mt-2 text-sm font-semibold text-gray-900">Instant Access</p>
+              <p className="text-xs text-gray-500">Download Immediately</p>
+            </div>
+            <div className="text-center">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-purple-50 text-purple-600">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <p className="mt-2 text-sm font-semibold text-gray-900">Secure Payments</p>
+              <p className="text-xs text-gray-500">256-bit Encryption</p>
+            </div>
+            <div className="text-center">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-orange-50 text-orange-600">
+                <Headphones className="h-5 w-5" />
+              </div>
+              <p className="mt-2 text-sm font-semibold text-gray-900">Email Support</p>
+              <p className="text-xs text-gray-500">24-Hour Response</p>
+            </div>
           </div>
         </div>
       </section>
@@ -303,7 +297,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──── FEATURED PRODUCTS ─────────────────────────────────── */}
+      {/* ──── PRODUCTS ─────────────────────────────────────────── */}
       <section id="products" className="scroll-mt-20 bg-gray-50 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
@@ -315,6 +309,11 @@ export default async function HomePage() {
                 Handpicked digital assets ready for your next project.
               </p>
             </div>
+            {items.length > 0 && (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
+                <IndianRupee className="h-3 w-3" /> ₹100 – ₹1,000
+              </span>
+            )}
           </div>
 
           {items.length > 0 ? (
@@ -324,79 +323,23 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            /* Showcase grid when DB is empty */
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  title: 'SaaS Dashboard Template',
-                  desc: 'Complete admin dashboard with analytics, user management, and billing modules.',
-                  image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
-                  price: '₹1,499',
-                },
-                {
-                  title: 'E-Commerce Starter Kit',
-                  desc: 'Full-stack e-commerce solution with cart, payments, and inventory management.',
-                  image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80',
-                  price: '₹2,499',
-                },
-                {
-                  title: 'Mobile App UI Kit',
-                  desc: '200+ screens in Figma with dark/light mode and design tokens.',
-                  image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80',
-                  price: '₹999',
-                },
-                {
-                  title: 'API Boilerplate',
-                  desc: 'Node.js + TypeScript REST API with auth, rate limiting, and auto-docs.',
-                  image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=600&q=80',
-                  price: '₹1,999',
-                },
-                {
-                  title: 'Landing Page Bundle',
-                  desc: '12 high-converting landing page templates with A/B test variants.',
-                  image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=600&q=80',
-                  price: '₹799',
-                },
-                {
-                  title: 'Dev Productivity Toolkit',
-                  desc: 'VS Code snippets, shell scripts, Git hooks, and CI/CD templates.',
-                  image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80',
-                  price: '₹599',
-                },
-              ].map((showcase) => (
-                <div
-                  key={showcase.title}
-                  className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md hover:border-gray-300"
-                >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
-                    <Image
-                      src={showcase.image}
-                      alt={showcase.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                    <span className="absolute right-3 top-3 rounded-full bg-brand-600 px-3 py-1 text-xs font-semibold text-white shadow-sm">
-                      Coming Soon
-                    </span>
-                  </div>
-                  <div className="flex flex-1 flex-col p-5">
-                    <h3 className="text-base font-semibold text-gray-900 group-hover:text-brand-600 transition-colors">
-                      {showcase.title}
-                    </h3>
-                    <p className="mt-1.5 flex-1 text-sm text-gray-500 line-clamp-2 leading-relaxed">
-                      {showcase.desc}
-                    </p>
-                    <div className="mt-4 flex items-center justify-between">
-                      <span className="text-lg font-bold text-gray-900">{showcase.price}</span>
-                      <span className="flex items-center gap-1 text-sm font-medium text-brand-600">
-                        View Details <ArrowRight className="h-4 w-4" />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className="mt-10 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-300 bg-white py-20 text-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
+                <Package className="h-8 w-8" />
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-gray-900">
+                Products Coming Soon
+              </h3>
+              <p className="mt-2 max-w-sm text-sm text-gray-500">
+                We&apos;re preparing our catalog of digital products priced from ₹100 to ₹1,000.
+                Check back soon or contact us to get notified!
+              </p>
+              <Link
+                href="/contact"
+                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-brand-500"
+              >
+                Get Notified <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           )}
         </div>
@@ -420,10 +363,10 @@ export default async function HomePage() {
 
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Trusted by Developers &amp; Creators
+                Quality Products, Secure Payments
               </h2>
               <p className="mt-4 text-gray-500 leading-relaxed">
-                We take quality and security seriously. Every product is reviewed before listing, and every transaction is protected with bank-grade encryption.
+                Every product is reviewed before listing, and every transaction is protected with bank-grade encryption. All products priced affordably between ₹100 and ₹1,000.
               </p>
 
               <div className="mt-8 space-y-5">
@@ -460,42 +403,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──── TESTIMONIALS ──────────────────────────────────────── */}
-      <section className="bg-gray-50 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              What Our Customers Say
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-gray-500">
-              Join thousands of satisfied developers and creators.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {testimonials.map((t) => (
-              <div
-                key={t.name}
-                className="flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
-              >
-                <div className="flex gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="mt-4 flex-1 text-sm text-gray-600 leading-relaxed">
-                  &ldquo;{t.text}&rdquo;
-                </p>
-                <div className="mt-5 border-t border-gray-100 pt-4">
-                  <p className="text-sm font-semibold text-gray-900">{t.name}</p>
-                  <p className="text-xs text-gray-500">{t.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ──── CTA BANNER ────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-r from-brand-600 to-brand-700">
         <div className="absolute inset-0 opacity-10">
@@ -514,7 +421,7 @@ export default async function HomePage() {
             Ready to Build Something Amazing?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-brand-100">
-            Get instant access to premium digital products and start your next project today.
+            Get instant access to digital products starting at just ₹100.
             No subscriptions — pay once, download forever.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
