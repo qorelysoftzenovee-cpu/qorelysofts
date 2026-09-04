@@ -5,11 +5,14 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2 font-bold text-lg text-gray-900 hover:text-brand-600 transition-colors">
-          <Store className="h-5 w-5" />
-          Digital Store
+        <Link
+          href="/"
+          className="flex items-center gap-2 font-bold text-lg text-gray-900 hover:text-brand-600 transition-colors"
+        >
+          <Store className="h-5 w-5 text-brand-600" />
+          <span>QorelySofts</span>
         </Link>
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center gap-4 sm:gap-6">
           <Link
             href="/"
             className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
@@ -17,10 +20,22 @@ export function Navbar() {
             Products
           </Link>
           <Link
-            href="/admin"
-            className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+            href="/about"
+            className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
           >
-            <ShieldCheck className="h-4 w-4" />
+            About
+          </Link>
+          <Link
+            href="/contact"
+            className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            Contact
+          </Link>
+          <Link
+            href="/admin"
+            className="flex items-center gap-1.5 rounded-md bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-200 transition-colors"
+          >
+            <ShieldCheck className="h-3.5 w-3.5" />
             Admin
           </Link>
         </nav>
