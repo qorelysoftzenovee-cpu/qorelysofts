@@ -1,0 +1,29 @@
+{
+  "name": "growth-scrapers-pack",
+  "version": "1.0.0",
+  "description": "Production-grade Node.js web automation & SEO intelligence tools for growth hackers, agencies, and developers.",
+  "main": "gmaps-lead-extractor.js",
+  "scripts": {
+    "scrape:gmaps": "node gmaps-lead-extractor.js",
+    "audit:seo": "node site-seo-auditor.js",
+    "test": "node site-seo-auditor.js --url https://example.com"
+  },
+  "keywords": [
+    "puppeteer",
+    "scraper",
+    "google-maps-scraper",
+    "lead-generation",
+    "seo-auditor",
+    "automation",
+    "crawler"
+  ],
+  "author": "QorelySofts (https://www.qorelysofts.co.in)",
+  "license": "Commercial",
+  "dependencies": {
+    "puppeteer": "^22.15.0",
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

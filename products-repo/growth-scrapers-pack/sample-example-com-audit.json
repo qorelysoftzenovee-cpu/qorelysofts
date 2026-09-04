@@ -1,0 +1,121 @@
+{
+  "auditTimestamp": "2026-09-04T16:48:37.779Z",
+  "targetUrl": "https://example.com",
+  "finalUrl": "https://example.com",
+  "httpStatus": 200,
+  "metrics": {
+    "seoScore": 64,
+    "ttfbMs": 517,
+    "htmlSizeBytes": 559,
+    "htmlSizeKb": 1,
+    "compression": "br",
+    "isHttps": true
+  },
+  "meta": {
+    "title": "Example Domain",
+    "titleLength": 14,
+    "description": "",
+    "descriptionLength": 0,
+    "canonical": "",
+    "viewport": "width=device-width, initial-scale=1",
+    "openGraph": {},
+    "twitterCard": {}
+  },
+  "headings": {
+    "h1Count": 1,
+    "h1Texts": [
+      "Example Domain"
+    ],
+    "h2Count": 0,
+    "h3Count": 0
+  },
+  "images": {
+    "total": 0,
+    "missingAlt": 0,
+    "brokenImages": []
+  },
+  "summary": {
+    "totalChecks": 13,
+    "passedCount": 6,
+    "warningCount": 6,
+    "issueCount": 1
+  },
+  "issues": [
+    {
+      "category": "Meta Tags",
+      "title": "Missing Meta Description",
+      "detail": "No <meta name=\"description\"> tag found.",
+      "recommendation": "Add a compelling meta description between 120 and 160 characters."
+    }
+  ],
+  "warnings": [
+    {
+      "category": "Meta Tags",
+      "title": "Short <title> Tag",
+      "detail": "Title is only 14 characters: \"Example Domain\".",
+      "recommendation": "Expand title to 30-60 characters with targeted keywords."
+    },
+    {
+      "category": "Meta Tags",
+      "title": "Missing Canonical Link",
+      "detail": "No <link rel=\"canonical\"> tag detected.",
+      "recommendation": "Add a self-referencing canonical tag to prevent duplicate content issues."
+    },
+    {
+      "category": "Social SEO",
+      "title": "Incomplete Open Graph Tags",
+      "detail": "Missing: og:title, og:description, og:image",
+      "recommendation": "Implement full OpenGraph metadata for high-converting social media previews."
+    },
+    {
+      "category": "Headings",
+      "title": "No <h2> Subheadings",
+      "detail": "Page lacks <h2> tags for content segmentation.",
+      "recommendation": "Use <h2> tags to structure content sections clearly."
+    },
+    {
+      "category": "Images",
+      "title": "No Images Detected",
+      "detail": "Page has zero <img> tags.",
+      "recommendation": "Visuals improve engagement and dwell time."
+    },
+    {
+      "category": "Schema",
+      "title": "No JSON-LD Structured Data",
+      "detail": "No schema markup detected.",
+      "recommendation": "Add Schema.org JSON-LD (e.g. Organization, Product, Article) for rich snippets."
+    }
+  ],
+  "passes": [
+    {
+      "category": "Mobile SEO",
+      "title": "Mobile Viewport Tag Present",
+      "detail": "width=device-width, initial-scale=1"
+    },
+    {
+      "category": "Headings",
+      "title": "Single <h1> Tag Present",
+      "detail": "\"Example Domain\""
+    },
+    {
+      "category": "Performance",
+      "title": "Acceptable TTFB",
+      "detail": "517ms"
+    },
+    {
+      "category": "Performance",
+      "title": "Text Compression Enabled",
+      "detail": "Active algorithm: br"
+    },
+    {
+      "category": "Security",
+      "title": "HTTPS / SSL Protocol",
+      "detail": "Target uses encrypted HTTPS connection."
+    },
+    {
+      "category": "Performance",
+      "title": "Lightweight DOM Payload",
+      "detail": "HTML size is 1 KB."
+    }
+  ]
+}
