@@ -1,0 +1,23 @@
+================================================================================
+QORELYSOFTS - COMMERCIAL & PERSONAL SOFTWARE LICENSE
+================================================================================
+Package: SaaS Starter Lite (Next.js 14 + Supabase Auth Boilerplate)
+Copyright (c) 2026 QorelySofts (www.qorelysofts.co.in)
+All rights reserved.
+
+Permission is hereby granted to the licensee to use, copy, modify, merge,
+publish, distribute, and sublicense this software in unlimited personal and
+commercial client projects, subject to the following terms:
+
+1. PERMITTED USES:
+   - Deploying commercial SaaS products, web applications, and websites.
+   - Using as a foundation for client deliverables with no attribution required.
+   - Modifying and extending any part of the codebase.
+
+2. RESTRICTIONS:
+   - You may not resell or redistribute this codebase as a competing template
+     or starter kit.
+
+3. SUPPORT:
+   - Official inquiries & assistance: qorelysoftzenovee@gmail.com
+================================================================================
