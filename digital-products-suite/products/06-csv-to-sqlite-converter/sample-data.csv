@@ -1,0 +1,21 @@
+id,name,email,age,salary,join_date,is_active
+1,"Ada Lovelace",ada.lovelace@computing.org,36,125000.50,2021-01-15,true
+2,"Alan Turing",alan.turing@bletchley.ac.uk,41,142000.00,2020-03-22,true
+3,"Grace Hopper",grace.hopper@navy.mil,85,155000.75,2019-11-01,false
+4,"Margaret Hamilton",margaret.h@apollo.nasa.gov,84,168000.25,2018-07-20,true
+5,"Claude Shannon",claude.shannon@bell-labs.com,84,138000.00,2022-05-14,false
+6,"Katherine Johnson",kjohnson@nasa.gov,101,175000.50,2017-02-18,false
+7,"John von Neumann",von.neumann@ias.edu,53,190000.00,2016-09-30,false
+8,"Linus Torvalds",torvalds@kernel.org,54,185000.90,2015-08-25,true
+9,"Tim Berners-Lee",timbl@w3.org,68,160000.00,2020-06-10,true
+10,"Guido van Rossum",guido@python.org,68,152000.80,2021-09-01,true
+11,"Ken Thompson",ken@bell-labs.com,81,148000.00,2019-04-12,false
+12,"Dennis Ritchie",dbr@bell-labs.com,70,149000.00,2018-10-12,false
+13,"Barbara Liskov",liskov@csail.mit.edu,84,172000.40,2017-12-05,true
+14,"Donald Knuth",knuth@stanford.edu,86,165000.00,2016-04-01,true
+15,"Leslie Lamport",lamport@microsoft.com,83,158000.50,2022-01-20,true
+16,"Radia Perlman",radia@alum.mit.edu,72,146000.20,2021-11-15,true
+17,"Vint Cerf",vint@isoc.org,80,154000.00,2019-08-08,true
+18,"Dorothy Vaughan",dorothy.v@nasa.gov,98,135000.00,2018-05-04,false
+19,"Brian Kernighan",bwk@princeton.edu,82,144000.00,2020-10-23,true
+20,"James Gosling",gosling@liquid-robotics.com,68,162000.75,2023-02-14,true

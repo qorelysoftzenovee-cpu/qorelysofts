@@ -1,0 +1,40 @@
+{
+  "name": "api-rate-limiter-redis",
+  "version": "1.0.0",
+  "description": "Production-ready sliding-window rate limiter middleware for Node.js and Express powered by Upstash Redis sorted sets.",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node example/server.js",
+    "example": "node example/server.js",
+    "test": "node -e \"console.log('Use example/server.js to test rate limiting against Upstash Redis')\""
+  },
+  "keywords": [
+    "rate-limiter",
+    "redis",
+    "upstash",
+    "sliding-window",
+    "express-middleware",
+    "rate-limiting",
+    "api-protection",
+    "token-bucket",
+    "ddos-protection"
+  ],
+  "author": "QorelySofts",
+  "license": "MIT",
+  "dependencies": {
+    "@upstash/redis": "^1.34.4",
+    "dotenv": "^16.4.7"
+  },
+  "peerDependencies": {
+    "express": "^4.18.0 || ^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "express": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

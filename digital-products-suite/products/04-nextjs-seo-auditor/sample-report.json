@@ -1,0 +1,159 @@
+{
+  "timestamp": "2026-09-04T17:08:10.426Z",
+  "targetUrl": "https://example.com",
+  "finalUrl": "https://example.com",
+  "network": {
+    "finalUrl": "https://example.com",
+    "statusCode": 200,
+    "ttfb": 345,
+    "compression": "br",
+    "sizeBytes": 318,
+    "uncompressedBytes": 559,
+    "redirectChain": [
+      "https://example.com"
+    ],
+    "isHttps": true
+  },
+  "audit": {
+    "score": 51,
+    "maxScore": 100,
+    "grade": "D",
+    "passes": [
+      {
+        "category": "Headings",
+        "item": "Single H1 Tag",
+        "status": "PASS",
+        "message": "Found exactly 1 primary H1 tag: \"Example Domain\""
+      },
+      {
+        "category": "Mobile",
+        "item": "Viewport Tag",
+        "status": "PASS",
+        "message": "Mobile-friendly viewport defined: \"width=device-width, initial-scale=1\""
+      },
+      {
+        "category": "Indexing",
+        "item": "Robots Directives",
+        "status": "PASS",
+        "message": "Page allows indexation (default open)."
+      },
+      {
+        "category": "Images",
+        "item": "Image Tags",
+        "status": "PASS",
+        "message": "No images present on page."
+      },
+      {
+        "category": "Technical",
+        "item": "HTTPS Encryption",
+        "status": "PASS",
+        "message": "Page served securely over HTTPS protocol."
+      },
+      {
+        "category": "Performance",
+        "item": "HTTP Compression",
+        "status": "PASS",
+        "message": "Modern compression detected (BR)."
+      }
+    ],
+    "warnings": [
+      {
+        "category": "Metadata",
+        "item": "Title Tag Length",
+        "status": "WARN",
+        "message": "Title is too brief (14 characters): \"Example Domain\". Recommended range: 30-60 characters.",
+        "fix": "Expand your title tag with primary keywords and brand identity."
+      },
+      {
+        "category": "Headings",
+        "item": "Subheading Hierarchy",
+        "status": "WARN",
+        "message": "No H2 or H3 subheadings found. Content structure may be thin.",
+        "fix": "Break content into logical sections with H2 and H3 tags."
+      },
+      {
+        "category": "Social",
+        "item": "Twitter Card Tags",
+        "status": "WARN",
+        "message": "Incomplete Twitter Card configuration. Missing twitter:card or twitter:image.",
+        "fix": "Specify <meta name=\"twitter:card\" content=\"summary_large_image\"> and twitter:image."
+      },
+      {
+        "category": "Performance",
+        "item": "Time to First Byte (TTFB)",
+        "status": "WARN",
+        "message": "Moderate TTFB (345ms). Target <300ms for optimal Web Vitals.",
+        "fix": "Leverage edge caching, SSR streaming, or CDN caching for dynamic routes."
+      },
+      {
+        "category": "Structured Data",
+        "item": "Schema.org JSON-LD",
+        "status": "WARN",
+        "message": "No Schema.org JSON-LD structured data detected on page.",
+        "fix": "Add JSON-LD (e.g. WebSite, Organization, Article, Product) to enhance rich snippets in SERPs."
+      }
+    ],
+    "issues": [
+      {
+        "category": "Metadata",
+        "item": "Meta Description",
+        "status": "FAIL",
+        "message": "Missing meta description. Search engines will generate an automated snippet.",
+        "fix": "Add <meta name=\"description\" content=\"...\"> with 120-160 characters describing page content."
+      },
+      {
+        "category": "Indexing",
+        "item": "Canonical Tag",
+        "status": "FAIL",
+        "message": "No canonical <link rel=\"canonical\"> tag declared.",
+        "fix": "Add a self-referential canonical URL tag to avoid duplicate content penalties."
+      },
+      {
+        "category": "Social",
+        "item": "OpenGraph Incomplete",
+        "status": "FAIL",
+        "message": "Missing multiple OpenGraph tags: og:title, og:description, og:image, og:url, og:type",
+        "fix": "Implement OpenGraph metadata (og:title, og:description, og:image, og:url, og:type)."
+      }
+    ],
+    "summary": {
+      "totalChecks": 14,
+      "passedCount": 6,
+      "warningCount": 5,
+      "issueCount": 3
+    }
+  },
+  "parsed": {
+    "engine": "regex-fallback",
+    "titles": [
+      "Example Domain"
+    ],
+    "canonical": "",
+    "meta": {
+      "description": "",
+      "viewport": "width=device-width, initial-scale=1",
+      "robots": "",
+      "og": {},
+      "twitter": {},
+      "raw": [
+        {
+          "name": "viewport",
+          "property": "",
+          "content": "width=device-width, initial-scale=1"
+        }
+      ]
+    },
+    "headings": {
+      "h1": [
+        "Example Domain"
+      ],
+      "h2": [],
+      "h3": []
+    },
+    "imagesCount": 0,
+    "missingAltCount": 0,
+    "jsonLdCount": 0,
+    "jsonLd": []
+  },
+  "imagesChecked": []
+}

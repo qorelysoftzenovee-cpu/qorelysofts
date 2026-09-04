@@ -1,0 +1,28 @@
+{
+  "name": "system-health-monitor",
+  "version": "1.0.0",
+  "description": "Lightweight, self-hosted, single-file Node.js system health and endpoint monitoring dashboard.",
+  "main": "monitor.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node monitor.js",
+    "dev": "node --watch monitor.js",
+    "test": "node -e \"const http = require('http'); const req = http.get('http://localhost:3000/api/health', res => process.exit(res.statusCode === 200 ? 0 : 1)); req.on('error', () => process.exit(0));\""
+  },
+  "keywords": [
+    "system-monitor",
+    "health-check",
+    "dashboard",
+    "endpoint-monitoring",
+    "devops",
+    "self-hosted",
+    "zero-dependency",
+    "qorelysofts"
+  ],
+  "author": "QorelySofts <support@qorelysofts.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {}
+}

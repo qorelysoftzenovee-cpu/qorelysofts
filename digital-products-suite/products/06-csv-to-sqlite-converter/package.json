@@ -1,0 +1,32 @@
+{
+  "name": "csv-to-sqlite-converter",
+  "version": "1.0.0",
+  "description": "High-performance streaming CSV to SQLite database converter with automatic delimiter detection, intelligent type inference, batch transactions, and auto-indexing.",
+  "main": "converter.js",
+  "bin": {
+    "csv-to-sqlite": "./converter.js"
+  },
+  "scripts": {
+    "convert": "node converter.js",
+    "test": "node converter.js --help"
+  },
+  "keywords": [
+    "csv",
+    "sqlite",
+    "sqlite3",
+    "better-sqlite3",
+    "converter",
+    "streaming",
+    "etl",
+    "database",
+    "cli"
+  ],
+  "author": "QorelySofts",
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^9.4.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

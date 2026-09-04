@@ -1,0 +1,49 @@
+{
+  "name": "stripe-razorpay-webhooks-handler",
+  "version": "1.0.0",
+  "description": "Production-grade, drop-in Next.js App Router webhook handlers for Stripe and Razorpay with cryptographic signature verification, transactional database wrappers, and full TypeScript safety.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/ --ext .ts"
+  },
+  "keywords": [
+    "nextjs",
+    "stripe",
+    "razorpay",
+    "webhooks",
+    "payments",
+    "route-handlers",
+    "transactions",
+    "signature-verification",
+    "typescript"
+  ],
+  "author": "QorelySofts",
+  "license": "MIT",
+  "peerDependencies": {
+    "next": ">=13.4.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "stripe": "^14.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "next": "^14.2.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

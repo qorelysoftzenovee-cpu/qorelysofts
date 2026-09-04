@@ -1,0 +1,32 @@
+{
+  "name": "gmaps-lead-scraper",
+  "version": "1.0.0",
+  "description": "Production-grade Puppeteer Google Maps lead extraction tool with anti-detection, jitter rate limiting, and RFC 4180 CSV export",
+  "main": "scraper.js",
+  "type": "module",
+  "bin": {
+    "gmaps-scraper": "./scraper.js"
+  },
+  "scripts": {
+    "scrape": "node scraper.js",
+    "start": "node scraper.js",
+    "help": "node scraper.js --help"
+  },
+  "keywords": [
+    "puppeteer",
+    "google-maps",
+    "scraper",
+    "lead-generation",
+    "b2b-leads",
+    "data-extraction",
+    "automation"
+  ],
+  "author": "QorelySofts",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "puppeteer": "^22.15.0"
+  }
+}

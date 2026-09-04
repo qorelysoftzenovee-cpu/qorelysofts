@@ -1,0 +1,23 @@
+{
+  "port": 3000,
+  "pingInterval": 30,
+  "requestTimeout": 5000,
+  "metricsHistorySize": 60,
+  "endpoints": [
+    {
+      "name": "HTTPBin Status 200",
+      "url": "https://httpbin.org/status/200",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Example Domain",
+      "url": "https://example.com",
+      "expectedStatus": 200
+    },
+    {
+      "name": "JSONPlaceholder Post API",
+      "url": "https://jsonplaceholder.typicode.com/posts/1",
+      "expectedStatus": 200
+    }
+  ]
+}

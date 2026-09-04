@@ -1,0 +1,33 @@
+{
+  "name": "nextjs-seo-auditor",
+  "version": "1.0.0",
+  "description": "Comprehensive CLI SEO auditing tool for Next.js and modern web applications with cheerio parsing, image checking, and weighted scoring",
+  "main": "seo-check.js",
+  "type": "module",
+  "bin": {
+    "nextjs-seo": "./seo-check.js"
+  },
+  "scripts": {
+    "audit": "node seo-check.js",
+    "start": "node seo-check.js",
+    "help": "node seo-check.js --help"
+  },
+  "keywords": [
+    "seo",
+    "seo-audit",
+    "nextjs",
+    "cheerio",
+    "cli",
+    "performance",
+    "opengraph",
+    "schema-org"
+  ],
+  "author": "QorelySofts",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12"
+  }
+}

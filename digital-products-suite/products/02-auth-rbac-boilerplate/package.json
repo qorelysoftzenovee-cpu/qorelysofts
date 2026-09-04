@@ -1,0 +1,44 @@
+{
+  "name": "auth-rbac-boilerplate",
+  "version": "1.0.0",
+  "description": "Production-grade Express and TypeScript Role-Based Access Control (RBAC) middleware and authentication boilerplate with JWT rotation, bcrypt password hashing, and rate limiting.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "express",
+    "typescript",
+    "authentication",
+    "rbac",
+    "jwt",
+    "bcrypt",
+    "rate-limit",
+    "role-based-access-control",
+    "security"
+  ],
+  "author": "QorelySofts",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.14.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

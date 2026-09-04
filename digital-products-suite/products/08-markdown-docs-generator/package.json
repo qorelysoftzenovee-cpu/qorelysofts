@@ -1,0 +1,36 @@
+{
+  "name": "markdown-docs-generator",
+  "version": "1.0.0",
+  "description": "Zero-dependency TypeScript and JSDoc comment parser that generates comprehensive, beautifully structured Markdown API documentation.",
+  "main": "generator.js",
+  "bin": {
+    "markdown-docs-generator": "./generator.js"
+  },
+  "type": "commonjs",
+  "scripts": {
+    "start": "node generator.js",
+    "generate": "node generator.js",
+    "watch": "node generator.js --watch",
+    "example": "node generator.js --input ./example/sample-source.ts --output ./example/sample-output.md --title \"Sample API Reference\"",
+    "test": "node generator.js --help"
+  },
+  "keywords": [
+    "documentation-generator",
+    "markdown",
+    "tsdoc",
+    "jsdoc",
+    "typescript",
+    "api-reference",
+    "doc-gen",
+    "zero-dependencies"
+  ],
+  "author": "QorelySofts",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "social-og-image-generator",
+  "version": "1.0.0",
+  "description": "High-performance dynamic Open Graph (OG) image generator supporting Vercel Edge Runtime (@vercel/og) and standalone Node.js Canvas.",
+  "main": "src/og-standalone.js",
+  "scripts": {
+    "start": "node src/og-standalone.js",
+    "dev": "node --watch src/og-standalone.js",
+    "build": "tsc --noEmit",
+    "test": "node -e \"const http = require('http'); const req = http.get('http://localhost:3001/health', res => process.exit(res.statusCode === 200 ? 0 : 1)); req.on('error', () => process.exit(0));\""
+  },
+  "keywords": [
+    "og-image",
+    "social-card",
+    "open-graph",
+    "vercel-og",
+    "node-canvas",
+    "image-generation",
+    "seo",
+    "qorelysofts"
+  ],
+  "author": "QorelySofts <support@qorelysofts.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@vercel/og": "^0.6.2",
+    "canvas": "^2.11.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.48",
+    "typescript": "^5.3.3"
+  }
+}
