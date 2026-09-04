@@ -53,6 +53,7 @@ export default async function ProductPage({ params }: Props) {
               src={p.thumbnail_url}
               alt={p.title}
               fill
+              unoptimized
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
               priority
