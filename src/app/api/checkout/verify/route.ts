@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/server';
+import { sendOrderConfirmationEmail } from '@/lib/email';
 import crypto from 'crypto';
 import type { VerifyPaymentRequest } from '@/types';
 
@@ -63,7 +64,7 @@ export async function POST(request: NextRequest) {
         razorpay_payment_id,
       })
       .eq('razorpay_order_id', razorpay_order_id)
-      .select('download_token')
+      .select('download_token, customer_name, customer_email, razorpay_order_id, products(title, price_inr)')
       .single();
 
     if (updateError || !order) {
@@ -72,6 +73,19 @@ export async function POST(request: NextRequest) {
         { error: 'Failed to update order status' },
         { status: 500 }
       );
+    }
+
+    // Trigger transactional email delivery asynchronously
+    const productInfo = (order as any).products;
+    if (order.customer_email && productInfo) {
+      sendOrderConfirmationEmail({
+        to: order.customer_email,
+        customerName: order.customer_name || 'Valued Customer',
+        productTitle: productInfo.title || 'Digital Product',
+        priceInr: productInfo.price_inr || 0,
+        downloadToken: order.download_token,
+        orderId: order.razorpay_order_id,
+      }).catch((emailErr) => console.error('Background email error:', emailErr));
     }
 
     return NextResponse.json({

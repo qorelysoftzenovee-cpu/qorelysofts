@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/server';
 import { verifyWebhookSignature } from '@/lib/razorpay';
+import { sendOrderConfirmationEmail } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -80,18 +81,31 @@ export async function POST(request: NextRequest) {
 
         if (orderId) {
           // Idempotently update order status to paid
-          const { error } = await supabase
+          const { data: updatedOrder, error } = await supabase
             .from('orders')
             .update({
               status: 'paid',
               ...(paymentId ? { razorpay_payment_id: paymentId } : {}),
             })
-            .eq('razorpay_order_id', orderId);
+            .eq('razorpay_order_id', orderId)
+            .select('download_token, customer_name, customer_email, razorpay_order_id, products(title, price_inr)')
+            .single();
 
           if (error) {
             console.error(`Failed to update order ${orderId} from webhook:`, error);
           } else {
             console.log(`Order ${orderId} successfully marked as paid via webhook.`);
+            const productInfo = (updatedOrder as any)?.products;
+            if (updatedOrder?.customer_email && productInfo) {
+              sendOrderConfirmationEmail({
+                to: updatedOrder.customer_email,
+                customerName: updatedOrder.customer_name || 'Valued Customer',
+                productTitle: productInfo.title || 'Digital Product',
+                priceInr: productInfo.price_inr || 0,
+                downloadToken: updatedOrder.download_token,
+                orderId: updatedOrder.razorpay_order_id,
+              }).catch((emailErr) => console.error('Webhook email error:', emailErr));
+            }
           }
         }
         break;
