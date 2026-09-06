@@ -16,7 +16,7 @@ function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectPath = searchParams.get('redirect') || '/my-orders';
+  const redirectPath = searchParams.get('redirect') || '/dashboard';
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { User, LogOut, Download, ShieldCheck } from 'lucide-react';
+import { User, LogOut, Download, ShieldCheck, LayoutGrid } from 'lucide-react';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
 
 export function AuthNav() {
@@ -51,11 +51,19 @@ export function AuthNav() {
     return (
       <div className="flex items-center gap-3">
         <Link
-          href="/my-orders"
-          className="flex items-center gap-1.5 text-sm font-medium text-gray-700 hover:text-brand-600 transition-colors"
+          href="/dashboard"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition-colors"
         >
-          <Download className="h-4 w-4 text-brand-600" />
-          <span className="hidden sm:inline">My Downloads</span>
+          <LayoutGrid className="h-3.5 w-3.5" />
+          <span>Dashboard</span>
+        </Link>
+
+        <Link
+          href="/dashboard?tab=downloads"
+          className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-gray-700 hover:text-brand-600 transition-colors py-1"
+        >
+          <Download className="h-3.5 w-3.5 text-brand-600" />
+          <span>Downloads</span>
         </Link>
 
         {/* Admin link if user email matches admin */}
